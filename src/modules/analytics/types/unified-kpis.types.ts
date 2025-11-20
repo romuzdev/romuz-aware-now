@@ -100,4 +100,8 @@ export interface UnifiedDashboardFilters {
     to: string;
   };
   status?: string[];
+  period?: '7d' | '30d' | '90d' | 'ytd' | '1y';
+  minAchievement?: number;
+  criticalOnly?: boolean;
+  belowTarget?: boolean;
 }

@@ -1,6 +1,7 @@
 /**
  * M14 - Unified KPI Dashboard Page
  */
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/core/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/core/components/ui/tabs';
 import { Button } from '@/core/components/ui/button';
@@ -17,17 +18,22 @@ import {
   KPIAlertCenter,
   CustomizableDashboard,
   CustomKPIFormulaBuilder,
-  CustomizableDashboardNew
+  CustomizableDashboardNew,
+  KPIComparisonPanel,
+  KPITargetManager,
+  AdvancedKPIFilters
 } from '@/modules/analytics/components';
 import { exportKPIsToCSV, exportModuleGroupsToCSV, exportAlertsToCSV, exportToPDF } from '@/modules/analytics/utils/export.utils';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/core/components/ui/dropdown-menu';
 import { toast } from 'sonner';
+import type { UnifiedDashboardFilters } from '@/modules/analytics/types/unified-kpis.types';
 
 const iconMap: Record<string, any> = {
   Shield, CheckCircle, Users, FileCheck, Target, BookOpen
 };
 
 export default function UnifiedDashboardPage() {
+  const [filters, setFilters] = useState<UnifiedDashboardFilters>({});
   const { data: moduleGroups, isLoading: groupsLoading } = useModuleKPIGroups();
   const { data: alerts } = useKPIAlerts({ acknowledged: false });
 
@@ -126,6 +132,13 @@ export default function UnifiedDashboardPage() {
         </Alert>
       )}
 
+      {/* Advanced Filters */}
+      <AdvancedKPIFilters
+        filters={filters}
+        onFiltersChange={setFilters}
+        availableModules={moduleGroups?.map(g => g.module) || []}
+      />
+
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {moduleGroups?.map((group) => {
           const Icon = iconMap[group.moduleIcon] || Target;
@@ -154,11 +167,12 @@ export default function UnifiedDashboardPage() {
       </div>
 
       <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="grid w-full grid-cols-6">
+        <TabsList className="grid w-full grid-cols-7">
           <TabsTrigger value="overview">نظرة عامة</TabsTrigger>
+          <TabsTrigger value="comparison">مقارنة</TabsTrigger>
+          <TabsTrigger value="targets">الأهداف</TabsTrigger>
           <TabsTrigger value="executive">تنفيذي</TabsTrigger>
           <TabsTrigger value="alerts">التنبيهات</TabsTrigger>
-          <TabsTrigger value="trends">الاتجاهات</TabsTrigger>
           <TabsTrigger value="custom-kpi">مؤشرات مخصصة</TabsTrigger>
           <TabsTrigger value="customize">تخصيص متقدم</TabsTrigger>
         </TabsList>
@@ -188,6 +202,21 @@ export default function UnifiedDashboardPage() {
               </CardContent>
             </Card>
           ))}
+        </TabsContent>
+
+        {/* KPI Comparison Tab - NEW */}
+        <TabsContent value="comparison" className="space-y-4">
+          <KPIComparisonPanel kpis={moduleGroups?.flatMap(g => g.kpis) || []} />
+        </TabsContent>
+
+        {/* KPI Targets Tab - NEW */}
+        <TabsContent value="targets" className="space-y-4">
+          <KPITargetManager 
+            kpis={moduleGroups?.flatMap(g => g.kpis) || []}
+            onUpdateTarget={async (kpiId, newTarget) => {
+              toast.info('جاري تحديث الهدف...');
+            }}
+          />
         </TabsContent>
 
         <TabsContent value="executive" className="space-y-4">
