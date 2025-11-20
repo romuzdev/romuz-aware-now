@@ -71,6 +71,7 @@ const AppContent = () => {
             <Route path="/" element={<Index />} />
             
             {/* Auth Routes */}
+            <Route path="/auth" element={<Navigate to="/auth/login" replace />} />
             <Route path="/auth/login" element={<LoginPage />} />
             <Route path="/auth/signup" element={<SignupPage />} />
             <Route path="/auth/select-tenant" element={<SelectTenantPage />} />
