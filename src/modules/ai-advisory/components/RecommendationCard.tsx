@@ -145,6 +145,13 @@ export function RecommendationCard({
                 <span>التقييم: {recommendation.feedback_rating} / 5</span>
               </div>
             )}
+
+            {recommendation.status === 'implemented' && recommendation.implementation_notes && (
+              <div className="mt-3 p-3 bg-primary/5 border border-primary/20 rounded-md">
+                <p className="text-xs font-medium text-primary mb-1">✅ ملاحظات التنفيذ:</p>
+                <p className="text-sm text-foreground whitespace-pre-wrap">{recommendation.implementation_notes}</p>
+              </div>
+            )}
           </CardContent>
         )}
 
