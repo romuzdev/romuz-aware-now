@@ -7,3 +7,4 @@ export * from './RecommendationCard';
 export * from './FeedbackDialog';
 export * from './AIInsightsWidget';
 export * from './RecommendationsList';
+export * from './AITestPanel';

@@ -3,8 +3,13 @@
  * Full-page view for AI recommendations
  */
 
-import { RecommendationsList } from '@/modules/ai-advisory/components';
+import { RecommendationsList, AITestPanel } from '@/modules/ai-advisory/components';
 
 export default function AIRecommendationsPage() {
-  return <RecommendationsList />;
+  return (
+    <div className="space-y-6">
+      <AITestPanel />
+      <RecommendationsList />
+    </div>
+  );
 }
