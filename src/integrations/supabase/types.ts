@@ -12890,37 +12890,31 @@ export type Database = {
           query_embedding: string
         }
         Returns: {
-          author_name: string
           category: string
-          content: string
+          content_ar: string
+          content_en: string
           created_at: string
           document_type: string
+          helpful_count: number
           id: string
-          is_featured: boolean
+          is_verified: boolean
+          keywords: string[]
           similarity: number
+          source_url: string
+          summary_ar: string
+          summary_en: string
           tags: string[]
-          title: string
+          title_ar: string
+          title_en: string
+          unhelpful_count: number
           updated_at: string
-          view_count: number
+          usefulness_score: number
+          views_count: number
         }[]
       }
       match_similar_questions:
         | {
             Args: {
-              match_threshold?: number
-              p_tenant_id?: string
-              query_embedding: string
-            }
-            Returns: {
-              answer: string
-              id: string
-              question: string
-              similarity: number
-            }[]
-          }
-        | {
-            Args: {
-              match_count?: number
               match_threshold?: number
               p_tenant_id?: string
               query_embedding: string
