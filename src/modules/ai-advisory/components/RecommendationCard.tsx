@@ -42,6 +42,8 @@ export function RecommendationCard({
   const [showFeedback, setShowFeedback] = useState(false);
   const [showRejectDialog, setShowRejectDialog] = useState(false);
   const [rejectReason, setRejectReason] = useState('');
+  const [showImplementDialog, setShowImplementDialog] = useState(false);
+  const [implementNotes, setImplementNotes] = useState('');
 
   const priorityConfig = {
     critical: { color: 'bg-destructive text-destructive-foreground', label: 'حرج', icon: AlertTriangle },
@@ -189,7 +191,7 @@ export function RecommendationCard({
           <CardFooter>
             <Button
               size="sm"
-              onClick={() => onImplement(recommendation.id)}
+              onClick={() => setShowImplementDialog(true)}
               className="gap-1"
             >
               <CheckCheck className="h-3 w-3" />
@@ -250,6 +252,50 @@ export function RecommendationCard({
                 }}
               >
                 تأكيد الرفض
+              </Button>
+            </CardFooter>
+          </Card>
+        </div>
+      )}
+
+      {/* Implement Dialog */}
+      {showImplementDialog && onImplement && (
+        <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <Card className="max-w-md w-full">
+            <CardHeader>
+              <CardTitle>تأكيد التنفيذ</CardTitle>
+              <CardDescription>
+                يرجى توثيق ما تم تنفيذه بالضبط (اختياري)
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <textarea
+                className="w-full min-h-24 p-2 border rounded-md resize-none"
+                placeholder="مثال: تم تحديث السياسة وزيادة الحد الأدنى للأحرف إلى 12، وإضافة متطلبات الأحرف الخاصة"
+                value={implementNotes}
+                onChange={(e) => setImplementNotes(e.target.value)}
+              />
+            </CardContent>
+            <CardFooter className="gap-2">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => {
+                  setShowImplementDialog(false);
+                  setImplementNotes('');
+                }}
+              >
+                إلغاء
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => {
+                  onImplement(recommendation.id, implementNotes || undefined);
+                  setShowImplementDialog(false);
+                  setImplementNotes('');
+                }}
+              >
+                تأكيد التنفيذ
               </Button>
             </CardFooter>
           </Card>
