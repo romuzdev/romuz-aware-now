@@ -124,13 +124,15 @@ const AppContent = () => {
               />
             ))}
             
-            {/* M17: Knowledge Hub + RAG Routes */}
-            <Route path="/knowledge-hub" element={<ProtectedRoute><KnowledgeHub.KnowledgeHubIndex /></ProtectedRoute>} />
-            <Route path="/knowledge-hub/documents" element={<ProtectedRoute><KnowledgeHub.DocumentsPage /></ProtectedRoute>} />
-            <Route path="/knowledge-hub/documents/create" element={<ProtectedRoute><KnowledgeHub.CreateDocumentPage /></ProtectedRoute>} />
-            <Route path="/knowledge-hub/documents/:id" element={<ProtectedRoute><KnowledgeHub.DocumentDetailPage /></ProtectedRoute>} />
-            <Route path="/knowledge-hub/qa" element={<ProtectedRoute><KnowledgeHub.QAPage /></ProtectedRoute>} />
-            <Route path="/knowledge-hub/graph" element={<ProtectedRoute><KnowledgeHub.GraphPage /></ProtectedRoute>} />
+            {/* M17: Knowledge Hub + RAG Routes - Inside AppShell */}
+            <Route path="/knowledge-hub" element={<ProtectedRoute><AppShell /></ProtectedRoute>}>
+              <Route index element={<KnowledgeHub.KnowledgeHubIndex />} />
+              <Route path="documents" element={<KnowledgeHub.DocumentsPage />} />
+              <Route path="documents/create" element={<KnowledgeHub.CreateDocumentPage />} />
+              <Route path="documents/:id" element={<KnowledgeHub.DocumentDetailPage />} />
+              <Route path="qa" element={<KnowledgeHub.QAPage />} />
+              <Route path="graph" element={<KnowledgeHub.GraphPage />} />
+            </Route>
             
             {/* Gate-P: Tenant Lifecycle & Automation Engine Routes */}
             <Route path="/admin/gate-p" element={<ProtectedRoute><GatePConsole /></ProtectedRoute>} />
