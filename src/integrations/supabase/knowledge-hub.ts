@@ -261,6 +261,22 @@ export async function getKnowledgeDocument(id: string) {
   }
 }
 
+// Helper: get current tenant ID from user context
+async function getCurrentTenantId(): Promise<string | null> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return null;
+
+  const { data } = await supabase
+    .from('user_tenants')
+    .select('tenant_id')
+    .eq('user_id', user.id)
+    .single();
+
+  return data?.tenant_id || null;
+}
+
 /**
  * Create a new knowledge document
  */
@@ -286,6 +302,10 @@ export async function createKnowledgeDocument(input: {
     } = await supabase.auth.getUser();
     if (!user) throw new Error('User not authenticated');
 
+    // Get current tenant
+    const tenantId = await getCurrentTenantId();
+    if (!tenantId) throw new Error('No tenant context');
+
     // Step 1: Generate embedding for the content
     const embeddingText = `${input.title_ar}\n\n${input.content_ar}`;
     const { embedding } = await generateEmbedding(embeddingText, 'document');
@@ -295,6 +315,7 @@ export async function createKnowledgeDocument(input: {
       .from('knowledge_documents')
       .insert({
         ...input,
+        tenant_id: tenantId,
         embedding_vector: JSON.stringify(embedding),
         created_by: user.id,
         updated_by: user.id,
