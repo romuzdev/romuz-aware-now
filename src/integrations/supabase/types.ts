@@ -6734,6 +6734,309 @@ export type Database = {
         }
         Relationships: []
       }
+      knowledge_document_versions: {
+        Row: {
+          change_summary: string | null
+          changed_by: string
+          content_ar: string
+          created_at: string
+          document_id: string
+          id: string
+          tenant_id: string
+          title_ar: string
+          version_number: number
+        }
+        Insert: {
+          change_summary?: string | null
+          changed_by: string
+          content_ar: string
+          created_at?: string
+          document_id: string
+          id?: string
+          tenant_id: string
+          title_ar: string
+          version_number: number
+        }
+        Update: {
+          change_summary?: string | null
+          changed_by?: string
+          content_ar?: string
+          created_at?: string
+          document_id?: string
+          id?: string
+          tenant_id?: string
+          title_ar?: string
+          version_number?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "knowledge_document_versions_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "knowledge_documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "knowledge_document_versions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      knowledge_documents: {
+        Row: {
+          backup_metadata: Json | null
+          category: string
+          content_ar: string
+          content_en: string | null
+          created_at: string
+          created_by: string
+          deleted_at: string | null
+          deleted_by: string | null
+          document_type: string
+          embedding_vector: string | null
+          helpful_count: number | null
+          id: string
+          is_deleted: boolean | null
+          is_verified: boolean | null
+          keywords: string[] | null
+          metadata: Json | null
+          source_document_id: string | null
+          source_url: string | null
+          summary_ar: string | null
+          summary_en: string | null
+          tags: string[] | null
+          tenant_id: string
+          title_ar: string
+          title_en: string | null
+          unhelpful_count: number | null
+          updated_at: string
+          updated_by: string | null
+          usefulness_score: number | null
+          verified_at: string | null
+          verified_by: string | null
+          views_count: number | null
+        }
+        Insert: {
+          backup_metadata?: Json | null
+          category: string
+          content_ar: string
+          content_en?: string | null
+          created_at?: string
+          created_by: string
+          deleted_at?: string | null
+          deleted_by?: string | null
+          document_type: string
+          embedding_vector?: string | null
+          helpful_count?: number | null
+          id?: string
+          is_deleted?: boolean | null
+          is_verified?: boolean | null
+          keywords?: string[] | null
+          metadata?: Json | null
+          source_document_id?: string | null
+          source_url?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          tags?: string[] | null
+          tenant_id: string
+          title_ar: string
+          title_en?: string | null
+          unhelpful_count?: number | null
+          updated_at?: string
+          updated_by?: string | null
+          usefulness_score?: number | null
+          verified_at?: string | null
+          verified_by?: string | null
+          views_count?: number | null
+        }
+        Update: {
+          backup_metadata?: Json | null
+          category?: string
+          content_ar?: string
+          content_en?: string | null
+          created_at?: string
+          created_by?: string
+          deleted_at?: string | null
+          deleted_by?: string | null
+          document_type?: string
+          embedding_vector?: string | null
+          helpful_count?: number | null
+          id?: string
+          is_deleted?: boolean | null
+          is_verified?: boolean | null
+          keywords?: string[] | null
+          metadata?: Json | null
+          source_document_id?: string | null
+          source_url?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          tags?: string[] | null
+          tenant_id?: string
+          title_ar?: string
+          title_en?: string | null
+          unhelpful_count?: number | null
+          updated_at?: string
+          updated_by?: string | null
+          usefulness_score?: number | null
+          verified_at?: string | null
+          verified_by?: string | null
+          views_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "knowledge_documents_source_document_id_fkey"
+            columns: ["source_document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "knowledge_documents_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      knowledge_qa: {
+        Row: {
+          answer_ar: string
+          answer_en: string | null
+          asked_by: string | null
+          backup_metadata: Json | null
+          confidence_score: number | null
+          created_at: string
+          feedback_at: string | null
+          feedback_comment: string | null
+          id: string
+          metadata: Json | null
+          model_used: string | null
+          question_ar: string
+          question_embedding: string | null
+          question_en: string | null
+          source_documents: string[] | null
+          tenant_id: string
+          views_count: number | null
+          was_helpful: boolean | null
+        }
+        Insert: {
+          answer_ar: string
+          answer_en?: string | null
+          asked_by?: string | null
+          backup_metadata?: Json | null
+          confidence_score?: number | null
+          created_at?: string
+          feedback_at?: string | null
+          feedback_comment?: string | null
+          id?: string
+          metadata?: Json | null
+          model_used?: string | null
+          question_ar: string
+          question_embedding?: string | null
+          question_en?: string | null
+          source_documents?: string[] | null
+          tenant_id: string
+          views_count?: number | null
+          was_helpful?: boolean | null
+        }
+        Update: {
+          answer_ar?: string
+          answer_en?: string | null
+          asked_by?: string | null
+          backup_metadata?: Json | null
+          confidence_score?: number | null
+          created_at?: string
+          feedback_at?: string | null
+          feedback_comment?: string | null
+          id?: string
+          metadata?: Json | null
+          model_used?: string | null
+          question_ar?: string
+          question_embedding?: string | null
+          question_en?: string | null
+          source_documents?: string[] | null
+          tenant_id?: string
+          views_count?: number | null
+          was_helpful?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "knowledge_qa_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      knowledge_relations: {
+        Row: {
+          backup_metadata: Json | null
+          created_at: string
+          created_by: string
+          id: string
+          is_auto_detected: boolean | null
+          metadata: Json | null
+          relation_type: string
+          source_doc_id: string
+          strength: number | null
+          target_doc_id: string
+          tenant_id: string
+        }
+        Insert: {
+          backup_metadata?: Json | null
+          created_at?: string
+          created_by: string
+          id?: string
+          is_auto_detected?: boolean | null
+          metadata?: Json | null
+          relation_type: string
+          source_doc_id: string
+          strength?: number | null
+          target_doc_id: string
+          tenant_id: string
+        }
+        Update: {
+          backup_metadata?: Json | null
+          created_at?: string
+          created_by?: string
+          id?: string
+          is_auto_detected?: boolean | null
+          metadata?: Json | null
+          relation_type?: string
+          source_doc_id?: string
+          strength?: number | null
+          target_doc_id?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "knowledge_relations_source_doc_id_fkey"
+            columns: ["source_doc_id"]
+            isOneToOne: false
+            referencedRelation: "knowledge_documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "knowledge_relations_target_doc_id_fkey"
+            columns: ["target_doc_id"]
+            isOneToOne: false
+            referencedRelation: "knowledge_documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "knowledge_relations_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       kpi_alerts: {
         Row: {
           acknowledged_at: string | null
@@ -12229,6 +12532,16 @@ export type Database = {
           status: string
         }[]
       }
+      get_knowledge_graph: {
+        Args: { p_document_id: string; p_max_depth?: number }
+        Returns: {
+          depth: number
+          relation_type: string
+          source_id: string
+          strength: number
+          target_id: string
+        }[]
+      }
       get_kpi_monthly_anomalies: {
         Args: {
           p_from_month?: string
@@ -12567,6 +12880,44 @@ export type Database = {
           p_view_name: string
         }
         Returns: undefined
+      }
+      match_knowledge_documents: {
+        Args: {
+          match_count?: number
+          match_threshold?: number
+          p_document_type?: string
+          p_tenant_id?: string
+          query_embedding: string
+        }
+        Returns: {
+          category: string
+          content_ar: string
+          content_en: string
+          document_type: string
+          id: string
+          similarity: number
+          summary_ar: string
+          tags: string[]
+          title_ar: string
+          title_en: string
+          usefulness_score: number
+          views_count: number
+        }[]
+      }
+      match_similar_questions: {
+        Args: {
+          match_count?: number
+          match_threshold?: number
+          p_tenant_id?: string
+          query_embedding: string
+        }
+        Returns: {
+          answer_ar: string
+          id: string
+          question_ar: string
+          similarity: number
+          was_helpful: boolean
+        }[]
       }
       re_enable_table_fk_constraints: {
         Args: { p_rollback_id: string; p_table_name: string }
