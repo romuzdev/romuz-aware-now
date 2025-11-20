@@ -106,10 +106,13 @@ export function AITestPanel() {
         has_context_data: !!contextData,
       });
 
+      // Generate a valid UUID for test cases without context_id
+      const contextId = testCase.context_id || crypto.randomUUID();
+
       // Request recommendation
       const result = await requestAdvisory({
         context_type: testCase.context_type,
-        context_id: testCase.context_id || `test-${Date.now()}`,
+        context_id: contextId,
         context_data: contextData || {
           test_mode: true,
           test_name: testCase.name,
