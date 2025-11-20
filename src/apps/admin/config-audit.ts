@@ -13,6 +13,7 @@ import {
   Users,
   CheckCircle2,
   TrendingUp,
+  LineChart,
 } from 'lucide-react';
 import type { AppModule } from '@/core/config/types';
 
@@ -64,6 +65,16 @@ export const auditApp: AppModule = {
       order: 2,
     },
     {
+      id: 'analytics',
+      name: 'Analytics & Insights',
+      nameAr: 'التحليلات والرؤى',
+      route: '/analytics',
+      icon: LineChart,
+      requiredPermission: 'audit.view' as any,
+      showInSidebar: true,
+      order: 3,
+    },
+    {
       id: 'findings',
       name: 'Findings',
       nameAr: 'نتائج التدقيق',
@@ -71,7 +82,7 @@ export const auditApp: AppModule = {
       icon: AlertCircle,
       requiredPermission: 'audit.findings.view' as any,
       showInSidebar: true,
-      order: 3,
+      order: 4,
     },
     {
       id: 'reports',
@@ -81,7 +92,7 @@ export const auditApp: AppModule = {
       icon: FileText,
       requiredPermission: 'audit.reports.view' as any,
       showInSidebar: true,
-      order: 4,
+      order: 5,
     },
     {
       id: 'compliance-gaps',
@@ -91,7 +102,7 @@ export const auditApp: AppModule = {
       icon: AlertCircle,
       requiredPermission: 'audit.compliance.view' as any,
       showInSidebar: true,
-      order: 5,
+      order: 6,
     },
     {
       id: 'auditors',
@@ -101,7 +112,7 @@ export const auditApp: AppModule = {
       icon: Users,
       requiredPermission: 'audit.auditors.view' as any,
       showInSidebar: true,
-      order: 6,
+      order: 7,
     },
     {
       id: 'documents',
@@ -111,7 +122,7 @@ export const auditApp: AppModule = {
       icon: FileText,
       requiredPermission: 'documents.view' as any,
       showInSidebar: true,
-      order: 7,
+      order: 8,
     },
   ],
   metadata: {
