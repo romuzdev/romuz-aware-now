@@ -6,6 +6,7 @@ import AccessMatrixPage from './pages/AccessMatrixPage';
 import UnifiedDashboardPage from './pages/UnifiedDashboardPage';
 import BackupRecoveryPage from './pages/BackupRecoveryPage';
 import ContentHubPage from './pages/ContentHub';
+import AIRecommendationsPage from './pages/AIRecommendationsPage';
 
 export function AdminApp() {
   return (
@@ -15,6 +16,7 @@ export function AdminApp() {
       <Route path="access-matrix" element={<AccessMatrixPage />} />
       <Route path="backup" element={<BackupRecoveryPage />} />
       <Route path="content-hub" element={<ContentHubPage />} />
+      <Route path="ai-recommendations" element={<AIRecommendationsPage />} />
     </Routes>
   );
 }

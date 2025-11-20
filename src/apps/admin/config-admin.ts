@@ -18,6 +18,7 @@ import {
   List,
   Link,
   Library,
+  Sparkles,
 } from 'lucide-react';
 import type { AppModule } from '@/core/config/types';
 
@@ -181,6 +182,17 @@ export const adminApp: AppModule = {
       requiredPermission: 'admin.access' as any,
       showInSidebar: true,
       order: 13,
+    },
+    // M16: AI Advisory Engine
+    {
+      id: 'ai-recommendations',
+      name: 'AI Recommendations',
+      nameAr: 'التوصيات الذكية',
+      route: '/platform/admin/ai-recommendations',
+      icon: Sparkles,
+      requiredPermission: 'admin.access' as any,
+      showInSidebar: true,
+      order: 14,
     },
   ],
   metadata: {
