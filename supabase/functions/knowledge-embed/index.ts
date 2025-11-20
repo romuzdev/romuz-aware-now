@@ -16,7 +16,9 @@ const corsHeaders = {
 };
 
 interface EmbedRequest {
+  documentId?: string;
   text: string;
+  tenant_id?: string;
   type?: 'document' | 'query';
 }
 
@@ -29,7 +31,7 @@ serve(async (req) => {
   try {
     console.log('🚀 knowledge-embed: Starting embedding generation');
     
-    const { text, type = 'document' }: EmbedRequest = await req.json();
+    const { documentId, text, tenant_id, type = 'document' }: EmbedRequest = await req.json();
     
     if (!text || text.trim().length === 0) {
       throw new Error('Text is required and cannot be empty');
@@ -87,6 +89,28 @@ serve(async (req) => {
     const embedding = embeddingData.data[0].embedding;
 
     console.log(`✅ Successfully generated embedding (${embedding.length} dimensions)`);
+
+    // If documentId is provided, save embedding to database
+    if (documentId && tenant_id) {
+      const supabaseUrl = Deno.env.get('SUPABASE_URL');
+      const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+      
+      if (supabaseUrl && supabaseServiceKey) {
+        const supabase = createClient(supabaseUrl, supabaseServiceKey);
+        
+        const { error: updateError } = await supabase
+          .from('knowledge_documents')
+          .update({ embedding_vector: JSON.stringify(embedding) })
+          .eq('id', documentId)
+          .eq('tenant_id', tenant_id);
+        
+        if (updateError) {
+          console.error('⚠️ Failed to save embedding to DB:', updateError);
+        } else {
+          console.log(`💾 Embedding saved to DB for document ${documentId}`);
+        }
+      }
+    }
 
     return new Response(
       JSON.stringify({
