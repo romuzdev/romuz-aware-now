@@ -5,6 +5,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import AccessMatrixPage from './pages/AccessMatrixPage';
 import UnifiedDashboardPage from './pages/UnifiedDashboardPage';
 import BackupRecoveryPage from './pages/BackupRecoveryPage';
+import ContentHubPage from './pages/ContentHub';
 
 export function AdminApp() {
   return (
@@ -13,6 +14,7 @@ export function AdminApp() {
       <Route path="dashboard" element={<UnifiedDashboardPage />} />
       <Route path="access-matrix" element={<AccessMatrixPage />} />
       <Route path="backup" element={<BackupRecoveryPage />} />
+      <Route path="content-hub" element={<ContentHubPage />} />
     </Routes>
   );
 }

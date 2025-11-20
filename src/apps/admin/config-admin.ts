@@ -17,6 +17,7 @@ import {
   Folder,
   List,
   Link,
+  Library,
 } from 'lucide-react';
 import type { AppModule } from '@/core/config/types';
 
@@ -148,6 +149,17 @@ export const adminApp: AppModule = {
       showInSidebar: true,
       order: 11,
     },
+    // M13.1: Content Hub
+    {
+      id: 'content-hub',
+      name: 'Content Hub',
+      nameAr: 'مركز المحتوى',
+      route: '/platform/admin/content-hub',
+      icon: Library,
+      requiredPermission: 'content.view' as any,
+      showInSidebar: true,
+      order: 12,
+    },
     // M14: Unified KPI Dashboard
     {
       id: 'unified-dashboard',
@@ -157,7 +169,7 @@ export const adminApp: AppModule = {
       icon: BarChart3,
       requiredPermission: 'unified_dashboard.view' as any,
       showInSidebar: true,
-      order: 12,
+      order: 13,
     },
     // M23: Backup & Recovery
     {
