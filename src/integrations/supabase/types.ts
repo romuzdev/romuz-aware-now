@@ -504,6 +504,197 @@ export type Database = {
           },
         ]
       }
+      ai_decision_logs: {
+        Row: {
+          confidence_score: number | null
+          context_id: string | null
+          context_type: string
+          decided_at: string
+          decision_maker: string | null
+          decision_type: string
+          error_message: string | null
+          id: string
+          model_used: string | null
+          outcome: string | null
+          outcome_details: Json | null
+          processing_time_ms: number | null
+          prompt_used: string | null
+          recommendation_id: string | null
+          response_received: string | null
+          tenant_id: string
+          tokens_used: number | null
+        }
+        Insert: {
+          confidence_score?: number | null
+          context_id?: string | null
+          context_type: string
+          decided_at?: string
+          decision_maker?: string | null
+          decision_type: string
+          error_message?: string | null
+          id?: string
+          model_used?: string | null
+          outcome?: string | null
+          outcome_details?: Json | null
+          processing_time_ms?: number | null
+          prompt_used?: string | null
+          recommendation_id?: string | null
+          response_received?: string | null
+          tenant_id: string
+          tokens_used?: number | null
+        }
+        Update: {
+          confidence_score?: number | null
+          context_id?: string | null
+          context_type?: string
+          decided_at?: string
+          decision_maker?: string | null
+          decision_type?: string
+          error_message?: string | null
+          id?: string
+          model_used?: string | null
+          outcome?: string | null
+          outcome_details?: Json | null
+          processing_time_ms?: number | null
+          prompt_used?: string | null
+          recommendation_id?: string | null
+          response_received?: string | null
+          tenant_id?: string
+          tokens_used?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_ai_decision_logs_recommendation"
+            columns: ["recommendation_id"]
+            isOneToOne: false
+            referencedRelation: "ai_recommendations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_ai_decision_logs_tenant"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ai_recommendations: {
+        Row: {
+          accepted_at: string | null
+          accepted_by: string | null
+          category: string | null
+          confidence_score: number | null
+          context_id: string
+          context_snapshot: Json | null
+          context_type: string
+          created_at: string
+          description_ar: string
+          description_en: string | null
+          expires_at: string | null
+          feedback_at: string | null
+          feedback_by: string | null
+          feedback_comment: string | null
+          feedback_rating: number | null
+          generated_at: string
+          id: string
+          implementation_notes: string | null
+          implemented_at: string | null
+          implemented_by: string | null
+          metadata: Json | null
+          model_used: string
+          priority: string
+          rationale_ar: string | null
+          rationale_en: string | null
+          rejected_at: string | null
+          rejected_by: string | null
+          status: string
+          tags: string[] | null
+          tenant_id: string
+          title_ar: string
+          title_en: string | null
+          updated_at: string
+        }
+        Insert: {
+          accepted_at?: string | null
+          accepted_by?: string | null
+          category?: string | null
+          confidence_score?: number | null
+          context_id: string
+          context_snapshot?: Json | null
+          context_type: string
+          created_at?: string
+          description_ar: string
+          description_en?: string | null
+          expires_at?: string | null
+          feedback_at?: string | null
+          feedback_by?: string | null
+          feedback_comment?: string | null
+          feedback_rating?: number | null
+          generated_at?: string
+          id?: string
+          implementation_notes?: string | null
+          implemented_at?: string | null
+          implemented_by?: string | null
+          metadata?: Json | null
+          model_used?: string
+          priority?: string
+          rationale_ar?: string | null
+          rationale_en?: string | null
+          rejected_at?: string | null
+          rejected_by?: string | null
+          status?: string
+          tags?: string[] | null
+          tenant_id: string
+          title_ar: string
+          title_en?: string | null
+          updated_at?: string
+        }
+        Update: {
+          accepted_at?: string | null
+          accepted_by?: string | null
+          category?: string | null
+          confidence_score?: number | null
+          context_id?: string
+          context_snapshot?: Json | null
+          context_type?: string
+          created_at?: string
+          description_ar?: string
+          description_en?: string | null
+          expires_at?: string | null
+          feedback_at?: string | null
+          feedback_by?: string | null
+          feedback_comment?: string | null
+          feedback_rating?: number | null
+          generated_at?: string
+          id?: string
+          implementation_notes?: string | null
+          implemented_at?: string | null
+          implemented_by?: string | null
+          metadata?: Json | null
+          model_used?: string
+          priority?: string
+          rationale_ar?: string | null
+          rationale_en?: string | null
+          rejected_at?: string | null
+          rejected_by?: string | null
+          status?: string
+          tags?: string[] | null
+          tenant_id?: string
+          title_ar?: string
+          title_en?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_ai_recommendations_tenant"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       alert_channels: {
         Row: {
           config_json: Json
@@ -10641,6 +10832,7 @@ export type Database = {
             }
             Returns: string
           }
+      expire_old_recommendations: { Args: never; Returns: undefined }
       fn_action_call_webhook: {
         Args: { p_action: Json; p_event_payload: Json }
         Returns: undefined
