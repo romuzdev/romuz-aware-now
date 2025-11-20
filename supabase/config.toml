@@ -108,3 +108,10 @@ verify_jwt = false  # Public endpoint - verifies signature internally
 
 [functions.odoo-sync]
 verify_jwt = true  # Requires authentication - sync Odoo ERP data
+
+# ============================================================================
+# M16: AI Advisory Engine
+# ============================================================================
+
+[functions.ai-advisory]
+verify_jwt = true  # Requires authentication - generate AI recommendations
