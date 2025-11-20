@@ -77,19 +77,19 @@ serve(async (req) => {
     // Step 1: Generate embedding for the query
     console.log(`📝 Generating embedding for query: "${query.substring(0, 50)}..."`);
     
-    const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
-    if (!LOVABLE_API_KEY) {
-      throw new Error('LOVABLE_API_KEY is not configured');
+    const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY');
+    if (!OPENAI_API_KEY) {
+      throw new Error('OPENAI_API_KEY is not configured');
     }
 
-    const embeddingResponse = await fetch('https://ai.gateway.lovable.dev/v1/embeddings', {
+    const embeddingResponse = await fetch('https://api.openai.com/v1/embeddings', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${LOVABLE_API_KEY}`,
+        'Authorization': `Bearer ${OPENAI_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'text-embedding-ada-002',
+        model: 'text-embedding-3-small',
         input: query,
       }),
     });

@@ -40,24 +40,24 @@ serve(async (req) => {
       throw new Error('Text is too long. Maximum 8000 characters allowed.');
     }
 
-    // Get Lovable API Key
-    const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
-    if (!LOVABLE_API_KEY) {
-      throw new Error('LOVABLE_API_KEY is not configured');
+    // Get OpenAI API Key for embeddings
+    const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY');
+    if (!OPENAI_API_KEY) {
+      throw new Error('OPENAI_API_KEY is not configured');
     }
 
     console.log(`📝 Generating embedding for text (${text.length} chars, type: ${type})`);
 
-    // Call Lovable AI for embedding
-    // Note: Lovable AI Gateway supports OpenAI-compatible embedding endpoints
-    const embeddingResponse = await fetch('https://ai.gateway.lovable.dev/v1/embeddings', {
+    // Call OpenAI directly for embeddings
+    // Note: Using text-embedding-3-small (latest, better quality, cheaper)
+    const embeddingResponse = await fetch('https://api.openai.com/v1/embeddings', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${LOVABLE_API_KEY}`,
+        'Authorization': `Bearer ${OPENAI_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'text-embedding-ada-002', // OpenAI's embedding model
+        model: 'text-embedding-3-small',
         input: text,
       }),
     });
