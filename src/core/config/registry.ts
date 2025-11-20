@@ -22,6 +22,7 @@ import { adminApp } from '@/apps/admin/config-admin';
 import { grcApp } from '@/apps/admin/config-grc';
 import { auditApp } from '@/apps/admin/config-audit';
 import { lmsApp, employeePortalApp } from '@/apps/lms/config';
+import { knowledgeHubApp } from '@/apps/knowledge-hub/config';
 
 /**
  * App Registry - All available apps on the platform
@@ -40,6 +41,7 @@ export const APP_REGISTRY: AppModule[] = [
   auditApp,
   lmsApp,
   employeePortalApp,
+  knowledgeHubApp,
   
   // Coming Soon Apps
   {

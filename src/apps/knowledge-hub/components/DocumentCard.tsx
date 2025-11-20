@@ -115,13 +115,13 @@ export function DocumentCard({
                   <ThumbsUp className="h-4 w-4 ml-1" />
                   مفيد
                 </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => onRate(false)}
-                >
-                  مفيد
-                </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => onRate(false)}
+              >
+                غير مفيد
+              </Button>
               </>
             )}
             {onView && (
