@@ -12904,21 +12904,35 @@ export type Database = {
           views_count: number
         }[]
       }
-      match_similar_questions: {
-        Args: {
-          match_count?: number
-          match_threshold?: number
-          p_tenant_id?: string
-          query_embedding: string
-        }
-        Returns: {
-          answer_ar: string
-          id: string
-          question_ar: string
-          similarity: number
-          was_helpful: boolean
-        }[]
-      }
+      match_similar_questions:
+        | {
+            Args: {
+              match_threshold?: number
+              p_tenant_id?: string
+              query_embedding: string
+            }
+            Returns: {
+              answer: string
+              id: string
+              question: string
+              similarity: number
+            }[]
+          }
+        | {
+            Args: {
+              match_count?: number
+              match_threshold?: number
+              p_tenant_id?: string
+              query_embedding: string
+            }
+            Returns: {
+              answer_ar: string
+              id: string
+              question_ar: string
+              similarity: number
+              was_helpful: boolean
+            }[]
+          }
       re_enable_table_fk_constraints: {
         Args: { p_rollback_id: string; p_table_name: string }
         Returns: number
