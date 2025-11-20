@@ -27,6 +27,7 @@ import { getAwarenessRoutes } from "@/apps/awareness";
 import { getAdminRoutes } from "@/apps/admin";
 import { getAuditRoutes } from "@/apps/audit";
 import { lmsRoutes } from "@/apps/lms";
+import { getIncidentResponseRoutes } from "@/apps/incident-response";
 import * as KnowledgeHub from "@/apps/knowledge-hub/routes";
 
 // Gate-U: Unified App Shell & Personas
@@ -132,6 +133,11 @@ const AppContent = () => {
               <Route path="documents/:id" element={<KnowledgeHub.DocumentDetailPage />} />
               <Route path="qa" element={<KnowledgeHub.QAPage />} />
               <Route path="graph" element={<KnowledgeHub.GraphPage />} />
+            </Route>
+
+            {/* M18: Incident Response System Routes - Inside AppShell */}
+            <Route path="/incident-response/*" element={<ProtectedRoute><AppShell /></ProtectedRoute>}>
+              <Route path="*" element={getIncidentResponseRoutes()} />
             </Route>
             
             {/* Gate-P: Tenant Lifecycle & Automation Engine Routes */}

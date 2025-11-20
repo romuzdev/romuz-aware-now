@@ -9,3 +9,4 @@ export * from './platform';
 export * from './awareness';
 export * from './admin';
 export * from './lms';
+export * from './incident-response';
