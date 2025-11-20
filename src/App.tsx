@@ -27,6 +27,7 @@ import { getAwarenessRoutes } from "@/apps/awareness";
 import { getAdminRoutes } from "@/apps/admin";
 import { getAuditRoutes } from "@/apps/audit";
 import { lmsRoutes } from "@/apps/lms";
+import * as KnowledgeHub from "@/apps/knowledge-hub/routes";
 
 // Gate-U: Unified App Shell & Personas
 import { AppShell } from "@/core/components/layout";
@@ -122,6 +123,14 @@ const AppContent = () => {
                 element={<ProtectedRoute>{route.element as any}</ProtectedRoute>} 
               />
             ))}
+            
+            {/* M17: Knowledge Hub + RAG Routes */}
+            <Route path="/knowledge-hub" element={<ProtectedRoute><KnowledgeHub.KnowledgeHubIndex /></ProtectedRoute>} />
+            <Route path="/knowledge-hub/documents" element={<ProtectedRoute><KnowledgeHub.DocumentsPage /></ProtectedRoute>} />
+            <Route path="/knowledge-hub/documents/create" element={<ProtectedRoute><KnowledgeHub.CreateDocumentPage /></ProtectedRoute>} />
+            <Route path="/knowledge-hub/documents/:id" element={<ProtectedRoute><KnowledgeHub.DocumentDetailPage /></ProtectedRoute>} />
+            <Route path="/knowledge-hub/qa" element={<ProtectedRoute><KnowledgeHub.QAPage /></ProtectedRoute>} />
+            <Route path="/knowledge-hub/graph" element={<ProtectedRoute><KnowledgeHub.GraphPage /></ProtectedRoute>} />
             
             {/* Gate-P: Tenant Lifecycle & Automation Engine Routes */}
             <Route path="/admin/gate-p" element={<ProtectedRoute><GatePConsole /></ProtectedRoute>} />
