@@ -28,3 +28,6 @@ export { FormulaVariablesPanel } from './FormulaVariablesPanel';
 export { DraggableWidget } from './DraggableWidget';
 export { WidgetLibrary } from './WidgetLibrary';
 export { CustomizableDashboardNew } from './CustomizableDashboardNew';
+export { KPIComparisonPanel } from './KPIComparisonPanel';
+export { KPITargetManager } from './KPITargetManager';
+export { AdvancedKPIFilters } from './AdvancedKPIFilters';
