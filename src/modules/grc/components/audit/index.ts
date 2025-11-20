@@ -10,3 +10,8 @@ export { ComplianceGapAnalysis } from './ComplianceGapAnalysis';
 export { AuditWorkflowBuilder } from './AuditWorkflowBuilder';
 export { FindingsCategorization } from './FindingsCategorization';
 export { AuditAnalyticsDashboard } from './AuditAnalyticsDashboard';
+
+// Sub-components
+export { WorkflowStageCard } from './WorkflowStageCard';
+export { WorkflowProgressBar } from './WorkflowProgressBar';
+export { StageActionButtons } from './StageActionButtons';
