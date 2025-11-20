@@ -6341,6 +6341,232 @@ export type Database = {
         }
         Relationships: []
       }
+      incident_metrics: {
+        Row: {
+          calculated_at: string
+          id: string
+          impact_cost: number | null
+          incident_id: string
+          met_sla: boolean | null
+          response_cost: number | null
+          response_plan_followed: boolean | null
+          sla_target_minutes: number | null
+          sla_variance_minutes: number | null
+          steps_completed: number | null
+          steps_total: number | null
+          tenant_id: string
+          time_to_acknowledge_minutes: number | null
+          time_to_contain_minutes: number | null
+          time_to_detect_minutes: number | null
+          time_to_resolve_minutes: number | null
+          total_response_time_minutes: number | null
+        }
+        Insert: {
+          calculated_at?: string
+          id?: string
+          impact_cost?: number | null
+          incident_id: string
+          met_sla?: boolean | null
+          response_cost?: number | null
+          response_plan_followed?: boolean | null
+          sla_target_minutes?: number | null
+          sla_variance_minutes?: number | null
+          steps_completed?: number | null
+          steps_total?: number | null
+          tenant_id: string
+          time_to_acknowledge_minutes?: number | null
+          time_to_contain_minutes?: number | null
+          time_to_detect_minutes?: number | null
+          time_to_resolve_minutes?: number | null
+          total_response_time_minutes?: number | null
+        }
+        Update: {
+          calculated_at?: string
+          id?: string
+          impact_cost?: number | null
+          incident_id?: string
+          met_sla?: boolean | null
+          response_cost?: number | null
+          response_plan_followed?: boolean | null
+          sla_target_minutes?: number | null
+          sla_variance_minutes?: number | null
+          steps_completed?: number | null
+          steps_total?: number | null
+          tenant_id?: string
+          time_to_acknowledge_minutes?: number | null
+          time_to_contain_minutes?: number | null
+          time_to_detect_minutes?: number | null
+          time_to_resolve_minutes?: number | null
+          total_response_time_minutes?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "incident_metrics_incident_id_fkey"
+            columns: ["incident_id"]
+            isOneToOne: true
+            referencedRelation: "security_incidents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "incident_metrics_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      incident_response_plans: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          created_at: string
+          created_by: string
+          description_ar: string | null
+          description_en: string | null
+          escalation_rules: Json | null
+          id: string
+          incident_type: string
+          is_active: boolean | null
+          is_default: boolean | null
+          last_backed_up_at: string | null
+          last_reviewed_at: string | null
+          next_review_date: string | null
+          notification_rules: Json | null
+          plan_code: string | null
+          plan_name_ar: string
+          plan_name_en: string | null
+          priority: number | null
+          response_steps: Json
+          severity_level: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string
+          version: number | null
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string
+          created_by: string
+          description_ar?: string | null
+          description_en?: string | null
+          escalation_rules?: Json | null
+          id?: string
+          incident_type: string
+          is_active?: boolean | null
+          is_default?: boolean | null
+          last_backed_up_at?: string | null
+          last_reviewed_at?: string | null
+          next_review_date?: string | null
+          notification_rules?: Json | null
+          plan_code?: string | null
+          plan_name_ar: string
+          plan_name_en?: string | null
+          priority?: number | null
+          response_steps?: Json
+          severity_level?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by: string
+          version?: number | null
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string
+          created_by?: string
+          description_ar?: string | null
+          description_en?: string | null
+          escalation_rules?: Json | null
+          id?: string
+          incident_type?: string
+          is_active?: boolean | null
+          is_default?: boolean | null
+          last_backed_up_at?: string | null
+          last_reviewed_at?: string | null
+          next_review_date?: string | null
+          notification_rules?: Json | null
+          plan_code?: string | null
+          plan_name_ar?: string
+          plan_name_en?: string | null
+          priority?: number | null
+          response_steps?: Json
+          severity_level?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string
+          version?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "incident_response_plans_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      incident_timeline: {
+        Row: {
+          action_ar: string
+          action_en: string | null
+          actor_id: string | null
+          actor_role: string | null
+          attachment_ids: string[] | null
+          created_at: string
+          details: Json | null
+          event_type: string
+          evidence_urls: string[] | null
+          id: string
+          incident_id: string
+          new_value: string | null
+          previous_value: string | null
+          timestamp: string
+        }
+        Insert: {
+          action_ar: string
+          action_en?: string | null
+          actor_id?: string | null
+          actor_role?: string | null
+          attachment_ids?: string[] | null
+          created_at?: string
+          details?: Json | null
+          event_type: string
+          evidence_urls?: string[] | null
+          id?: string
+          incident_id: string
+          new_value?: string | null
+          previous_value?: string | null
+          timestamp?: string
+        }
+        Update: {
+          action_ar?: string
+          action_en?: string | null
+          actor_id?: string | null
+          actor_role?: string | null
+          attachment_ids?: string[] | null
+          created_at?: string
+          details?: Json | null
+          event_type?: string
+          evidence_urls?: string[] | null
+          id?: string
+          incident_id?: string
+          new_value?: string | null
+          previous_value?: string | null
+          timestamp?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "incident_timeline_incident_id_fkey"
+            columns: ["incident_id"]
+            isOneToOne: false
+            referencedRelation: "security_incidents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       initiatives: {
         Row: {
           created_at: string
@@ -9354,6 +9580,164 @@ export type Database = {
           },
         ]
       }
+      security_incidents: {
+        Row: {
+          acknowledged_at: string | null
+          acknowledged_by: string | null
+          actual_cost: number | null
+          affected_assets: string[] | null
+          affected_systems: string[] | null
+          affected_users: string[] | null
+          assigned_team: string | null
+          assigned_to: string | null
+          closed_at: string | null
+          closed_by: string | null
+          contained_at: string | null
+          containment_actions: Json | null
+          created_at: string
+          created_by: string
+          description_ar: string
+          description_en: string | null
+          detected_at: string
+          eradication_actions: Json | null
+          estimated_cost: number | null
+          id: string
+          impact_level: string | null
+          incident_number: string
+          incident_type: string
+          is_false_positive: boolean | null
+          last_backed_up_at: string | null
+          lessons_learned_ar: string | null
+          lessons_learned_en: string | null
+          metadata: Json | null
+          priority: number | null
+          recommendations_ar: string | null
+          recommendations_en: string | null
+          recovery_actions: Json | null
+          reported_at: string
+          reported_by: string
+          resolved_at: string | null
+          resolved_by: string | null
+          response_plan_id: string | null
+          root_cause_ar: string | null
+          root_cause_en: string | null
+          severity: string
+          status: string
+          tags: string[] | null
+          tenant_id: string
+          title_ar: string
+          title_en: string | null
+          updated_at: string
+          updated_by: string
+        }
+        Insert: {
+          acknowledged_at?: string | null
+          acknowledged_by?: string | null
+          actual_cost?: number | null
+          affected_assets?: string[] | null
+          affected_systems?: string[] | null
+          affected_users?: string[] | null
+          assigned_team?: string | null
+          assigned_to?: string | null
+          closed_at?: string | null
+          closed_by?: string | null
+          contained_at?: string | null
+          containment_actions?: Json | null
+          created_at?: string
+          created_by: string
+          description_ar: string
+          description_en?: string | null
+          detected_at: string
+          eradication_actions?: Json | null
+          estimated_cost?: number | null
+          id?: string
+          impact_level?: string | null
+          incident_number: string
+          incident_type: string
+          is_false_positive?: boolean | null
+          last_backed_up_at?: string | null
+          lessons_learned_ar?: string | null
+          lessons_learned_en?: string | null
+          metadata?: Json | null
+          priority?: number | null
+          recommendations_ar?: string | null
+          recommendations_en?: string | null
+          recovery_actions?: Json | null
+          reported_at?: string
+          reported_by: string
+          resolved_at?: string | null
+          resolved_by?: string | null
+          response_plan_id?: string | null
+          root_cause_ar?: string | null
+          root_cause_en?: string | null
+          severity: string
+          status?: string
+          tags?: string[] | null
+          tenant_id: string
+          title_ar: string
+          title_en?: string | null
+          updated_at?: string
+          updated_by: string
+        }
+        Update: {
+          acknowledged_at?: string | null
+          acknowledged_by?: string | null
+          actual_cost?: number | null
+          affected_assets?: string[] | null
+          affected_systems?: string[] | null
+          affected_users?: string[] | null
+          assigned_team?: string | null
+          assigned_to?: string | null
+          closed_at?: string | null
+          closed_by?: string | null
+          contained_at?: string | null
+          containment_actions?: Json | null
+          created_at?: string
+          created_by?: string
+          description_ar?: string
+          description_en?: string | null
+          detected_at?: string
+          eradication_actions?: Json | null
+          estimated_cost?: number | null
+          id?: string
+          impact_level?: string | null
+          incident_number?: string
+          incident_type?: string
+          is_false_positive?: boolean | null
+          last_backed_up_at?: string | null
+          lessons_learned_ar?: string | null
+          lessons_learned_en?: string | null
+          metadata?: Json | null
+          priority?: number | null
+          recommendations_ar?: string | null
+          recommendations_en?: string | null
+          recovery_actions?: Json | null
+          reported_at?: string
+          reported_by?: string
+          resolved_at?: string | null
+          resolved_by?: string | null
+          response_plan_id?: string | null
+          root_cause_ar?: string | null
+          root_cause_en?: string | null
+          severity?: string
+          status?: string
+          tags?: string[] | null
+          tenant_id?: string
+          title_ar?: string
+          title_en?: string | null
+          updated_at?: string
+          updated_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "security_incidents_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       system_events: {
         Row: {
           created_at: string | null
@@ -11060,6 +11444,10 @@ export type Database = {
         Args: { p_days_back?: number; p_tenant_id: string }
         Returns: number
       }
+      calculate_incident_metrics: {
+        Args: { p_incident_id: string }
+        Returns: undefined
+      }
       calculate_pitr_stats: {
         Args: {
           p_base_backup_timestamp?: string
@@ -12416,6 +12804,10 @@ export type Database = {
           isOneToOne: false
           isSetofReturn: true
         }
+      }
+      generate_incident_number: {
+        Args: { p_tenant_id: string }
+        Returns: string
       }
       generate_quarterly_insights: {
         Args: { p_limit?: number; p_quarter: number; p_year: number }
