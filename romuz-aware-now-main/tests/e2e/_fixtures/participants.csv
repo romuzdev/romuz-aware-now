@@ -1,0 +1,11 @@
+employee_ref,status,score,notes
+EMP-001,not_started,,
+EMP-002,not_started,,
+EMP-003,in_progress,45,Partial completion
+EMP-004,completed,85,Passed quiz
+EMP-005,completed,92,Excellent performance
+EMP-006,not_started,,
+EMP-007,in_progress,60,Review required
+EMP-008,completed,78,Good
+EMP-009,not_started,,
+EMP-010,completed,95,Outstanding

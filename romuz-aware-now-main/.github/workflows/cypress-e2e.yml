@@ -1,0 +1,146 @@
+name: Cypress E2E Tests
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+  workflow_dispatch: # يسمح بالتشغيل اليدوي من واجهة GitHub
+
+env:
+  # استخدم secrets للبيانات الحساسة
+  VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+  VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      # تشغيل على متصفحات متعددة (اختياري)
+      matrix:
+        browser: [chrome]
+        # يمكن إضافة: firefox, edge
+    
+    steps:
+      # 1. Checkout الكود
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. إعداد Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      # 3. تثبيت Dependencies مع cache
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Build التطبيق
+      - name: Build application
+        run: npm run build
+
+      # 5. تشغيل اختبارات Cypress
+      - name: Run Cypress E2E Tests
+        uses: cypress-io/github-action@v6
+        with:
+          browser: ${{ matrix.browser }}
+          start: npm run preview
+          wait-on: 'http://localhost:4173'
+          wait-on-timeout: 120
+          record: false
+          # إذا كنت تستخدم Cypress Cloud:
+          # record: true
+          # key: ${{ secrets.CYPRESS_RECORD_KEY }}
+          spec: cypress/e2e/gate-n-admin-console.cy.ts
+        env:
+          CYPRESS_BASE_URL: http://localhost:4173
+          # Cypress environment variables
+          CYPRESS_VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          CYPRESS_VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+
+      # 6. رفع Screenshots عند الفشل
+      - name: Upload Screenshots (on failure)
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots-${{ matrix.browser }}
+          path: cypress/screenshots
+          retention-days: 7
+
+      # 7. رفع Videos
+      - name: Upload Videos
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cypress-videos-${{ matrix.browser }}
+          path: cypress/videos
+          retention-days: 7
+
+      # 8. رفع Test Results
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cypress-results-${{ matrix.browser }}
+          path: |
+            cypress/results
+            mochawesome-report
+          retention-days: 7
+
+  # وظيفة إضافية: تشغيل جميع اختبارات Backend أولاً
+  backend-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Backend Tests (Gate-N)
+        run: npm test -- --coverage tests/gate-n
+        env:
+          E2E_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          E2E_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-report
+          path: coverage
+          retention-days: 7
+
+  # وظيفة اختيارية: إرسال تقرير إلى Slack/Discord
+  notify:
+    runs-on: ubuntu-latest
+    needs: [backend-tests, cypress-run]
+    if: always()
+    
+    steps:
+      - name: Send notification
+        run: |
+          echo "Tests completed!"
+          echo "Backend tests: ${{ needs.backend-tests.result }}"
+          echo "Cypress tests: ${{ needs.cypress-run.result }}"
+        
+      # يمكن إضافة Slack/Discord webhook هنا
+      # - name: Slack Notification
+      #   uses: 8398a7/action-slack@v3
+      #   with:
+      #     status: ${{ job.status }}
+      #     webhook_url: ${{ secrets.SLACK_WEBHOOK }}

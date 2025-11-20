@@ -1,0 +1,162 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 215 25% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 15%;
+
+    --primary: 215 30% 25%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 18 85% 95%;
+    --secondary-foreground: 215 30% 25%;
+
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 15% 50%;
+
+    --accent: 16 90% 62%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --border: 214 20% 90%;
+    --input: 214 20% 90%;
+    --ring: 16 90% 62%;
+
+    --radius: 0.75rem;
+
+    --gradient-hero: linear-gradient(135deg, hsl(16 90% 62%), hsl(25 95% 53%));
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%), hsl(18 85% 98%));
+    
+    --shadow-soft: 0 4px 20px -4px hsl(215 30% 25% / 0.1);
+    --shadow-strong: 0 10px 40px -10px hsl(16 90% 62% / 0.25);
+
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Sidebar tokens */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 215 25% 20%;
+    --sidebar-primary: 215 30% 25%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 18 85% 95%;
+    --sidebar-accent-foreground: 215 30% 25%;
+    --sidebar-border: 214 20% 90%;
+    --sidebar-ring: 16 90% 62%;
+  }
+
+  .dark {
+    --background: 215 30% 12%;
+    --foreground: 0 0% 98%;
+
+    --card: 215 28% 16%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 215 28% 16%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 215 30% 12%;
+
+    --secondary: 215 25% 20%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 215 25% 20%;
+    --muted-foreground: 215 15% 70%;
+
+    --accent: 16 90% 58%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --border: 215 25% 22%;
+    --input: 215 25% 22%;
+    --ring: 16 90% 58%;
+
+    --gradient-hero: linear-gradient(135deg, hsl(16 90% 58%), hsl(25 95% 48%));
+    --gradient-subtle: linear-gradient(180deg, hsl(215 30% 12%), hsl(215 28% 16%));
+    
+    --shadow-soft: 0 4px 20px -4px hsl(0 0% 0% / 0.3);
+    --shadow-strong: 0 10px 40px -10px hsl(16 90% 58% / 0.4);
+
+    /* Sidebar tokens - dark mode */
+    --sidebar-background: 215 28% 14%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 0 0% 98%;
+    --sidebar-primary-foreground: 215 30% 12%;
+    --sidebar-accent: 215 25% 20%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 215 25% 22%;
+    --sidebar-ring: 16 90% 58%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  
+  /* تحسين عرض الخطوط العربية */
+  [dir="rtl"] body {
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  
+  /* تحسين عرض العناوين في العربية */
+  [dir="rtl"] h1,
+  [dir="rtl"] h2,
+  [dir="rtl"] h3,
+  [dir="rtl"] h4,
+  [dir="rtl"] h5,
+  [dir="rtl"] h6 {
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+
+  /* RTL Support for Sidebar */
+  [data-sidebar="sidebar"] {
+    border: none;
+  }
+
+  .group[data-side="left"] [data-sidebar="sidebar"] {
+    border-right: 1px solid hsl(var(--sidebar-border));
+  }
+
+  .group[data-side="right"] [data-sidebar="sidebar"] {
+    border-left: 1px solid hsl(var(--sidebar-border));
+  }
+}

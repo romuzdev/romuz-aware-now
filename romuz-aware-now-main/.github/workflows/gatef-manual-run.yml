@@ -1,0 +1,106 @@
+name: Gate-F Tests (Manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      test_suite:
+        description: 'Select test suite to run'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - integration
+          - e2e
+          - security
+          - performance
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+          - development
+
+jobs:
+  run-selected-tests:
+    name: Run ${{ github.event.inputs.test_suite }} tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    env:
+      NODE_ENV: ${{ github.event.inputs.environment }}
+      VITE_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      VITE_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Install Playwright (if E2E selected)
+        if: github.event.inputs.test_suite == 'all' || github.event.inputs.test_suite == 'e2e'
+        run: npx playwright install --with-deps chromium
+      
+      - name: Run All Tests
+        if: github.event.inputs.test_suite == 'all'
+        run: |
+          chmod +x scripts/run-gatef-tests.sh
+          ./scripts/run-gatef-tests.sh
+      
+      - name: Run Integration Tests Only
+        if: github.event.inputs.test_suite == 'integration'
+        run: |
+          npm run test:integration tests/reports_exports_api.test.ts
+          npm run test:integration tests/reports_exports_format.test.ts
+      
+      - name: Run E2E Tests Only
+        if: github.event.inputs.test_suite == 'e2e'
+        run: |
+          npx playwright test tests/e2e/reports_dashboard.e2e.ts
+      
+      - name: Run Security Tests Only
+        if: github.event.inputs.test_suite == 'security'
+        run: |
+          npm run test:sanity tests/sanity/security.sanity.ts || true
+      
+      - name: Run Performance Tests Only
+        if: github.event.inputs.test_suite == 'performance'
+        run: |
+          npm run test:sanity tests/sanity/performance.sanity.ts || true
+      
+      - name: Upload Test Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: manual-test-reports-${{ github.run_number }}
+          path: |
+            test-reports/
+            playwright-report/
+            test-results/
+          retention-days: 30
+      
+      - name: Generate Summary
+        if: always()
+        run: |
+          echo "## 🎯 Manual Test Run Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Test Suite**: ${{ github.event.inputs.test_suite }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Environment**: ${{ github.event.inputs.environment }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Triggered by**: ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Check artifacts for detailed test reports" >> $GITHUB_STEP_SUMMARY

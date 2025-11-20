@@ -1,0 +1,338 @@
+{
+  "completeProfile": {
+    "title": "Complete Your Profile",
+    "description": "Please enter your personal information to continue",
+    "welcomeTitle": "Welcome to Romuz Awareness Platform! 👋",
+    "welcomeMessage": "We're happy to have you join our team. Completing your profile will help us personalize your experience and deliver more effective awareness content. Take a minute to complete your profile and start your journey with us! 🚀",
+    "completion": "Profile Completion",
+    "completionSuccess": "✓ Great! You've completed all fields",
+    "completionHint": "Complete all fields for a better experience",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Enter your full name",
+    "phone": "Phone Number",
+    "phonePlaceholder": "05xxxxxxxx",
+    "bio": "About You",
+    "bioPlaceholder": "Write a brief bio about yourself...",
+    "changeAvatar": "Change Photo",
+    "uploading": "Uploading...",
+    "avatarLimit": "Max: 5MB (JPG, PNG, WEBP)",
+    "skipNow": "Skip Now",
+    "saveAndContinue": "Save and Continue",
+    "saving": "Saving...",
+    "required": "*",
+    "errors": {
+      "nameMin": "Name must be at least 2 characters",
+      "nameMax": "Name is too long",
+      "bioMax": "Bio is too long",
+      "authRequired": "You must login first",
+      "loadFailed": "Failed to load data",
+      "uploadSizeLimit": "Image size must be less than 5MB",
+      "uploadTypeInvalid": "Please select a valid image",
+      "uploadFailed": "Failed to upload image",
+      "saveFailed": "Failed to save data",
+      "skipFailed": "Failed to skip"
+    },
+    "success": {
+      "upload": "Image uploaded successfully",
+      "save": "Data saved successfully",
+      "skip": "Skipped, you can update your data later"
+    }
+  },
+  "login": {
+    "title": "Sign in to Romuz",
+    "description": "Enter your credentials to access the admin panel",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "password": "Password",
+    "passwordPlaceholder": "••••••••",
+    "signIn": "Sign in",
+    "signingIn": "Signing in...",
+    "noAccount": "No account?",
+    "createOne": "Create one"
+  },
+  "signup": {
+    "title": "Create your account",
+    "description": "Sign up to access Romuz Awareness Platform",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "password": "Password",
+    "passwordPlaceholder": "••••••••",
+    "passwordHint": "Minimum 6 characters",
+    "signUp": "Sign up",
+    "creatingAccount": "Creating account...",
+    "haveAccount": "Already have an account?",
+    "signIn": "Sign in",
+    "successMessage": "Account created! Redirecting to select organization..."
+  },
+  "selectTenant": {
+    "title": "Select Organization",
+    "description": "Choose the organization you want to join to access the system",
+    "loading": "Loading...",
+    "noTenants": "No organizations available at the moment",
+    "joinTenant": "Join Organization",
+    "joining": "Joining...",
+    "errors": {
+      "loadFailed": "Failed to load organizations list",
+      "authRequired": "You must login first",
+      "joinFailed": "Failed to join organization"
+    },
+    "success": {
+      "joined": "Successfully joined!"
+    }
+  },
+  "appShell": {
+    "title": "Romuz Culture Platform – Cyber Zone GRC"
+  },
+  "sidebar": {
+    "title": "Main Menu",
+    "user": "User",
+    "awareness": "Awareness",
+    "risk": "Risk",
+    "admin": "Admin",
+    "executive": "Executive",
+    "hr": "HR",
+    "it": "IT",
+    "compliance": "Compliance",
+    "empty_state": "Use Demo Mode to navigate between pages"
+  },
+  "userSidebar": {
+    "title": "User Menu",
+    "overview": "Overview",
+    "profile": "My Profile",
+    "tasks": "Tasks",
+    "progress": "Progress",
+    "campaigns": "Campaigns",
+    "settings": "Settings"
+  },
+  "userSections": {
+    "profile": {
+      "description": "Manage your personal information and profile"
+    },
+    "tasks": {
+      "description": "Track and manage your daily tasks",
+      "viewAll": "View All"
+    },
+    "progress": {
+      "description": "Follow your progress and achievements",
+      "overall": "Overall Progress",
+      "monthly": "Monthly Progress"
+    },
+    "campaigns": {
+      "description": "View active awareness campaigns"
+    },
+    "settings": {
+      "description": "Customize your account settings and preferences",
+      "notifications": "Notification Settings",
+      "preferences": "Preferences",
+      "security": "Security & Privacy"
+    }
+  },
+  "pages": {
+    "user": {
+      "title": "User Dashboard",
+      "description": "Welcome to your user dashboard",
+      "startWizard": "Start Now",
+      "sections": {
+        "myTasks": "My Tasks",
+        "progress": "Progress",
+        "activeCampaigns": "Active Campaigns",
+        "latestDocs": "Latest Docs",
+        "profileSnapshot": "Profile Snapshot",
+        "notifications": "Notifications",
+        "dailyTip": "Daily Tip"
+      }
+    },
+    "awareness": {
+      "title": "Awareness Dashboard",
+      "description": "Manage awareness campaigns and programs",
+      "createCampaign": "Create Campaign",
+      "sections": {
+        "activeCampaigns": "Active Campaigns",
+        "performanceKPIs": "Performance KPIs",
+        "engagementFeed": "Engagement Feed",
+        "teamSnapshot": "Team Snapshot",
+        "campaignResults": "Campaign Results"
+      },
+      "tabs": {
+        "dashboard": "Dashboard",
+        "details": "Details",
+        "analytics": "Analytics"
+      }
+    },
+    "risk": {
+      "title": "Risk Dashboard",
+      "description": "Manage and assess enterprise risks",
+      "addRisk": "Add Risk",
+      "sections": {
+        "riskHeatmap": "Risk Heatmap",
+        "kpis": "Key Performance Indicators",
+        "activeRiskRegister": "Active Risk Register",
+        "dualEntry": "Dual Entry",
+        "combinedAnalytics": "Combined Analytics"
+      },
+      "tabs": {
+        "all": "All",
+        "critical": "Critical",
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low"
+      },
+      "dualEntry": {
+        "quickAdd": "Quick Add",
+        "detailView": "Detail View"
+      },
+      "analytics": {
+        "dashboard": "Dashboard",
+        "explorer": "Explorer"
+      }
+    },
+    "admin": {
+      "title": "Admin Dashboard",
+      "description": "Manage system and users",
+      "sections": {
+        "systemOverview": "System Overview",
+        "rbacMatrix": "RBAC Matrix",
+        "integrations": "Integrations",
+        "notificationsHub": "Notifications Hub"
+      }
+    },
+    "executive": {
+      "title": "Executive Dashboard",
+      "description": "Executive reports and KPIs",
+      "sections": {
+        "kpiCards": "KPI Cards",
+        "interactiveTabs": "Interactive Tabs",
+        "reports": "Reports",
+        "decisionSummary": "Decision Summary"
+      },
+      "tabs": {
+        "overview": "Overview",
+        "awareness": "Awareness",
+        "risk": "Risk",
+        "compliance": "Compliance"
+      },
+      "reports": {
+        "library": "Reports Library",
+        "viewer": "Reports Viewer"
+      }
+    },
+    "hr": {
+      "title": "HR Dashboard",
+      "description": "Manage employees and training",
+      "sections": {
+        "complianceTab": "Compliance Tab",
+        "performanceTab": "Performance Tab",
+        "reports": "Reports"
+      },
+      "reports": {
+        "quickExport": "Quick Export",
+        "customBuilder": "Custom Builder"
+      }
+    },
+    "it": {
+      "title": "IT Dashboard",
+      "description": "Manage IT infrastructure",
+      "sections": {
+        "activeTickets": "Active Tickets",
+        "performance": "Performance",
+        "aiSupportAssistant": "AI Support Assistant"
+      }
+    },
+    "compliance": {
+      "title": "Compliance Dashboard",
+      "description": "Track compliance with policies and regulations",
+      "sections": {
+        "complianceOverview": "Compliance Overview",
+        "registerTabs": "Register Tabs",
+        "reports": "Reports"
+      },
+      "tabs": {
+        "policies": "Policies",
+        "audits": "Audits",
+        "certifications": "Certifications",
+        "incidents": "Incidents"
+      },
+      "reports": {
+        "library": "Reports Library",
+        "interactiveViewer": "Interactive Viewer"
+      }
+    }
+  },
+  "roleGuard": {
+    "loading": "Checking permissions..."
+  },
+  "unauthorized": {
+    "title": "Access Denied",
+    "description": "You don't have permission to access this page",
+    "message": "It seems your current role doesn't allow access to this section. If you believe this is an error, please contact your system administrator.",
+    "goBack": "Go Back",
+    "goHome": "Go to Home"
+  },
+  "roleManagement": {
+    "title": "Role Management",
+    "description": "Assign and remove roles from users",
+    "overview": "Overview",
+    "management": "Management",
+    "note": "Note",
+    "noteMessage": "Tenant Settings have been moved to",
+    "requiresSuperAdmin": "Requires super_admin permission",
+    "permissionsMatrix": "Permissions Matrix",
+    "permissionsDescription": "Permissions associated with each role",
+    "users": "users",
+    "email": "Email",
+    "roles": "Roles",
+    "tenant": "Organization",
+    "actions": "Actions",
+    "manage": "Manage",
+    "noUsers": "No users found",
+    "manageRoles": "Manage Roles",
+    "manageRolesFor": "Manage roles for",
+    "currentRoles": "Current Roles",
+    "noRoles": "No roles assigned",
+    "assignNewRole": "Assign New Role",
+    "selectRole": "Select role...",
+    "close": "Close",
+    "roleAssigned": "Role assigned successfully",
+    "roleRemoved": "Role removed successfully",
+    "errors": {
+      "assignFailed": "Failed to assign role",
+      "removeFailed": "Failed to remove role"
+    }
+  },
+  "roleSelector": {
+    "switchRole": "Switch to another role"
+  },
+  "demoMode": {
+    "viewingAs": "Viewing as"
+  },
+  "roles": {
+    "super_admin": "Super Admin",
+    "tenant_admin": "Organization Admin",
+    "awareness_manager": "Awareness Manager",
+    "risk_manager": "Risk Manager",
+    "compliance_officer": "Compliance Officer",
+    "hr_manager": "HR Manager",
+    "it_manager": "IT Manager",
+    "executive": "Executive",
+    "employee": "Employee",
+    "admin": "Admin",
+    "analyst": "Analyst",
+    "manager": "Manager",
+    "viewer": "Viewer"
+  },
+  "roleDescriptions": {
+    "super_admin": "Full system and platform-level permissions",
+    "tenant_admin": "Complete organization and user management",
+    "awareness_manager": "Manage awareness campaigns and educational content",
+    "risk_manager": "Manage risks and security assessments",
+    "compliance_officer": "Monitor compliance, policies, and procedures",
+    "hr_manager": "Manage employee affairs and training",
+    "it_manager": "Manage IT infrastructure and systems",
+    "executive": "View reports and executive indicators",
+    "employee": "Regular employee with limited permissions",
+    "admin": "Legacy admin role from old system",
+    "analyst": "Legacy analyst role from old system",
+    "manager": "Legacy manager role from old system",
+    "viewer": "Legacy viewer role from old system"
+  }
+}

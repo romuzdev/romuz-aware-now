@@ -1,0 +1,153 @@
+{
+  "committees": {
+    "title": "اللجان",
+    "newCommittee": "لجنة جديدة",
+    "editCommittee": "تعديل اللجنة",
+    "deleteCommittee": "حذف اللجنة",
+    "committeeDetails": "تفاصيل اللجنة",
+    "code": "الرمز",
+    "name": "الاسم",
+    "nameAr": "الاسم بالعربية",
+    "description": "الوصف",
+    "status": "الحالة",
+    "nextMeeting": "الاجتماع القادم",
+    "updatedAt": "آخر تحديث",
+    "membersCount": "عدد الأعضاء",
+    "searchPlaceholder": "بحث عن لجنة...",
+    "noCommittees": "لا توجد لجان",
+    "noCommitteesDescription": "ابدأ بإنشاء لجنة جديدة",
+    "loadingCommittees": "جاري تحميل اللجان...",
+    "errorLoading": "خطأ في تحميل اللجان",
+    "tabs": {
+      "members": "الأعضاء",
+      "meetings": "الاجتماعات",
+      "timeline": "الأحداث"
+    },
+    "actions": {
+      "addMember": "إضافة عضو",
+      "newMeeting": "اجتماع جديد",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "status": {
+      "active": "نشطة",
+      "inactive": "غير نشطة",
+      "dissolved": "منحلة"
+    },
+    "members": {
+      "title": "أعضاء اللجنة",
+      "user": "المستخدم",
+      "role": "الدور",
+      "hasVotingRight": "حق التصويت",
+      "startDate": "تاريخ البداية",
+      "endDate": "تاريخ النهاية",
+      "noMembers": "لا يوجد أعضاء",
+      "addMember": "إضافة عضو"
+    },
+    "success": {
+      "created": "تم إنشاء اللجنة بنجاح",
+      "updated": "تم تحديث اللجنة بنجاح",
+      "deleted": "تم حذف اللجنة بنجاح"
+    },
+    "error": {
+      "create": "فشل إنشاء اللجنة",
+      "update": "فشل تحديث اللجنة",
+      "delete": "فشل حذف اللجنة",
+      "fetch": "فشل تحميل بيانات اللجنة"
+    }
+  },
+  "meetings": {
+    "title": "الاجتماعات",
+    "newMeeting": "اجتماع جديد",
+    "meetingDetails": "تفاصيل الاجتماع",
+    "number": "رقم الاجتماع",
+    "scheduledAt": "موعد الاجتماع",
+    "location": "المكان",
+    "status": "الحالة",
+    "notes": "ملاحظات",
+    "actualStartTime": "وقت البداية الفعلي",
+    "actualEndTime": "وقت النهاية الفعلي",
+    "attendanceNotes": "ملاحظات الحضور",
+    "closedAt": "تاريخ الإغلاق",
+    "closedBy": "تم الإغلاق بواسطة",
+    "noMeetings": "لا توجد اجتماعات",
+    "upcomingMeetings": "الاجتماعات القادمة",
+    "pastMeetings": "الاجتماعات السابقة",
+    "tabs": {
+      "agenda": "جدول الأعمال",
+      "decisions": "القرارات",
+      "followups": "المتابعات"
+    },
+    "actions": {
+      "addAgendaItem": "إضافة بند",
+      "addDecision": "إضافة قرار",
+      "closeMeeting": "إغلاق الاجتماع",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "status": {
+      "scheduled": "مجدول",
+      "in_progress": "جارٍ",
+      "completed": "مكتمل",
+      "cancelled": "ملغي"
+    },
+    "agenda": {
+      "title": "جدول الأعمال",
+      "sequence": "الترتيب",
+      "subject": "الموضوع",
+      "presenter": "مقدم الموضوع",
+      "durationMinutes": "المدة (دقيقة)",
+      "noItems": "لا توجد بنود في جدول الأعمال"
+    },
+    "decisions": {
+      "title": "القرارات",
+      "decisionText": "نص القرار",
+      "decisionType": "نوع القرار",
+      "votingResult": "نتيجة التصويت",
+      "noDecisions": "لا توجد قرارات"
+    },
+    "followups": {
+      "title": "المتابعات",
+      "description": "الوصف",
+      "assignedTo": "مكلف إلى",
+      "dueDate": "تاريخ الاستحقاق",
+      "status": "الحالة",
+      "noFollowups": "لا توجد متابعات",
+      "open": "مفتوحة",
+      "in_progress": "قيد التنفيذ",
+      "completed": "مكتملة",
+      "overdue": "متأخرة"
+    },
+    "success": {
+      "created": "تم إنشاء الاجتماع بنجاح",
+      "updated": "تم تحديث الاجتماع بنجاح",
+      "deleted": "تم حذف الاجتماع بنجاح",
+      "closed": "تم إغلاق الاجتماع بنجاح"
+    },
+    "error": {
+      "create": "فشل إنشاء الاجتماع",
+      "update": "فشل تحديث الاجتماع",
+      "delete": "فشل حذف الاجتماع",
+      "close": "فشل إغلاق الاجتماع",
+      "fetch": "فشل تحميل بيانات الاجتماع"
+    }
+  },
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "create": "إنشاء",
+    "search": "بحث",
+    "filter": "تصفية",
+    "actions": "الإجراءات",
+    "yes": "نعم",
+    "no": "لا",
+    "back": "رجوع",
+    "next": "التالي",
+    "previous": "السابق",
+    "close": "إغلاق"
+  }
+}

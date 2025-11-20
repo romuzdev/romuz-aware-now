@@ -1,0 +1,110 @@
+project_id = "varbgkrfwbgzmkkxpqjg"
+
+# ============================================================================
+# Gate-H: Action Plans Automation
+# ============================================================================
+
+[functions.action-plan-reminders]
+verify_jwt = false  # System job - called by cron or manually
+
+[functions.action-plan-escalation]
+verify_jwt = false  # System job - called by cron or manually
+
+# ============================================================================
+# Gate-P: Tenant Lifecycle Management
+# ============================================================================
+
+[functions.gate-p-periodic-jobs]
+verify_jwt = false  # System job - called by cron
+
+[functions.gate-p-tenant-settings]
+verify_jwt = true  # Requires authentication - system_admin only
+
+# ============================================================================
+# Gate-E: Edge Functions Configuration
+# ============================================================================
+
+[functions.refresh-kpis]
+verify_jwt = false  # System job - called by cron
+
+[functions.detect-drift]
+verify_jwt = false  # System job - called by cron
+
+[functions.dispatch-alerts]
+verify_jwt = false  # System job - called by cron
+
+[functions.gate-e-closeout]
+verify_jwt = false  # Smoke test utility - admin only
+
+# ============================================================================
+# Gate-F: Reports Export API
+# ============================================================================
+
+[functions.export-report]
+verify_jwt = true  # Requires authentication + export_reports permission
+
+# ============================================================================
+# Gate-G: Documents & Attachments Hub - M10 Smart Documents
+# ============================================================================
+
+[functions.document-ocr]
+verify_jwt = true  # Requires authentication - OCR extraction via Lovable AI
+
+# ============================================================================
+# Gate-J: Awareness Impact Engine
+# ============================================================================
+
+[functions.compute-impact-scores]
+verify_jwt = true  # Requires authentication - admin only
+
+[functions.validate-impact-scores]
+verify_jwt = true  # Requires authentication - validation jobs
+
+# ============================================================================
+# Gate-N: Admin Console API
+# ============================================================================
+
+[functions.gate-n-status]
+verify_jwt = true  # Requires authentication - tenant_admin or system_admin only
+
+[functions.gate-n-jobs]
+verify_jwt = true  # Requires authentication - tenant_admin or system_admin only
+
+[functions.gate-n-trigger]
+verify_jwt = true  # Requires authentication - tenant_admin or system_admin only
+
+[functions.gate-n-health-check]
+verify_jwt = true  # Requires authentication - tenant_admin or system_admin only
+
+# ============================================================================
+# Gate-N: Job Dependencies Management
+# ============================================================================
+
+[functions.gate-n-dependencies]
+verify_jwt = true  # Requires authentication - admin or super_admin only
+
+# ============================================================================
+# Gate-M: Master Data Acceptance Tests
+# ============================================================================
+
+[functions.gate-m-acceptance]
+verify_jwt = true  # Requires authentication - admin testing
+
+[functions.seed-gate-m-demo]
+verify_jwt = true  # Requires authentication - demo data generation
+
+# ============================================================================
+# Gate-M15: Integrations Framework
+# ============================================================================
+
+[functions.slack-notify]
+verify_jwt = true  # Requires authentication - send Slack notifications
+
+[functions.google-drive-sync]
+verify_jwt = true  # Requires authentication - sync Google Drive files
+
+[functions.webhook-receiver]
+verify_jwt = false  # Public endpoint - verifies signature internally
+
+[functions.odoo-sync]
+verify_jwt = true  # Requires authentication - sync Odoo ERP data

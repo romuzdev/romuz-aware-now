@@ -1,0 +1,454 @@
+{
+  "common": {
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "create": "إنشاء",
+    "search": "بحث",
+    "filter": "تصفية",
+    "export": "تصدير",
+    "import": "استيراد",
+    "view": "عرض",
+    "viewAll": "عرض الكل",
+    "viewDetails": "عرض التفاصيل",
+    "back": "رجوع",
+    "next": "التالي",
+    "previous": "السابق",
+    "submit": "إرسال",
+    "loading": "جاري التحميل...",
+    "noData": "لا توجد بيانات",
+    "error": "حدث خطأ",
+    "success": "نجحت العملية",
+    "actions": "الإجراءات",
+    "status": "الحالة",
+    "date": "التاريخ",
+    "name": "الاسم",
+    "description": "الوصف",
+    "title": "العنوان",
+    "settings": "الإعدادات",
+    "general": "عام",
+    "notifications": "الإشعارات",
+    "close": "إغلاق",
+    "confirm": "تأكيد"
+  },
+  "sidebar": {
+    "apps": "التطبيقات",
+    "navigation": "القائمة",
+    "noAppsAvailable": "لا توجد تطبيقات متاحة",
+    "placeholder": "المحتوى سيتم إضافته قريباً",
+    "settings": "الإعدادات",
+    "help": "المساعدة",
+    "logout": "تسجيل الخروج"
+  },
+  "userSidebar": {
+    "title": "قائمة المستخدم",
+    "overview": "نظرة عامة",
+    "profile": "ملفي الشخصي",
+    "tasks": "المهام",
+    "progress": "التقدم",
+    "campaigns": "الحملات",
+    "settings": "الإعدادات"
+  },
+  "awareness": {
+    "title": "التوعية الأمنية",
+    "dashboard": {
+      "title": "لوحة التوعية",
+      "description": "مراقبة أداء حملات التوعية والاتجاهات",
+      "exportKPIs": "تصدير مؤشرات الأداء",
+      "topCampaigns": "أفضل الحملات",
+      "bottomCampaigns": "الحملات الأضعف",
+      "topPerforming": "الحملات الأفضل أداءً",
+      "needingAttention": "حملات تحتاج انتباهاً"
+    },
+    "campaigns": {
+      "title": "حملات التوعية",
+      "description": "إدارة برامج التوعية وتتبع المشاركة",
+      "newCampaign": "حملة جديدة",
+      "stats": {
+        "total": "الإجمالي",
+        "active": "نشطة",
+        "scheduled": "مجدولة",
+        "completed": "مكتملة"
+      }
+    },
+    "policies": {
+      "title": "السياسات",
+      "description": "إدارة وتتبع سياسات التوعية الأمنية",
+      "newPolicy": "إضافة سياسة",
+      "addPolicy": "إضافة سياسة"
+    },
+    "committees": {
+      "title": "اللجان",
+      "newCommittee": "لجنة جديدة",
+      "editCommittee": "تعديل اللجنة",
+      "deleteCommittee": "حذف اللجنة",
+      "committeeDetails": "تفاصيل اللجنة",
+      "code": "الكود",
+      "name": "الاسم",
+      "description": "الوصف",
+      "status": "الحالة",
+      "membersCount": "عضواً",
+      "updatedAt": "آخر تحديث",
+      "noCommittees": "لا توجد عروض محفوظة بعد",
+      "errorLoading": "خطأ في تحميل البيانات",
+      "addMember": "إضافة عضو",
+      "selectUser": "اختر مستخدماً",
+      "member": "العضو",
+      "memberRole": "الدور",
+      "selectRole": "اختر الدور",
+      "addMemberDescription": "إضافة عضو جديد للجنة",
+      "status": {
+        "active": "نشطة",
+        "inactive": "غير نشطة",
+        "dissolved": "منحلة"
+      },
+      "tabs": {
+        "members": "الأعضاء",
+        "meetings": "الاجتماعات",
+        "timeline": "الجدول الزمني"
+      },
+      "members": {
+        "title": "أعضاء اللجنة",
+        "user": "المستخدم",
+        "role": "الدور",
+        "hasVotingRight": "حق التصويت",
+        "startDate": "تاريخ البداية",
+        "endDate": "تاريخ النهاية",
+        "noMembers": "لا يوجد أعضاء بعد"
+      },
+      "actions": {
+        "edit": "تعديل",
+        "delete": "حذف"
+      },
+      "success": {
+        "created": "تم إنشاء اللجنة بنجاح",
+        "updated": "تم تحديث اللجنة بنجاح",
+        "deleted": "تم حذف اللجنة بنجاح",
+        "memberAdded": "تم إضافة العضو بنجاح"
+      },
+      "error": {
+        "create": "فشل إنشاء اللجنة",
+        "update": "فشل تحديث اللجنة",
+        "delete": "فشل حذف اللجنة",
+        "fetch": "خطأ في تحميل البيانات",
+        "addMember": "فشل إضافة العضو"
+      }
+    },
+    "settings": {
+      "title": "إعدادات التوعية",
+      "description": "إدارة إعدادات الحملات والمحتوى ومؤشرات الأداء",
+      "general": {
+        "title": "عام",
+        "description": "العلامة التجارية واللغات والسلوكيات الافتراضية"
+      },
+      "notifications": {
+        "title": "الإشعارات",
+        "description": "التحكم في التنبيهات وإشعارات المستخدمين لأحداث التوعية"
+      }
+    },
+    "content": {
+      "title": "مكتبة المحتوى",
+      "description": "تصفح وإدارة مواد ومصادر التوعية",
+      "noContent": "سيتم عرض المقالات والفيديوهات والمستندات عند الاتصال"
+    }
+  },
+  "documents": {
+    "title": "العنوان",
+    "type": "النوع",
+    "status": "الحالة",
+    "updatedAt": "آخر تحديث",
+    "searchPlaceholder": "البحث في المستندات...",
+    "filterByStatus": "تصفية حسب الحالة",
+    "filterByType": "تصفية حسب النوع",
+    "allStatuses": "جميع الحالات",
+    "allTypes": "جميع الأنواع",
+    "createNew": "إنشاء مستند جديد",
+    "noDocumentsFound": "لا توجد مستندات",
+    "download": "تحميل",
+    "type": {
+      "policy": "سياسة",
+      "procedure": "إجراء",
+      "guideline": "دليل إرشادي",
+      "template": "نموذج",
+      "report": "تقرير",
+      "awareness_material": "مادة توعوية",
+      "other": "أخرى"
+    },
+    "status": {
+      "draft": "مسودة",
+      "review": "قيد المراجعة",
+      "approved": "معتمد",
+      "published": "منشور",
+      "active": "نشط",
+      "archived": "مؤرشف"
+    }
+  },
+  "grc": {
+    "documents": {
+      "title": "مستندات GRC",
+      "description": "إدارة مستندات المخاطر والامتثال"
+    }
+  },
+  "audit": {
+    "documents": {
+      "title": "مستندات المراجعة",
+      "description": "إدارة تقارير المراجعة الداخلية والخارجية"
+    }
+  },
+  "committees": {
+    "documents": {
+      "title": "مستندات اللجان",
+      "description": "إدارة محاضر الاجتماعات، القرارات، والمستندات الداعمة"
+    }
+  },
+  "backup": {
+    "title": "النسخ الاحتياطي والاستعادة",
+    "description": "إدارة النسخ الاحتياطية واستعادة البيانات",
+    "tabs": {
+      "backups": "النسخ الاحتياطية",
+      "schedules": "الجدولة التلقائية",
+      "restore": "الاستعادة",
+      "pitr": "الاستعادة النقطية",
+      "logs": "سجل التغييرات",
+      "monitoring": "المراقبة"
+    },
+    "manager": {
+      "title": "إدارة النسخ الاحتياطية",
+      "description": "عرض وإدارة جميع النسخ الاحتياطية",
+      "newBackup": "نسخة احتياطية جديدة",
+      "refresh": "تحديث",
+      "refreshed": "تم التحديث",
+      "refreshDescription": "تم تحديث قائمة النسخ الاحتياطية",
+      "createBackup": "إنشاء نسخة احتياطية",
+      "createDescription": "إنشاء نسخة احتياطية جديدة من البيانات",
+      "backupName": "اسم النسخة",
+      "backupNamePlaceholder": "اختياري - اسم وصفي للنسخة",
+      "backupType": "نوع النسخة",
+      "backupDescription": "الوصف",
+      "backupDescriptionPlaceholder": "اختياري - وصف للنسخة الاحتياطية",
+      "startBackup": "بدء النسخ",
+      "creating": "جاري الإنشاء...",
+      "backupStarted": "تم بدء النسخ الاحتياطي",
+      "backupStartedDescription": "جاري تنفيذ عملية النسخ الاحتياطي...",
+      "backupFailed": "فشل إنشاء النسخة الاحتياطية",
+      "deleteConfirm": "هل أنت متأكد من حذف هذه النسخة الاحتياطية؟",
+      "deleteSuccess": "تم الحذف بنجاح",
+      "deleteDescription": "تم حذف النسخة الاحتياطية",
+      "downloadSuccess": "تم بدء التحميل",
+      "downloadDescription": "جاري تحميل ملف النسخة الاحتياطية",
+      "downloadFailed": "فشل التحميل",
+      "table": {
+        "name": "الاسم",
+        "type": "النوع",
+        "status": "الحالة",
+        "size": "الحجم",
+        "duration": "المدة",
+        "created": "تاريخ الإنشاء",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "download": "تحميل",
+        "delete": "حذف",
+        "restore": "استعادة",
+        "viewDetails": "عرض التفاصيل"
+      },
+      "types": {
+        "full": "نسخة كاملة",
+        "incremental": "نسخة تزايدية",
+        "differential": "نسخة تفاضلية"
+      },
+      "status": {
+        "pending": "قيد الانتظار",
+        "running": "جاري التنفيذ",
+        "completed": "مكتمل",
+        "failed": "فشل",
+        "cancelled": "ملغي"
+      }
+    },
+    "scheduler": {
+      "title": "جدولة النسخ الاحتياطي",
+      "description": "إنشاء وإدارة جداول النسخ الاحتياطي التلقائية",
+      "newSchedule": "جدولة جديدة",
+      "refresh": "تحديث",
+      "refreshed": "تم التحديث",
+      "refreshDescription": "تم تحديث جدول النسخ الاحتياطي",
+      "createSchedule": "إنشاء جدولة",
+      "createDescription": "إنشاء جدول نسخ احتياطي تلقائي",
+      "scheduleName": "اسم الجدولة",
+      "scheduleNamePlaceholder": "مثال: نسخة احتياطية يومية",
+      "backupType": "نوع النسخة",
+      "cronExpression": "تعبير Cron",
+      "cronHelp": "صيغة Cron (مثال: 0 2 * * * للساعة 2 صباحاً يومياً)",
+      "description": "الوصف",
+      "descriptionPlaceholder": "اختياري - وصف للجدولة",
+      "retentionDays": "أيام الاحتفاظ",
+      "retentionHelp": "عدد الأيام للاحتفاظ بالنسخ الاحتياطية",
+      "maxBackups": "الحد الأقصى للنسخ",
+      "maxBackupsHelp": "أقصى عدد من النسخ الاحتياطية للاحتفاظ بها",
+      "scheduleCreated": "تم إنشاء الجدولة",
+      "scheduleCreatedDescription": "تم إنشاء جدولة النسخ الاحتياطي بنجاح",
+      "scheduleFailed": "فشل الإنشاء",
+      "deleteConfirm": "هل أنت متأكد من حذف هذه الجدولة؟",
+      "deleteSuccess": "تم الحذف",
+      "deleteDescription": "تم حذف الجدولة بنجاح",
+      "table": {
+        "name": "اسم الجدولة",
+        "type": "النوع",
+        "schedule": "الجدول",
+        "nextRun": "التشغيل القادم",
+        "lastRun": "آخر تشغيل",
+        "status": "الحالة",
+        "enabled": "مفعّل",
+        "actions": "الإجراءات"
+      },
+      "presets": {
+        "daily": "يومياً (2:00 ص)",
+        "weekly": "أسبوعياً (الأحد 2:00 ص)",
+        "monthly": "شهرياً (اليوم الأول 2:00 ص)"
+      }
+    },
+    "monitoring": {
+      "title": "مراقبة النسخ الاحتياطي",
+      "refreshed": "تم تحديث البيانات",
+      "refreshDescription": "تم تحديث بيانات المراقبة بنجاح",
+      "automation": {
+        "title": "الجدولة التلقائية نشطة",
+        "active": "الجداول النشطة",
+        "schedules": "جدولة",
+        "failed": "فشلت"
+      },
+      "description": "لوحة مراقبة الأداء والإحصائيات",
+      "refresh": "تحديث",
+      "refreshed": "تم التحديث",
+      "refreshDescription": "تم تحديث بيانات المراقبة",
+      "statistics": {
+        "title": "الإحصائيات الإجمالية",
+        "totalBackups": "إجمالي النسخ",
+        "completedBackups": "النسخ المكتملة",
+        "failedBackups": "النسخ الفاشلة",
+        "totalSize": "الحجم الإجمالي",
+        "avgDuration": "متوسط المدة",
+        "successRate": "معدل النجاح"
+      },
+      "storage": {
+        "title": "معلومات التخزين",
+        "used": "المستخدم",
+        "limit": "الحد الأقصى",
+        "available": "المتاح",
+        "usage": "الاستخدام"
+      },
+      "recentBackups": {
+        "title": "النسخ الاحتياطية الأخيرة",
+        "table": {
+          "name": "الاسم",
+          "type": "النوع",
+          "status": "الحالة",
+          "size": "الحجم",
+          "date": "التاريخ"
+        }
+      },
+      "restoreLogs": {
+        "title": "سجلات الاستعادة",
+        "table": {
+          "type": "النوع",
+          "status": "الحالة",
+          "date": "التاريخ",
+          "duration": "المدة"
+        }
+      },
+      "alerts": {
+        "warning": "تحذير",
+        "highStorage": "استخدام التخزين مرتفع",
+        "highStorageDescription": "استخدام التخزين فوق {percentage}٪"
+      },
+      "analytics": {
+        "trend": {
+          "title": "اتجاه المشاركة اليومي",
+          "empty": "لا توجد بيانات مشاركة ضمن عوامل التصفية المحددة",
+          "series": {
+            "started": "بدأ",
+            "completed": "أكمل",
+            "avgScore": "متوسط التقييم"
+          }
+        },
+        "kpis": {
+          "totalParticipants": "إجمالي المشاركين",
+          "started": "بدأوا",
+          "completed": "أكملوا",
+          "completionRate": "معدل الإكمال",
+          "avgScore": "متوسط التقييم",
+          "overdue": "متأخر"
+        },
+        "filters": {
+          "dateRange": "النطاق الزمني",
+          "presets": {
+            "30d": "آخر 30 يوماً",
+            "90d": "آخر 90 يوماً",
+            "this_month": "هذا الشهر",
+            "custom": "نطاق مخصص"
+          },
+          "from": "من",
+          "to": "إلى",
+          "pickDate": "اختر تاريخاً",
+          "owner": "المالك",
+          "ownerPlaceholder": "تصفية حسب المالك...",
+          "status": "الحالة",
+          "statuses": {
+            "all": "الكل",
+            "not_started": "لم يبدأ",
+            "in_progress": "قيد التنفيذ",
+            "completed": "مكتمل"
+          },
+          "campaign": "الحملة",
+          "allCampaigns": "كل الحملات",
+          "clear": "إعادة تعيين"
+        },
+        "table": {
+          "headers": {
+            "campaign": "الحملة",
+            "owner": "المالك",
+            "participants": "المشاركون",
+            "completionRate": "معدل الإكمال",
+            "avgScore": "متوسط التقييم",
+            "actions": "الإجراءات"
+          },
+          "empty": "لا توجد حملات",
+          "open": "فتح"
+        }
+      }
+    }
+  },
+  "lms": {
+    "dashboard": {
+      "title": "لوحة تحكم المدير",
+      "subtitle": "نظرة عامة على نظام إدارة التدريب",
+      "newCourse": "دورة جديدة",
+      "totalCourses": "الدورات التدريبية",
+      "coursesDesc": "دورات نشطة ومنشورة",
+      "totalEnrollments": "التسجيلات",
+      "enrollmentsDesc": "طلاب مسجلين",
+      "totalAssessments": "الاختبارات",
+      "assessmentsDesc": "اختبارات تقييمية",
+      "totalCertificates": "الشهادات",
+      "certificatesDesc": "شهادات صادرة",
+      "viewAll": "عرض الكل",
+      "viewDetails": "عرض التفاصيل",
+      "topCourses": "أكثر الدورات تسجيلاً",
+      "topCoursesDesc": "الدورات الأعلى في التسجيلات",
+      "noCourses": "لا توجد دورات حالياً",
+      "course": "الدورة",
+      "enrollments": "التسجيلات",
+      "completionRate": "معدل الإنجاز",
+      "recentActivity": "النشاط الأخير",
+      "recentActivityDesc": "آخر الأنشطة في النظام",
+      "view": "عرض",
+      "quickActions": "الإجراءات السريعة",
+      "createNewCourse": "إنشاء دورة تدريبية جديدة",
+      "manageCertificates": "إدارة قوالب الشهادات",
+      "viewReports": "عرض التقارير والتحليلات",
+      "enrollmentsCount": "{{count}} تسجيل",
+      "completionPercent": "{{percent}}% معدل الإكمال"
+    }
+  }
+}

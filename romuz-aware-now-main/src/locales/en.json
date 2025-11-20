@@ -1,0 +1,454 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "search": "Search",
+    "filter": "Filter",
+    "export": "Export",
+    "import": "Import",
+    "view": "View",
+    "viewAll": "View All",
+    "viewDetails": "View Details",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "loading": "Loading...",
+    "noData": "No data available",
+    "error": "An error occurred",
+    "success": "Operation successful",
+    "actions": "Actions",
+    "status": "Status",
+    "date": "Date",
+    "name": "Name",
+    "description": "Description",
+    "title": "Title",
+    "settings": "Settings",
+    "general": "General",
+    "notifications": "Notifications",
+    "close": "Close",
+    "confirm": "Confirm"
+  },
+  "sidebar": {
+    "apps": "Applications",
+    "navigation": "Navigation",
+    "noAppsAvailable": "No apps available",
+    "placeholder": "Content coming soon",
+    "settings": "Settings",
+    "help": "Help",
+    "logout": "Logout"
+  },
+  "userSidebar": {
+    "title": "User Menu",
+    "overview": "Overview",
+    "profile": "Profile",
+    "tasks": "Tasks",
+    "progress": "Progress",
+    "campaigns": "Campaigns",
+    "settings": "Settings"
+  },
+  "awareness": {
+    "title": "Security Awareness",
+    "dashboard": {
+      "title": "Awareness Dashboard",
+      "description": "Monitor awareness campaigns performance and trends",
+      "exportKPIs": "Export KPIs",
+      "topCampaigns": "Top Campaigns",
+      "bottomCampaigns": "Bottom Campaigns",
+      "topPerforming": "Top Performing Campaigns",
+      "needingAttention": "Campaigns Needing Attention"
+    },
+    "campaigns": {
+      "title": "Awareness Campaigns",
+      "description": "Manage awareness programs and track engagement",
+      "newCampaign": "New Campaign",
+      "stats": {
+        "total": "Total",
+        "active": "Active",
+        "scheduled": "Scheduled",
+        "completed": "Completed"
+      }
+    },
+    "policies": {
+      "title": "Policies",
+      "description": "Manage and track security awareness policies",
+      "newPolicy": "Add Policy",
+      "addPolicy": "Add Policy"
+    },
+    "committees": {
+      "title": "Committees",
+      "newCommittee": "New Committee",
+      "editCommittee": "Edit Committee",
+      "deleteCommittee": "Delete Committee",
+      "committeeDetails": "Committee Details",
+      "code": "Code",
+      "name": "Name",
+      "description": "Description",
+      "status": "Status",
+      "membersCount": "members",
+      "updatedAt": "Updated At",
+      "noCommittees": "No saved views yet",
+      "errorLoading": "Error loading data",
+      "addMember": "Add Member",
+      "selectUser": "Select a user",
+      "member": "Member",
+      "memberRole": "Role",
+      "selectRole": "Select a role",
+      "addMemberDescription": "Add a new member to the committee",
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "dissolved": "Dissolved"
+      },
+      "tabs": {
+        "members": "Members",
+        "meetings": "Meetings",
+        "timeline": "Timeline"
+      },
+      "members": {
+        "title": "Committee Members",
+        "user": "User",
+        "role": "Role",
+        "hasVotingRight": "Voting Right",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "noMembers": "No members yet"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "success": {
+        "created": "Committee created successfully",
+        "updated": "Committee updated successfully",
+        "deleted": "Committee deleted successfully",
+        "memberAdded": "Member added successfully"
+      },
+      "error": {
+        "create": "Failed to create committee",
+        "update": "Failed to update committee",
+        "delete": "Failed to delete committee",
+        "fetch": "Error loading data",
+        "addMember": "Failed to add member"
+      }
+    },
+    "settings": {
+      "title": "Awareness Settings",
+      "description": "Manage configurations for campaigns, content, and KPIs",
+      "general": {
+        "title": "General",
+        "description": "Branding, locales, and default behaviors"
+      },
+      "notifications": {
+        "title": "Notifications",
+        "description": "Control alerts and user notifications for awareness events"
+      }
+    },
+    "content": {
+      "title": "Content Hub",
+      "description": "Browse and manage awareness materials and resources",
+      "noContent": "Articles, videos, and documents will be listed once connected"
+    }
+  },
+  "documents": {
+    "title": "Title",
+    "type": "Type",
+    "status": "Status",
+    "updatedAt": "Last Updated",
+    "searchPlaceholder": "Search documents...",
+    "filterByStatus": "Filter by Status",
+    "filterByType": "Filter by Type",
+    "allStatuses": "All Statuses",
+    "allTypes": "All Types",
+    "createNew": "Create New Document",
+    "noDocumentsFound": "No documents found",
+    "download": "Download",
+    "type": {
+      "policy": "Policy",
+      "procedure": "Procedure",
+      "guideline": "Guideline",
+      "template": "Template",
+      "report": "Report",
+      "awareness_material": "Awareness Material",
+      "other": "Other"
+    },
+    "status": {
+      "draft": "Draft",
+      "review": "In Review",
+      "approved": "Approved",
+      "published": "Published",
+      "active": "Active",
+      "archived": "Archived"
+    }
+  },
+  "grc": {
+    "documents": {
+      "title": "GRC Documents",
+      "description": "Manage risk and compliance documents"
+    }
+  },
+  "audit": {
+    "documents": {
+      "title": "Audit Documents",
+      "description": "Manage internal and external audit reports"
+    }
+  },
+  "committees": {
+    "documents": {
+      "title": "Committee Documents",
+      "description": "Manage meeting minutes, decisions, and supporting documents"
+    }
+  },
+  "backup": {
+    "title": "Backup & Recovery",
+    "description": "Manage backups and restore data",
+    "tabs": {
+      "backups": "Backups",
+      "schedules": "Automatic Scheduling",
+      "restore": "Restore",
+      "pitr": "Point-in-Time Recovery",
+      "logs": "Transaction Logs",
+      "monitoring": "Monitoring"
+    },
+    "manager": {
+      "title": "Backup Management",
+      "description": "View and manage all backups",
+      "newBackup": "New Backup",
+      "refresh": "Refresh",
+      "refreshed": "Refreshed",
+      "refreshDescription": "Backup list updated",
+      "createBackup": "Create Backup",
+      "createDescription": "Create a new backup of the data",
+      "backupName": "Backup Name",
+      "backupNamePlaceholder": "Optional - descriptive name for the backup",
+      "backupType": "Backup Type",
+      "backupDescription": "Description",
+      "backupDescriptionPlaceholder": "Optional - description of the backup",
+      "startBackup": "Start Backup",
+      "creating": "Creating...",
+      "backupStarted": "Backup Started",
+      "backupStartedDescription": "Backup operation in progress...",
+      "backupFailed": "Backup Creation Failed",
+      "deleteConfirm": "Are you sure you want to delete this backup?",
+      "deleteSuccess": "Deleted Successfully",
+      "deleteDescription": "Backup has been deleted",
+      "downloadSuccess": "Download Started",
+      "downloadDescription": "Downloading backup file",
+      "downloadFailed": "Download Failed",
+      "table": {
+        "name": "Name",
+        "type": "Type",
+        "status": "Status",
+        "size": "Size",
+        "duration": "Duration",
+        "created": "Created",
+        "actions": "Actions"
+      },
+      "actions": {
+        "download": "Download",
+        "delete": "Delete",
+        "restore": "Restore",
+        "viewDetails": "View Details"
+      },
+      "types": {
+        "full": "Full Backup",
+        "incremental": "Incremental Backup",
+        "differential": "Differential Backup"
+      },
+      "status": {
+        "pending": "Pending",
+        "running": "Running",
+        "completed": "Completed",
+        "failed": "Failed",
+        "cancelled": "Cancelled"
+      }
+    },
+    "scheduler": {
+      "title": "Backup Scheduling",
+      "description": "Create and manage automatic backup schedules",
+      "newSchedule": "New Schedule",
+      "refresh": "Refresh",
+      "refreshed": "Refreshed",
+      "refreshDescription": "Backup schedule updated",
+      "createSchedule": "Create Schedule",
+      "createDescription": "Create an automatic backup schedule",
+      "scheduleName": "Schedule Name",
+      "scheduleNamePlaceholder": "Example: Daily Backup",
+      "backupType": "Backup Type",
+      "cronExpression": "Cron Expression",
+      "cronHelp": "Cron format (example: 0 2 * * * for 2 AM daily)",
+      "description": "Description",
+      "descriptionPlaceholder": "Optional - schedule description",
+      "retentionDays": "Retention Days",
+      "retentionHelp": "Number of days to keep backups",
+      "maxBackups": "Max Backups",
+      "maxBackupsHelp": "Maximum number of backups to retain",
+      "scheduleCreated": "Schedule Created",
+      "scheduleCreatedDescription": "Backup schedule created successfully",
+      "scheduleFailed": "Creation Failed",
+      "deleteConfirm": "Are you sure you want to delete this schedule?",
+      "deleteSuccess": "Deleted",
+      "deleteDescription": "Schedule deleted successfully",
+      "table": {
+        "name": "Schedule Name",
+        "type": "Type",
+        "schedule": "Schedule",
+        "nextRun": "Next Run",
+        "lastRun": "Last Run",
+        "status": "Status",
+        "enabled": "Enabled",
+        "actions": "Actions"
+      },
+      "presets": {
+        "daily": "Daily (2:00 AM)",
+        "weekly": "Weekly (Sunday 2:00 AM)",
+        "monthly": "Monthly (1st day 2:00 AM)"
+      }
+    },
+    "monitoring": {
+      "title": "Backup Monitoring",
+      "refreshed": "Data Refreshed",
+      "refreshDescription": "Monitoring data updated successfully",
+      "automation": {
+        "title": "Automated Scheduling Active",
+        "active": "Active Schedules",
+        "schedules": "schedule(s)",
+        "failed": "failed"
+      },
+      "description": "Performance monitoring dashboard and statistics",
+      "refresh": "Refresh",
+      "refreshed": "Refreshed",
+      "refreshDescription": "Monitoring data updated",
+      "statistics": {
+        "title": "Overall Statistics",
+        "totalBackups": "Total Backups",
+        "completedBackups": "Completed Backups",
+        "failedBackups": "Failed Backups",
+        "totalSize": "Total Size",
+        "avgDuration": "Avg Duration",
+        "successRate": "Success Rate"
+      },
+      "storage": {
+        "title": "Storage Information",
+        "used": "Used",
+        "limit": "Limit",
+        "available": "Available",
+        "usage": "Usage"
+      },
+      "recentBackups": {
+        "title": "Recent Backups",
+        "table": {
+          "name": "Name",
+          "type": "Type",
+          "status": "Status",
+          "size": "Size",
+          "date": "Date"
+        }
+      },
+      "restoreLogs": {
+        "title": "Restore Logs",
+        "table": {
+          "type": "Type",
+          "status": "Status",
+          "date": "Date",
+          "duration": "Duration"
+        }
+      },
+      "alerts": {
+        "warning": "Warning",
+        "highStorage": "High Storage Usage",
+        "highStorageDescription": "Storage usage above {percentage}%"
+      },
+      "analytics": {
+        "trend": {
+          "title": "Daily Engagement Trend",
+          "empty": "No engagement data available for the selected filters",
+          "series": {
+            "started": "Started",
+            "completed": "Completed",
+            "avgScore": "Avg Score"
+          }
+        },
+        "kpis": {
+          "totalParticipants": "Total Participants",
+          "started": "Started",
+          "completed": "Completed",
+          "completionRate": "Completion Rate",
+          "avgScore": "Avg Score",
+          "overdue": "Overdue"
+        },
+        "filters": {
+          "dateRange": "Date Range",
+          "presets": {
+            "30d": "Last 30 Days",
+            "90d": "Last 90 Days",
+            "this_month": "This Month",
+            "custom": "Custom Range"
+          },
+          "from": "From",
+          "to": "To",
+          "pickDate": "Pick a date",
+          "owner": "Owner",
+          "ownerPlaceholder": "Filter by owner...",
+          "status": "Status",
+          "statuses": {
+            "all": "All",
+            "not_started": "Not Started",
+            "in_progress": "In Progress",
+            "completed": "Completed"
+          },
+          "campaign": "Campaign",
+          "allCampaigns": "All Campaigns",
+          "clear": "Clear"
+        },
+        "table": {
+          "headers": {
+            "campaign": "Campaign",
+            "owner": "Owner",
+            "participants": "Participants",
+            "completionRate": "Completion Rate",
+            "avgScore": "Avg Score",
+            "actions": "Actions"
+          },
+          "empty": "No campaigns found",
+          "open": "Open"
+        }
+      }
+    }
+  },
+  "lms": {
+    "dashboard": {
+      "title": "Admin Dashboard",
+      "subtitle": "Overview of Training Management System",
+      "newCourse": "New Course",
+      "totalCourses": "Courses",
+      "coursesDesc": "Active and published courses",
+      "totalEnrollments": "Enrollments",
+      "enrollmentsDesc": "Registered students",
+      "totalAssessments": "Assessments",
+      "assessmentsDesc": "Assessment tests",
+      "totalCertificates": "Certificates",
+      "certificatesDesc": "Issued certificates",
+      "viewAll": "View All",
+      "viewDetails": "View Details",
+      "topCourses": "Top Courses by Enrollment",
+      "topCoursesDesc": "Courses with highest enrollments",
+      "noCourses": "No courses available yet",
+      "course": "Course",
+      "enrollments": "Enrollments",
+      "completionRate": "Completion Rate",
+      "recentActivity": "Recent Activity",
+      "recentActivityDesc": "Latest activities in the system",
+      "view": "View",
+      "quickActions": "Quick Actions",
+      "createNewCourse": "Create New Course",
+      "manageCertificates": "Manage Certificate Templates",
+      "viewReports": "View Reports & Analytics",
+      "enrollmentsCount": "{{count}} enrollments",
+      "completionPercent": "{{percent}}% completion"
+    }
+  }
+}

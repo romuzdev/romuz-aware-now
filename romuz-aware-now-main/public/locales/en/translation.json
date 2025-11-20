@@ -1,0 +1,153 @@
+{
+  "committees": {
+    "title": "Committees",
+    "newCommittee": "New Committee",
+    "editCommittee": "Edit Committee",
+    "deleteCommittee": "Delete Committee",
+    "committeeDetails": "Committee Details",
+    "code": "Code",
+    "name": "Name",
+    "nameAr": "Arabic Name",
+    "description": "Description",
+    "status": "Status",
+    "nextMeeting": "Next Meeting",
+    "updatedAt": "Last Updated",
+    "membersCount": "Members Count",
+    "searchPlaceholder": "Search for a committee...",
+    "noCommittees": "No committees found",
+    "noCommitteesDescription": "Start by creating a new committee",
+    "loadingCommittees": "Loading committees...",
+    "errorLoading": "Error loading committees",
+    "tabs": {
+      "members": "Members",
+      "meetings": "Meetings",
+      "timeline": "Timeline"
+    },
+    "actions": {
+      "addMember": "Add Member",
+      "newMeeting": "New Meeting",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "dissolved": "Dissolved"
+    },
+    "members": {
+      "title": "Committee Members",
+      "user": "User",
+      "role": "Role",
+      "hasVotingRight": "Voting Right",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "noMembers": "No members found",
+      "addMember": "Add Member"
+    },
+    "success": {
+      "created": "Committee created successfully",
+      "updated": "Committee updated successfully",
+      "deleted": "Committee deleted successfully"
+    },
+    "error": {
+      "create": "Failed to create committee",
+      "update": "Failed to update committee",
+      "delete": "Failed to delete committee",
+      "fetch": "Failed to load committee data"
+    }
+  },
+  "meetings": {
+    "title": "Meetings",
+    "newMeeting": "New Meeting",
+    "meetingDetails": "Meeting Details",
+    "number": "Meeting Number",
+    "scheduledAt": "Scheduled At",
+    "location": "Location",
+    "status": "Status",
+    "notes": "Notes",
+    "actualStartTime": "Actual Start Time",
+    "actualEndTime": "Actual End Time",
+    "attendanceNotes": "Attendance Notes",
+    "closedAt": "Closed At",
+    "closedBy": "Closed By",
+    "noMeetings": "No meetings found",
+    "upcomingMeetings": "Upcoming Meetings",
+    "pastMeetings": "Past Meetings",
+    "tabs": {
+      "agenda": "Agenda",
+      "decisions": "Decisions",
+      "followups": "Follow-ups"
+    },
+    "actions": {
+      "addAgendaItem": "Add Agenda Item",
+      "addDecision": "Add Decision",
+      "closeMeeting": "Close Meeting",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "status": {
+      "scheduled": "Scheduled",
+      "in_progress": "In Progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "agenda": {
+      "title": "Agenda",
+      "sequence": "Sequence",
+      "subject": "Subject",
+      "presenter": "Presenter",
+      "durationMinutes": "Duration (min)",
+      "noItems": "No agenda items"
+    },
+    "decisions": {
+      "title": "Decisions",
+      "decisionText": "Decision Text",
+      "decisionType": "Decision Type",
+      "votingResult": "Voting Result",
+      "noDecisions": "No decisions"
+    },
+    "followups": {
+      "title": "Follow-ups",
+      "description": "Description",
+      "assignedTo": "Assigned To",
+      "dueDate": "Due Date",
+      "status": "Status",
+      "noFollowups": "No follow-ups",
+      "open": "Open",
+      "in_progress": "In Progress",
+      "completed": "Completed",
+      "overdue": "Overdue"
+    },
+    "success": {
+      "created": "Meeting created successfully",
+      "updated": "Meeting updated successfully",
+      "deleted": "Meeting deleted successfully",
+      "closed": "Meeting closed successfully"
+    },
+    "error": {
+      "create": "Failed to create meeting",
+      "update": "Failed to update meeting",
+      "delete": "Failed to delete meeting",
+      "close": "Failed to close meeting",
+      "fetch": "Failed to load meeting data"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "search": "Search",
+    "filter": "Filter",
+    "actions": "Actions",
+    "yes": "Yes",
+    "no": "No",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close"
+  }
+}

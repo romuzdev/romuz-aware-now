@@ -1,0 +1,161 @@
+name: Gate-N Test Suite
+
+# Workflow مخصص لاختبارات Gate-N فقط (Backend + E2E)
+on:
+  push:
+    paths:
+      - 'src/features/gateN/**'
+      - 'src/lib/api/gateN.ts'
+      - 'supabase/functions/gate-n-*/**'
+      - 'tests/gate-n-*.test.ts'
+      - 'cypress/e2e/gate-n-*.cy.ts'
+  pull_request:
+    paths:
+      - 'src/features/gateN/**'
+      - 'src/lib/api/gateN.ts'
+      - 'supabase/functions/gate-n-*/**'
+      - 'tests/gate-n-*.test.ts'
+      - 'cypress/e2e/gate-n-*.cy.ts'
+  workflow_dispatch:
+
+env:
+  VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+  VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+
+jobs:
+  gate-n-backend-tests:
+    name: Gate-N Backend Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Seed Test Data
+        run: npm run test:seed
+        env:
+          E2E_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          E2E_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+        continue-on-error: true
+
+      - name: Run RPC Tests
+        run: npm test -- tests/gate-n-rpc.test.ts
+        env:
+          E2E_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          E2E_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+
+      - name: Run Edge Function Tests
+        run: npm test -- tests/gate-n-edge-functions.test.ts
+        env:
+          E2E_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          E2E_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+
+      - name: Run API Wrapper Tests
+        run: npm test -- tests/gate-n-api-wrapper.test.ts
+        env:
+          E2E_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          E2E_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+
+      - name: Generate Coverage Report
+        run: npm test -- --coverage tests/gate-n
+        env:
+          E2E_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          E2E_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+
+      - name: Upload Coverage
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: gate-n-coverage
+          path: coverage
+          retention-days: 7
+
+  gate-n-e2e-tests:
+    name: Gate-N E2E Tests
+    runs-on: ubuntu-latest
+    needs: gate-n-backend-tests
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Run Gate-N Cypress Tests
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+          start: npm run preview
+          wait-on: 'http://localhost:4173'
+          wait-on-timeout: 120
+          spec: cypress/e2e/gate-n-*.cy.ts
+          config: video=true,screenshotOnRunFailure=true
+        env:
+          CYPRESS_BASE_URL: http://localhost:4173
+
+      - name: Upload Screenshots
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: gate-n-screenshots
+          path: cypress/screenshots
+          retention-days: 7
+
+      - name: Upload Videos
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: gate-n-videos
+          path: cypress/videos
+          retention-days: 7
+
+  gate-n-report:
+    name: Generate Test Report
+    runs-on: ubuntu-latest
+    needs: [gate-n-backend-tests, gate-n-e2e-tests]
+    if: always()
+    
+    steps:
+      - name: Download Coverage
+        uses: actions/download-artifact@v4
+        with:
+          name: gate-n-coverage
+          path: coverage
+
+      - name: Download Videos
+        uses: actions/download-artifact@v4
+        with:
+          name: gate-n-videos
+          path: videos
+        continue-on-error: true
+
+      - name: Create Test Summary
+        run: |
+          echo "# Gate-N Test Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "- Backend Tests: ${{ needs.gate-n-backend-tests.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- E2E Tests: ${{ needs.gate-n-e2e-tests.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Artifacts" >> $GITHUB_STEP_SUMMARY
+          echo "- Coverage report available in artifacts" >> $GITHUB_STEP_SUMMARY
+          echo "- Test videos available in artifacts" >> $GITHUB_STEP_SUMMARY
