@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from '@/core/components/ui/select';
 import { useContentItems } from '../hooks/useContentItems';
+import { useAppContext } from '@/lib/app-context/AppContextProvider';
 import type { Database } from '@/integrations/supabase/types';
 
 type ContentItem = Database['public']['Tables']['content_items']['Row'];
@@ -34,6 +35,7 @@ export function ContentLibrary({
   onEdit,
   showActions = true,
 }: ContentLibraryProps) {
+  const { tenantId } = useAppContext();
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -170,6 +172,13 @@ export function ContentLibrary({
             </Card>
           ))}
         </div>
+      ) : !tenantId ? (
+        <Card className="p-12 text-center">
+          <p className="text-muted-foreground text-lg">لا يوجد معرف للجهة</p>
+          <p className="text-sm text-muted-foreground mt-2">
+            يجب أن تكون مرتبطاً بجهة للوصول إلى المحتوى
+          </p>
+        </Card>
       ) : items.length === 0 ? (
         <Card className="p-12 text-center">
           <p className="text-muted-foreground text-lg">لا يوجد محتوى</p>

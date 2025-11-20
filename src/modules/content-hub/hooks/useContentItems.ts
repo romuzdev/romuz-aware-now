@@ -39,7 +39,10 @@ export function useContentItems(
 
   // Fetch content items
   const fetchItems = useCallback(async () => {
-    if (!tenantId) return;
+    if (!tenantId) {
+      setLoading(false);
+      return;
+    }
 
     try {
       setLoading(true);
