@@ -391,11 +391,11 @@ export default function PoliciesAdmin() {
                   <tr
                     key={policy.id}
                     className="border-b hover:bg-muted/50 cursor-pointer transition-colors"
-                    onClick={(e) => {
+                  onClick={(e) => {
                       if ((e.target as HTMLElement).closest('input[type="checkbox"]')) {
                         return;
                       }
-                      navigate(`/admin/policies/${policy.id}`);
+                      navigate(`/awareness/policies/${policy.id}`);
                     }}
                   >
                     <td className="px-4 py-3">
