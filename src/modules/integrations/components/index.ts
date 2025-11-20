@@ -11,3 +11,7 @@ export { IntegrationMarketplace } from './IntegrationMarketplace';
 export { IntegrationHealthMonitor } from './IntegrationHealthMonitor';
 export { SyncJobsManager } from './SyncJobsManager';
 export { TeamsConfigModal } from './TeamsConfigModal';
+
+// M15 Advanced Components
+export { ConnectorConfigWizard } from './ConnectorConfigWizard';
+export { IntegrationStatusCard } from './IntegrationStatusCard';
