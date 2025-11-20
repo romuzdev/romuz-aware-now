@@ -14,7 +14,8 @@ import { Plus, Settings, Activity, AlertCircle, CheckCircle, Power, Webhook, Key
 import { fetchConnectors, createConnector } from '@/modules/integrations/integration';
 import type { IntegrationConnector, CreateConnectorInput } from '@/modules/integrations';
 import { toast } from 'sonner';
-import { ConnectorSetupModal } from '@/modules/integrations/components/ConnectorSetupModal';
+import { ConnectorConfigWizard } from '@/modules/integrations/components/ConnectorConfigWizard';
+import { IntegrationStatusCard } from '@/modules/integrations/components/IntegrationStatusCard';
 import { WebhookManager } from '@/modules/integrations/components/WebhookManager';
 import { APIKeyManager } from '@/modules/integrations/components/APIKeyManager';
 import { IntegrationLogs } from '@/modules/integrations/components/IntegrationLogs';
@@ -31,7 +32,7 @@ export default function IntegrationsHubPage() {
   const { can: canViewLogs } = useRBAC('integrations.logs.view');
   const [connectors, setConnectors] = useState<IntegrationConnector[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isSetupModalOpen, setIsSetupModalOpen] = useState(false);
+  const [isWizardOpen, setIsWizardOpen] = useState(false);
   const [isTeamsModalOpen, setIsTeamsModalOpen] = useState(false);
   const [selectedConnector, setSelectedConnector] = useState<IntegrationConnector | undefined>(undefined);
 
@@ -69,7 +70,7 @@ export default function IntegrationsHubPage() {
       await createConnector(tenantId, input);
       toast.success('تم إنشاء التكامل بنجاح');
       loadConnectors();
-      setIsSetupModalOpen(false);
+      setIsWizardOpen(false);
     } catch (error: any) {
       toast.error('فشل إنشاء التكامل', {
         description: error.message,
@@ -82,7 +83,7 @@ export default function IntegrationsHubPage() {
     if (connectorType === 'teams') {
       setIsTeamsModalOpen(true);
     } else {
-      setIsSetupModalOpen(true);
+      setIsWizardOpen(true);
     }
   };
 
@@ -164,7 +165,7 @@ export default function IntegrationsHubPage() {
           </p>
         </div>
         {canManage && (
-          <Button size="lg" onClick={() => setIsSetupModalOpen(true)}>
+          <Button size="lg" onClick={() => setIsWizardOpen(true)}>
             <Plus className="h-5 w-5 ml-2" />
             إضافة تكامل جديد
           </Button>
@@ -331,7 +332,7 @@ export default function IntegrationsHubPage() {
               <p className="text-muted-foreground mb-6">
                 ابدأ بإضافة تكامل جديد للاتصال مع الأنظمة الخارجية
               </p>
-              <Button size="lg" onClick={() => setIsSetupModalOpen(true)}>
+              <Button size="lg" onClick={() => setIsWizardOpen(true)}>
                 <Plus className="h-5 w-5 ml-2" />
                 إضافة أول تكامل
               </Button>
@@ -339,46 +340,27 @@ export default function IntegrationsHubPage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {connectors.map((connector) => (
-                <Card key={connector.id} className="p-6 hover:shadow-lg transition-shadow">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <span className="text-4xl">{getConnectorIcon(connector.type)}</span>
-                      <div>
-                        <h3 className="font-semibold text-lg">{connector.name}</h3>
-                        <p className="text-sm text-muted-foreground capitalize">
-                          {connector.type.replace('_', ' ')}
-                        </p>
-                      </div>
-                    </div>
-                    {getStatusBadge(connector.status)}
-                  </div>
-
-                  {connector.description && (
-                    <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                      {connector.description}
-                    </p>
-                  )}
-
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground mb-4">
-                    <Activity className="h-4 w-4" />
-                    {connector.last_sync_at ? (
-                      <span>آخر مزامنة: {new Date(connector.last_sync_at).toLocaleString('ar')}</span>
-                    ) : (
-                      <span>لم تتم المزامنة بعد</span>
-                    )}
-                  </div>
-
-                  <div className="flex gap-2">
-                    <Button variant="outline" size="sm" className="flex-1">
-                      <Settings className="h-4 w-4 ml-1" />
-                      إعدادات
-                    </Button>
-                    <Button variant="outline" size="sm" className="flex-1">
-                      <Activity className="h-4 w-4 ml-1" />
-                      السجلات
-                    </Button>
-                  </div>
-                </Card>
+                <IntegrationStatusCard
+                  key={connector.id}
+                  connector={connector}
+                  onConfigure={(id) => handleConfigureConnector(id)}
+                  onSync={(id) => {
+                    toast.info('جاري بدء المزامنة...');
+                    loadConnectors();
+                  }}
+                  onEnable={(id) => {
+                    toast.info('جاري تفعيل التكامل...');
+                    loadConnectors();
+                  }}
+                  onDisable={(id) => {
+                    toast.info('جاري تعطيل التكامل...');
+                    loadConnectors();
+                  }}
+                  onDelete={(id) => {
+                    toast.info('جاري الحذف...');
+                    loadConnectors();
+                  }}
+                />
               ))}
             </div>
           )}
@@ -412,11 +394,11 @@ export default function IntegrationsHubPage() {
         )}
       </Tabs>
 
-      {/* Setup Modals */}
-      <ConnectorSetupModal
-        isOpen={isSetupModalOpen}
-        onClose={() => setIsSetupModalOpen(false)}
-        onSubmit={handleCreateConnector}
+      {/* Setup Wizard */}
+      <ConnectorConfigWizard
+        isOpen={isWizardOpen}
+        onClose={() => setIsWizardOpen(false)}
+        onComplete={handleCreateConnector}
       />
 
       <TeamsConfigModal
