@@ -18,6 +18,7 @@ import ComplianceGaps from './pages/ComplianceGaps';
 import Auditors from './pages/Auditors';
 import AuditNew from './pages/AuditNew';
 import AuditDocumentsPage from './pages/documents';
+import AuditAnalytics from './pages/AuditAnalytics';
 
 export default function AuditApp() {
   return (
@@ -27,6 +28,9 @@ export default function AuditApp() {
       
       {/* Main Dashboard */}
       <Route path="dashboard" element={<AuditDashboard />} />
+      
+      {/* Analytics Dashboard */}
+      <Route path="analytics" element={<AuditAnalytics />} />
       
       {/* Audit Plans Management */}
       <Route path="audits" element={<AuditsPage />} />
