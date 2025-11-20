@@ -23,6 +23,7 @@ import {
   KPITargetManager,
   AdvancedKPIFilters
 } from '@/modules/analytics/components';
+import { AIInsightsWidget } from '@/modules/ai-advisory/components';
 import { exportKPIsToCSV, exportModuleGroupsToCSV, exportAlertsToCSV, exportToPDF } from '@/modules/analytics/utils/export.utils';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/core/components/ui/dropdown-menu';
 import { toast } from 'sonner';
@@ -178,9 +179,10 @@ export default function UnifiedDashboardPage() {
         </TabsList>
         
         <TabsContent value="overview" className="space-y-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <CrossModuleInsights />
             <ExecutiveSummaryCard />
+            <AIInsightsWidget maxItems={3} showStats={true} />
           </div>
           
           {moduleGroups?.map((group) => (

@@ -29,4 +29,9 @@ export const qk = {
     allHealthStatuses: () => ['all-health-statuses'] as const,
     automationActions: (tenantId?: string) => ['automation-actions', tenantId ?? 'all'] as const,
   },
+  aiAdvisory: {
+    recommendations: (tenantId?: string, filters?: any) => ['ai-recommendations', tenantId ?? 'all', filters ?? {}] as const,
+    recommendationById: (id: string) => ['ai-recommendation', id] as const,
+    stats: (tenantId?: string) => ['ai-recommendation-stats', tenantId ?? 'all'] as const,
+  },
 };
