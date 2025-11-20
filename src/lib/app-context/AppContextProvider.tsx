@@ -28,6 +28,7 @@ export function useAppContext() {
 export function AppContextProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<AppCtx['user']>(null);
   const [activeRole, setActiveRoleState] = useState<AppRole | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const setActiveRole = (role: AppRole) => {
     setActiveRoleState(role);
@@ -61,7 +62,7 @@ export function AppContextProvider({ children }: { children: React.ReactNode }) 
     gcTime: 10 * 60 * 1000,
   });
 
-  const loading = !user;
+  
 
   // Set active role from localStorage or first role
   useEffect(() => {
@@ -82,6 +83,7 @@ export function AppContextProvider({ children }: { children: React.ReactNode }) 
     supabase.auth.getUser().then(({ data: { user: authUser } }) => {
       if (mounted) {
         setUser(authUser ? { id: authUser.id, email: authUser.email ?? undefined } : null);
+        setLoading(false);
       }
     });
 
@@ -89,6 +91,7 @@ export function AppContextProvider({ children }: { children: React.ReactNode }) 
       if (mounted) {
         const authUser = session?.user;
         setUser(authUser ? { id: authUser.id, email: authUser.email ?? undefined } : null);
+        setLoading(false);
       }
     });
 
