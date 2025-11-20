@@ -70,6 +70,10 @@ const IntegrationsHubPage = lazy(() => import('@/apps/platform/pages/Integration
 const UnifiedDashboardPage = lazy(() => import('./pages/UnifiedDashboardPage'));
 // M23: Backup & Recovery
 const BackupRecoveryPage = lazy(() => import('./pages/BackupRecoveryPage'));
+// M13.1: Content Hub
+const ContentHubPage = lazy(() => import('./pages/ContentHub'));
+// M16: AI Advisory Engine
+const AIRecommendationsPage = lazy(() => import('./pages/AIRecommendationsPage'));
 
 // Loading fallback component
 const LoadingFallback = () => (
@@ -679,6 +683,20 @@ export function getAdminRoutes() {
             <AdminLayout>
               <Suspense fallback={<LoadingFallback />}>
                 <BackupRecoveryPage />
+              </Suspense>
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      {/* M16: AI Advisory Engine */}
+      <Route 
+        path="/platform/admin/ai-recommendations"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <Suspense fallback={<LoadingFallback />}>
+                <AIRecommendationsPage />
               </Suspense>
             </AdminLayout>
           </ProtectedRoute>
