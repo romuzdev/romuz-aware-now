@@ -27,7 +27,7 @@ export default function ActiveIncidents() {
   const isRTL = i18n.language === 'ar';
   const navigate = useNavigate();
 
-  const [severityFilter, setSeverityFilter] = useState<string>('');
+  const [severityFilter, setSeverityFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
   const { data: incidents, isLoading } = useIncidents({
@@ -63,7 +63,7 @@ export default function ActiveIncidents() {
   };
 
   const filteredIncidents = incidents?.filter((incident) => {
-    const matchesSeverity = !severityFilter || incident.severity === severityFilter;
+    const matchesSeverity = severityFilter === 'all' || incident.severity === severityFilter;
     const matchesSearch =
       !searchQuery ||
       incident.title_ar?.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -108,7 +108,7 @@ export default function ActiveIncidents() {
                 <SelectValue placeholder={isRTL ? 'مستوى الخطورة' : 'Severity Level'} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">
+                <SelectItem value="all">
                   {isRTL ? 'جميع المستويات' : 'All Levels'}
                 </SelectItem>
                 <SelectItem value="critical">
