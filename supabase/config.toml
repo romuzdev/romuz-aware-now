@@ -115,3 +115,16 @@ verify_jwt = true  # Requires authentication - sync Odoo ERP data
 
 [functions.ai-advisory]
 verify_jwt = true  # Requires authentication - generate AI recommendations
+
+# ============================================================================
+# M17: Knowledge Hub + RAG System
+# ============================================================================
+
+[functions.knowledge-embed]
+verify_jwt = true  # Requires authentication - Generate vector embeddings
+
+[functions.knowledge-search]
+verify_jwt = true  # Requires authentication - Semantic search
+
+[functions.knowledge-qa]
+verify_jwt = true  # Requires authentication - RAG Q&A system
