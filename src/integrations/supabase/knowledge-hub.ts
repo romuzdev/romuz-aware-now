@@ -130,8 +130,14 @@ export async function searchKnowledge(params: {
   threshold?: number;
 }): Promise<{ results: SearchResult[]; count: number }> {
   try {
+    // Get current session for auth header
+    const { data: { session } } = await supabase.auth.getSession();
+    
     const { data, error } = await supabase.functions.invoke('knowledge-search', {
       body: params,
+      headers: session?.access_token ? {
+        Authorization: `Bearer ${session.access_token}`,
+      } : undefined,
     });
 
     if (error) throw error;
@@ -156,8 +162,14 @@ export async function askQuestion(params: {
   maxSources?: number;
 }): Promise<QAResponse> {
   try {
+    // Get current session for auth header
+    const { data: { session } } = await supabase.auth.getSession();
+    
     const { data, error } = await supabase.functions.invoke('knowledge-qa', {
       body: params,
+      headers: session?.access_token ? {
+        Authorization: `Bearer ${session.access_token}`,
+      } : undefined,
     });
 
     if (error) throw error;
