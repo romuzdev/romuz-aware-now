@@ -15,7 +15,8 @@ export function useKnowledgeSearch() {
     documentType: undefined as string | undefined,
     category: undefined as string | undefined,
     limit: 10,
-    threshold: 0.7,
+    // Lower threshold to make semantic search less strict and return more results
+    threshold: 0.2,
   });
 
   const {
