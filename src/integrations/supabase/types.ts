@@ -12890,23 +12890,37 @@ export type Database = {
           query_embedding: string
         }
         Returns: {
+          author_name: string
           category: string
-          content_ar: string
-          content_en: string
+          content: string
+          created_at: string
           document_type: string
           id: string
+          is_featured: boolean
           similarity: number
-          summary_ar: string
           tags: string[]
-          title_ar: string
-          title_en: string
-          usefulness_score: number
-          views_count: number
+          title: string
+          updated_at: string
+          view_count: number
         }[]
       }
       match_similar_questions:
         | {
             Args: {
+              match_threshold?: number
+              p_tenant_id?: string
+              query_embedding: string
+            }
+            Returns: {
+              answer: string
+              id: string
+              question: string
+              similarity: number
+            }[]
+          }
+        | {
+            Args: {
+              match_count?: number
               match_threshold?: number
               p_tenant_id?: string
               query_embedding: string
