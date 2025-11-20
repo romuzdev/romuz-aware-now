@@ -15,7 +15,7 @@ type TimeframeType = 'month' | 'quarter' | 'year' | 'all';
 
 export default function AuditAnalytics() {
   const [timeframe, setTimeframe] = useState<TimeframeType>('month');
-  const [selectedAuditId, setSelectedAuditId] = useState<string>('');
+  const [selectedAuditId, setSelectedAuditId] = useState<string | undefined>(undefined);
 
   const handleExportReport = () => {
     // Implementation for exporting analytics report
@@ -89,12 +89,12 @@ export default function AuditAnalytics() {
 
             <div className="space-y-2">
               <label className="text-sm font-medium">نطاق التحليل</label>
-              <Select value={selectedAuditId} onValueChange={setSelectedAuditId}>
+              <Select value={selectedAuditId} onValueChange={(value) => setSelectedAuditId(value === 'all' ? undefined : value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="جميع عمليات التدقيق" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">جميع عمليات التدقيق</SelectItem>
+                  <SelectItem value="all">جميع عمليات التدقيق</SelectItem>
                   <SelectItem value="audit-1">تدقيق أمن المعلومات 2024</SelectItem>
                   <SelectItem value="audit-2">تدقيق الامتثال التنظيمي</SelectItem>
                   <SelectItem value="audit-3">تدقيق العمليات الداخلية</SelectItem>
