@@ -70,7 +70,13 @@ serve(async (req) => {
 
     console.log(`👤 User: ${user.id}, Question: "${question.substring(0, 50)}..."`);
 
-    // Get Lovable API Key
+    // Get OpenAI API Key for embeddings
+    const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY');
+    if (!OPENAI_API_KEY) {
+      throw new Error('OPENAI_API_KEY is not configured');
+    }
+
+    // Get Lovable API Key for chat completion
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
     if (!LOVABLE_API_KEY) {
       throw new Error('LOVABLE_API_KEY is not configured');
@@ -79,14 +85,14 @@ serve(async (req) => {
     // Step 1: Check for similar existing Q&A
     console.log('🔍 Checking for similar existing Q&A...');
     
-    const embeddingResponse = await fetch('https://ai.gateway.lovable.dev/v1/embeddings', {
+    const embeddingResponse = await fetch('https://api.openai.com/v1/embeddings', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${LOVABLE_API_KEY}`,
+        'Authorization': `Bearer ${OPENAI_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'text-embedding-ada-002',
+        model: 'text-embedding-3-small',
         input: question,
       }),
     });
