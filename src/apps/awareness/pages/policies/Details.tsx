@@ -4,6 +4,7 @@ import { usePolicyById } from "@/modules/policies";
 import { Pencil } from "lucide-react";
 import { PolicyDeleteDialog } from "@/modules/policies";
 import { useAppContext } from "@/lib/app-context/AppContextProvider";
+import { AIAdvisoryPanel } from "@/modules/ai-advisory/components";
 
 export default function PolicyDetails() {
   const { id } = useParams<{ id: string }>();
@@ -73,66 +74,82 @@ export default function PolicyDetails() {
       )}
 
       {!loading && !error && policy && (
-        <section className="border rounded-lg bg-background p-6 space-y-4">
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <p className="text-xs text-muted-foreground uppercase mb-1">
-                Owner
-              </p>
-              <p className="text-sm">{policy.owner || "-"}</p>
+        <>
+          <section className="border rounded-lg bg-background p-6 space-y-4">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <p className="text-xs text-muted-foreground uppercase mb-1">
+                  Owner
+                </p>
+                <p className="text-sm">{policy.owner || "-"}</p>
+              </div>
+
+              <div>
+                <p className="text-xs text-muted-foreground uppercase mb-1">
+                  Status
+                </p>
+                <p className="text-sm">
+                  <span className="inline-flex items-center rounded-full border px-2 py-0.5 text-xs">
+                    {policy.status}
+                  </span>
+                </p>
+              </div>
+
+              <div>
+                <p className="text-xs text-muted-foreground uppercase mb-1">
+                  Category
+                </p>
+                <p className="text-sm">{policy.category || "-"}</p>
+              </div>
+
+              <div>
+                <p className="text-xs text-muted-foreground uppercase mb-1">
+                  Last review
+                </p>
+                <p className="text-sm">{policy.last_review_date || "-"}</p>
+              </div>
+
+              <div>
+                <p className="text-xs text-muted-foreground uppercase mb-1">
+                  Next review
+                </p>
+                <p className="text-sm">{policy.next_review_date || "-"}</p>
+              </div>
+
+              <div>
+                <p className="text-xs text-muted-foreground uppercase mb-1">
+                  Last updated
+                </p>
+                <p className="text-sm">{policy.updated_at || "-"}</p>
+              </div>
             </div>
 
-            <div>
+            <div className="border-t pt-4 mt-2">
               <p className="text-xs text-muted-foreground uppercase mb-1">
-                Status
+                Notes / TODO
               </p>
-              <p className="text-sm">
-                <span className="inline-flex items-center rounded-full border px-2 py-0.5 text-xs">
-                  {policy.status}
-                </span>
+              <p className="text-sm text-muted-foreground">
+                This is a read-only view backed by Supabase.
+                Change history and audit logging will be implemented
+                in the next phases.
               </p>
             </div>
+          </section>
 
-            <div>
-              <p className="text-xs text-muted-foreground uppercase mb-1">
-                Category
-              </p>
-              <p className="text-sm">{policy.category || "-"}</p>
-            </div>
-
-            <div>
-              <p className="text-xs text-muted-foreground uppercase mb-1">
-                Last review
-              </p>
-              <p className="text-sm">{policy.last_review_date || "-"}</p>
-            </div>
-
-            <div>
-              <p className="text-xs text-muted-foreground uppercase mb-1">
-                Next review
-              </p>
-              <p className="text-sm">{policy.next_review_date || "-"}</p>
-            </div>
-
-            <div>
-              <p className="text-xs text-muted-foreground uppercase mb-1">
-                Last updated
-              </p>
-              <p className="text-sm">{policy.updated_at || "-"}</p>
-            </div>
-          </div>
-
-          <div className="border-t pt-4 mt-2">
-            <p className="text-xs text-muted-foreground uppercase mb-1">
-              Notes / TODO
-            </p>
-            <p className="text-sm text-muted-foreground">
-              This is a read-only view backed by Supabase.
-              Change history and audit logging will be implemented
-              in the next phases.
-            </p>
-          </div>
-        </section>
+          <AIAdvisoryPanel
+            contextType="policy"
+            contextId={policy.id}
+            contextData={{
+              code: policy.code,
+              title: policy.title,
+              category: policy.category,
+              status: policy.status,
+              owner: policy.owner,
+            }}
+            title="توصيات ذكية لهذه السياسة"
+            description="احصل على توصيات مدعومة بالذكاء الاصطناعي لتحسين هذه السياسة وزيادة فعاليتها"
+          />
+        </>
       )}
 
       {/* TODO D2-Part6:
