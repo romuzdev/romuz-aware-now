@@ -10067,6 +10067,95 @@ export type Database = {
           },
         ]
       }
+      mitre_attack_mapping: {
+        Row: {
+          confidence_score: number | null
+          confirmed_at: string | null
+          confirmed_by: string | null
+          created_at: string
+          data_sources: string[] | null
+          detection_method: string | null
+          entity_id: string
+          entity_type: string
+          evidence_description: string | null
+          id: string
+          is_confirmed: boolean | null
+          last_backed_up_at: string | null
+          mapped_at: string
+          mapped_by: string | null
+          mitre_matrix: string | null
+          mitre_subtechnique_id: string | null
+          mitre_subtechnique_name: string | null
+          mitre_tactic_id: string
+          mitre_tactic_name: string
+          mitre_technique_id: string
+          mitre_technique_name: string
+          platforms: string[] | null
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          confidence_score?: number | null
+          confirmed_at?: string | null
+          confirmed_by?: string | null
+          created_at?: string
+          data_sources?: string[] | null
+          detection_method?: string | null
+          entity_id: string
+          entity_type: string
+          evidence_description?: string | null
+          id?: string
+          is_confirmed?: boolean | null
+          last_backed_up_at?: string | null
+          mapped_at?: string
+          mapped_by?: string | null
+          mitre_matrix?: string | null
+          mitre_subtechnique_id?: string | null
+          mitre_subtechnique_name?: string | null
+          mitre_tactic_id: string
+          mitre_tactic_name: string
+          mitre_technique_id: string
+          mitre_technique_name: string
+          platforms?: string[] | null
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          confidence_score?: number | null
+          confirmed_at?: string | null
+          confirmed_by?: string | null
+          created_at?: string
+          data_sources?: string[] | null
+          detection_method?: string | null
+          entity_id?: string
+          entity_type?: string
+          evidence_description?: string | null
+          id?: string
+          is_confirmed?: boolean | null
+          last_backed_up_at?: string | null
+          mapped_at?: string
+          mapped_by?: string | null
+          mitre_matrix?: string | null
+          mitre_subtechnique_id?: string | null
+          mitre_subtechnique_name?: string | null
+          mitre_tactic_id?: string
+          mitre_tactic_name?: string
+          mitre_technique_id?: string
+          mitre_technique_name?: string
+          platforms?: string[] | null
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mitre_attack_mapping_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       model_performance_metrics: {
         Row: {
           accuracy: number | null
@@ -11993,6 +12082,7 @@ export type Database = {
           id: string
           indicator_id: string
           is_confirmed: boolean | null
+          last_backed_up_at: string | null
           match_type: string
           match_value: string
           matched_at: string
@@ -12008,6 +12098,7 @@ export type Database = {
           id?: string
           indicator_id: string
           is_confirmed?: boolean | null
+          last_backed_up_at?: string | null
           match_type: string
           match_value: string
           matched_at?: string
@@ -12023,6 +12114,7 @@ export type Database = {
           id?: string
           indicator_id?: string
           is_confirmed?: boolean | null
+          last_backed_up_at?: string | null
           match_type?: string
           match_value?: string
           matched_at?: string
@@ -13009,6 +13101,113 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      threat_actor_profiles: {
+        Row: {
+          activity_status: string | null
+          actor_aliases: string[] | null
+          actor_name: string
+          actor_type: string
+          associated_indicators_count: number | null
+          confidence_level: string | null
+          created_at: string
+          created_by: string | null
+          description_ar: string | null
+          description_en: string | null
+          external_references: Json | null
+          first_observed: string | null
+          id: string
+          intelligence_sources: string[] | null
+          known_malware: string[] | null
+          known_tools: string[] | null
+          last_backed_up_at: string | null
+          last_observed: string | null
+          preferred_attack_vectors: string[] | null
+          primary_motivation: string[] | null
+          related_campaigns: string[] | null
+          sophistication_level: string | null
+          suspected_affiliation: string | null
+          suspected_country: string | null
+          tags: string[] | null
+          target_regions: string[] | null
+          target_sectors: string[] | null
+          tenant_id: string
+          ttps: Json | null
+          updated_at: string
+        }
+        Insert: {
+          activity_status?: string | null
+          actor_aliases?: string[] | null
+          actor_name: string
+          actor_type: string
+          associated_indicators_count?: number | null
+          confidence_level?: string | null
+          created_at?: string
+          created_by?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          external_references?: Json | null
+          first_observed?: string | null
+          id?: string
+          intelligence_sources?: string[] | null
+          known_malware?: string[] | null
+          known_tools?: string[] | null
+          last_backed_up_at?: string | null
+          last_observed?: string | null
+          preferred_attack_vectors?: string[] | null
+          primary_motivation?: string[] | null
+          related_campaigns?: string[] | null
+          sophistication_level?: string | null
+          suspected_affiliation?: string | null
+          suspected_country?: string | null
+          tags?: string[] | null
+          target_regions?: string[] | null
+          target_sectors?: string[] | null
+          tenant_id: string
+          ttps?: Json | null
+          updated_at?: string
+        }
+        Update: {
+          activity_status?: string | null
+          actor_aliases?: string[] | null
+          actor_name?: string
+          actor_type?: string
+          associated_indicators_count?: number | null
+          confidence_level?: string | null
+          created_at?: string
+          created_by?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          external_references?: Json | null
+          first_observed?: string | null
+          id?: string
+          intelligence_sources?: string[] | null
+          known_malware?: string[] | null
+          known_tools?: string[] | null
+          last_backed_up_at?: string | null
+          last_observed?: string | null
+          preferred_attack_vectors?: string[] | null
+          primary_motivation?: string[] | null
+          related_campaigns?: string[] | null
+          sophistication_level?: string | null
+          suspected_affiliation?: string | null
+          suspected_country?: string | null
+          tags?: string[] | null
+          target_regions?: string[] | null
+          target_sectors?: string[] | null
+          tenant_id?: string
+          ttps?: Json | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "threat_actor_profiles_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       threat_hunt_queries: {
         Row: {
