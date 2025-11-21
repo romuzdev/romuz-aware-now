@@ -13,7 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useState } from 'react';
 import type { SOARPlaybookFilters } from '@/modules/secops/types';
 
-export default function SOARPlaybooksPage() {
+export default function SOARPlaybooks() {
   const [filters, setFilters] = useState<SOARPlaybookFilters>({});
   const {
     playbooks,

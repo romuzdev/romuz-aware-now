@@ -28,6 +28,7 @@ import { getAdminRoutes } from "@/apps/admin";
 import { getAuditRoutes } from "@/apps/audit";
 import { lmsRoutes } from "@/apps/lms";
 import { getIncidentResponseRoutes } from "@/apps/incident-response";
+import { getSecOpsRoutes } from "@/apps/secops";
 import * as KnowledgeHub from "@/apps/knowledge-hub/routes";
 import { predictiveAnalyticsRoutes } from "@/apps/predictive-analytics/routes";
 import { threatIntelligenceRoutes } from "@/apps/threat-intelligence/routes";
@@ -151,6 +152,9 @@ const AppContent = () => {
             <Route path="/app/threat-intelligence/*" element={<ProtectedRoute><AppShell /></ProtectedRoute>}>
               {threatIntelligenceRoutes}
             </Route>
+
+            {/* M18.5: SecOps - Security Operations Center */}
+            {getSecOpsRoutes()}
             
             {/* Gate-P: Tenant Lifecycle & Automation Engine Routes */}
             <Route path="/admin/gate-p" element={<ProtectedRoute><GatePConsole /></ProtectedRoute>} />
