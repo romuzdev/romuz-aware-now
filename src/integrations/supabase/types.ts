@@ -3871,6 +3871,71 @@ export type Database = {
           },
         ]
       }
+      custom_dashboards: {
+        Row: {
+          created_at: string
+          description_ar: string | null
+          description_en: string | null
+          id: string
+          is_default: boolean | null
+          is_shared: boolean | null
+          last_backed_up_at: string | null
+          layout: Json
+          name_ar: string
+          name_en: string | null
+          refresh_interval: number | null
+          shared_with_roles: string[] | null
+          tenant_id: string
+          updated_at: string
+          user_id: string
+          widgets: Json
+        }
+        Insert: {
+          created_at?: string
+          description_ar?: string | null
+          description_en?: string | null
+          id?: string
+          is_default?: boolean | null
+          is_shared?: boolean | null
+          last_backed_up_at?: string | null
+          layout?: Json
+          name_ar: string
+          name_en?: string | null
+          refresh_interval?: number | null
+          shared_with_roles?: string[] | null
+          tenant_id: string
+          updated_at?: string
+          user_id: string
+          widgets?: Json
+        }
+        Update: {
+          created_at?: string
+          description_ar?: string | null
+          description_en?: string | null
+          id?: string
+          is_default?: boolean | null
+          is_shared?: boolean | null
+          last_backed_up_at?: string | null
+          layout?: Json
+          name_ar?: string
+          name_en?: string | null
+          refresh_interval?: number | null
+          shared_with_roles?: string[] | null
+          tenant_id?: string
+          updated_at?: string
+          user_id?: string
+          widgets?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "custom_dashboards_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       custom_kpi_formulas: {
         Row: {
           category: string | null
@@ -3967,6 +4032,119 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "dashboard_layouts_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      dashboard_widget_cache: {
+        Row: {
+          cached_at: string
+          cached_data: Json
+          expires_at: string
+          id: string
+          tenant_id: string
+          widget_id: string
+        }
+        Insert: {
+          cached_at?: string
+          cached_data: Json
+          expires_at: string
+          id?: string
+          tenant_id: string
+          widget_id: string
+        }
+        Update: {
+          cached_at?: string
+          cached_data?: Json
+          expires_at?: string
+          id?: string
+          tenant_id?: string
+          widget_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dashboard_widget_cache_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "dashboard_widget_cache_widget_id_fkey"
+            columns: ["widget_id"]
+            isOneToOne: false
+            referencedRelation: "dashboard_widgets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      dashboard_widgets: {
+        Row: {
+          category: string | null
+          config: Json
+          created_at: string
+          created_by: string | null
+          data_source: string
+          description_ar: string | null
+          description_en: string | null
+          icon: string | null
+          id: string
+          is_system: boolean | null
+          last_backed_up_at: string | null
+          name_ar: string
+          name_en: string | null
+          query_config: Json | null
+          refresh_interval: number | null
+          tenant_id: string
+          updated_at: string
+          widget_type: string
+        }
+        Insert: {
+          category?: string | null
+          config?: Json
+          created_at?: string
+          created_by?: string | null
+          data_source: string
+          description_ar?: string | null
+          description_en?: string | null
+          icon?: string | null
+          id?: string
+          is_system?: boolean | null
+          last_backed_up_at?: string | null
+          name_ar: string
+          name_en?: string | null
+          query_config?: Json | null
+          refresh_interval?: number | null
+          tenant_id: string
+          updated_at?: string
+          widget_type: string
+        }
+        Update: {
+          category?: string | null
+          config?: Json
+          created_at?: string
+          created_by?: string | null
+          data_source?: string
+          description_ar?: string | null
+          description_en?: string | null
+          icon?: string | null
+          id?: string
+          is_system?: boolean | null
+          last_backed_up_at?: string | null
+          name_ar?: string
+          name_en?: string | null
+          query_config?: Json | null
+          refresh_interval?: number | null
+          tenant_id?: string
+          updated_at?: string
+          widget_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dashboard_widgets_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -7179,15 +7357,27 @@ export type Database = {
       }
       integration_connectors: {
         Row: {
+          auto_retry_enabled: boolean | null
+          average_response_time_ms: number | null
           config: Json
           created_at: string
           created_by: string
           description: string | null
+          error_count: number | null
+          health_status: string | null
           id: string
           last_backed_up_at: string | null
+          last_error_at: string | null
+          last_error_message: string | null
+          last_health_check: string | null
           last_sync_at: string | null
+          max_retries: number | null
           name: string
+          rate_limit_remaining: number | null
+          rate_limit_reset_at: string | null
+          retry_count: number | null
           status: string
+          success_count: number | null
           sync_frequency_minutes: number | null
           tenant_id: string
           type: string
@@ -7195,15 +7385,27 @@ export type Database = {
           updated_by: string | null
         }
         Insert: {
+          auto_retry_enabled?: boolean | null
+          average_response_time_ms?: number | null
           config?: Json
           created_at?: string
           created_by: string
           description?: string | null
+          error_count?: number | null
+          health_status?: string | null
           id?: string
           last_backed_up_at?: string | null
+          last_error_at?: string | null
+          last_error_message?: string | null
+          last_health_check?: string | null
           last_sync_at?: string | null
+          max_retries?: number | null
           name: string
+          rate_limit_remaining?: number | null
+          rate_limit_reset_at?: string | null
+          retry_count?: number | null
           status?: string
+          success_count?: number | null
           sync_frequency_minutes?: number | null
           tenant_id: string
           type: string
@@ -7211,15 +7413,27 @@ export type Database = {
           updated_by?: string | null
         }
         Update: {
+          auto_retry_enabled?: boolean | null
+          average_response_time_ms?: number | null
           config?: Json
           created_at?: string
           created_by?: string
           description?: string | null
+          error_count?: number | null
+          health_status?: string | null
           id?: string
           last_backed_up_at?: string | null
+          last_error_at?: string | null
+          last_error_message?: string | null
+          last_health_check?: string | null
           last_sync_at?: string | null
+          max_retries?: number | null
           name?: string
+          rate_limit_remaining?: number | null
+          rate_limit_reset_at?: string | null
+          retry_count?: number | null
           status?: string
+          success_count?: number | null
           sync_frequency_minutes?: number | null
           tenant_id?: string
           type?: string
@@ -7229,6 +7443,63 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "integration_connectors_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      integration_health_logs: {
+        Row: {
+          checked_at: string
+          connector_id: string
+          error_details: Json | null
+          error_message: string | null
+          health_status: string
+          id: string
+          last_backed_up_at: string | null
+          request_payload: Json | null
+          response_payload: Json | null
+          response_time_ms: number | null
+          tenant_id: string
+        }
+        Insert: {
+          checked_at?: string
+          connector_id: string
+          error_details?: Json | null
+          error_message?: string | null
+          health_status: string
+          id?: string
+          last_backed_up_at?: string | null
+          request_payload?: Json | null
+          response_payload?: Json | null
+          response_time_ms?: number | null
+          tenant_id: string
+        }
+        Update: {
+          checked_at?: string
+          connector_id?: string
+          error_details?: Json | null
+          error_message?: string | null
+          health_status?: string
+          id?: string
+          last_backed_up_at?: string | null
+          request_payload?: Json | null
+          response_payload?: Json | null
+          response_time_ms?: number | null
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "integration_health_logs_connector_id_fkey"
+            columns: ["connector_id"]
+            isOneToOne: false
+            referencedRelation: "integration_connectors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "integration_health_logs_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -7301,6 +7572,138 @@ export type Database = {
           },
           {
             foreignKeyName: "integration_logs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      integration_rate_limits: {
+        Row: {
+          connector_id: string
+          created_at: string
+          endpoint: string
+          id: string
+          limit_remaining: number
+          limit_reset_at: string
+          limit_total: number
+          tenant_id: string
+          updated_at: string
+          window_start: string
+        }
+        Insert: {
+          connector_id: string
+          created_at?: string
+          endpoint: string
+          id?: string
+          limit_remaining: number
+          limit_reset_at: string
+          limit_total: number
+          tenant_id: string
+          updated_at?: string
+          window_start?: string
+        }
+        Update: {
+          connector_id?: string
+          created_at?: string
+          endpoint?: string
+          id?: string
+          limit_remaining?: number
+          limit_reset_at?: string
+          limit_total?: number
+          tenant_id?: string
+          updated_at?: string
+          window_start?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "integration_rate_limits_connector_id_fkey"
+            columns: ["connector_id"]
+            isOneToOne: false
+            referencedRelation: "integration_connectors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "integration_rate_limits_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      integration_sync_jobs: {
+        Row: {
+          completed_at: string | null
+          connector_id: string
+          created_at: string
+          error_details: Json | null
+          error_message: string | null
+          id: string
+          job_type: string
+          last_backed_up_at: string | null
+          metadata: Json | null
+          next_retry_at: string | null
+          records_failed: number | null
+          records_synced: number | null
+          retry_count: number | null
+          scheduled_at: string | null
+          started_at: string | null
+          status: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          completed_at?: string | null
+          connector_id: string
+          created_at?: string
+          error_details?: Json | null
+          error_message?: string | null
+          id?: string
+          job_type: string
+          last_backed_up_at?: string | null
+          metadata?: Json | null
+          next_retry_at?: string | null
+          records_failed?: number | null
+          records_synced?: number | null
+          retry_count?: number | null
+          scheduled_at?: string | null
+          started_at?: string | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          completed_at?: string | null
+          connector_id?: string
+          created_at?: string
+          error_details?: Json | null
+          error_message?: string | null
+          id?: string
+          job_type?: string
+          last_backed_up_at?: string | null
+          metadata?: Json | null
+          next_retry_at?: string | null
+          records_failed?: number | null
+          records_synced?: number | null
+          retry_count?: number | null
+          scheduled_at?: string | null
+          started_at?: string | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "integration_sync_jobs_connector_id_fkey"
+            columns: ["connector_id"]
+            isOneToOne: false
+            referencedRelation: "integration_connectors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "integration_sync_jobs_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -13220,6 +13623,7 @@ export type Database = {
         Args: { p_snapshot_date?: string; p_tenant_id: string }
         Returns: number
       }
+      clean_expired_widget_cache: { Args: never; Returns: number }
       cleanup_expired_pitr_snapshots: { Args: never; Returns: number }
       cleanup_old_webhook_logs: { Args: never; Returns: undefined }
       cleanup_old_workflow_executions: {
@@ -15153,8 +15557,25 @@ export type Database = {
         }
         Returns: Json
       }
+      retry_failed_sync_jobs: {
+        Args: never
+        Returns: {
+          connector_id: string
+          job_id: string
+          retry_count: number
+        }[]
+      }
       set_default_tenant: { Args: { p_tenant_id: string }; Returns: undefined }
       to_riyadh_date: { Args: { ts: string }; Returns: string }
+      update_integration_health: {
+        Args: {
+          p_connector_id: string
+          p_error_message?: string
+          p_health_status: string
+          p_response_time_ms?: number
+        }
+        Returns: undefined
+      }
       update_secops_backup_metadata: {
         Args: { p_table_name: string; p_tenant_id: string }
         Returns: number
