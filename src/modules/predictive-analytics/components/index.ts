@@ -8,3 +8,5 @@ export * from './ModelManagementCard';
 export * from './PredictionChart';
 export * from './ModelCard';
 export * from './ConfidenceIndicator';
+export * from './AdvancedAnalyticsCharts';
+export * from './ModelPerformanceComparison';

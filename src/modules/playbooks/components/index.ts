@@ -6,3 +6,4 @@ export { PlaybookEditor } from './PlaybookEditor';
 export { PlaybookStepBuilder } from './PlaybookStepBuilder';
 export { PlaybookExecutionMonitor } from './PlaybookExecutionMonitor';
 export { PlaybookTemplateLibrary } from './PlaybookTemplateLibrary';
+export { VisualWorkflowDesigner } from './VisualWorkflowDesigner';
