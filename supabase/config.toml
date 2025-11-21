@@ -168,8 +168,8 @@ verify_jwt = true  # Requires authentication - Generate vector embeddings
 [functions.knowledge-search]
 verify_jwt = true  # Requires authentication - Semantic search
 
-[functions.knowledge-qa]
-verify_jwt = true  # Requires authentication - RAG Q&A system
+[functions.knowledge-rag]
+verify_jwt = true  # Requires authentication - RAG answer generation
 
 # ============================================================================
 # M19: Predictive Analytics
