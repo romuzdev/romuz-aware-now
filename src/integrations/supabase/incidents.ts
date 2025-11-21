@@ -5,6 +5,7 @@
 
 import { supabase } from './client';
 import type { Database } from './types';
+import { logIncidentAction, logResponsePlanAction } from '@/lib/audit/incident-audit-logger';
 
 // Type aliases
 type SecurityIncident = Database['public']['Tables']['security_incidents']['Row'];
@@ -136,6 +137,13 @@ export async function createIncident(
     actor_id: user.id,
   });
 
+  // Audit log
+  await logIncidentAction(data.id, 'create', {
+    incident_number: data.incident_number,
+    severity: data.severity,
+    incident_type: data.incident_type,
+  });
+
   return data;
 }
 
@@ -175,6 +183,9 @@ export async function updateIncident(
 
   // Recalculate metrics
   await supabase.rpc('calculate_incident_metrics', { p_incident_id: id });
+
+  // Audit log
+  await logIncidentAction(id, 'update', updates);
 
   return data;
 }
@@ -220,6 +231,9 @@ export async function assignIncident(incidentId: string, assignedTo: string) {
     new_value: assignedTo,
   });
 
+  // Audit log
+  await logIncidentAction(incidentId, 'assign', { assigned_to: assignedTo });
+
   return data;
 }
 
@@ -261,6 +275,12 @@ export async function closeIncident(
     action_ar: 'تم إغلاق الحادث',
     action_en: 'Incident closed',
     actor_id: user.id,
+  });
+
+  // Audit log
+  await logIncidentAction(incidentId, 'close', {
+    status: 'closed',
+    resolution,
   });
 
   return data;
@@ -382,6 +402,13 @@ export async function createResponsePlan(
     .single();
 
   if (error) throw error;
+
+  // Audit log
+  await logResponsePlanAction(data.id, 'create', {
+    plan_name: data.plan_name_ar,
+    incident_type: data.incident_type,
+  });
+
   return data;
 }
 
@@ -406,6 +433,10 @@ export async function updateResponsePlan(
     .single();
 
   if (error) throw error;
+
+  // Audit log
+  await logResponsePlanAction(id, 'update', updates);
+
   return data;
 }
 
@@ -419,6 +450,9 @@ export async function deleteResponsePlan(id: string) {
     .eq('id', id);
 
   if (error) throw error;
+
+  // Audit log
+  await logResponsePlanAction(id, 'delete');
 }
 
 // ========================================

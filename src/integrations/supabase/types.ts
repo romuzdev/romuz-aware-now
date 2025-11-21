@@ -11432,6 +11432,7 @@ export type Database = {
       app_current_tenant_id: { Args: never; Returns: string }
       app_current_user_id: { Args: never; Returns: string }
       app_has_role: { Args: { _role_code: string }; Returns: boolean }
+      auto_assign_incident: { Args: { p_incident_id: string }; Returns: Json }
       calculate_backup_health_score: {
         Args: { p_tenant_id: string }
         Returns: number
@@ -11496,6 +11497,7 @@ export type Database = {
         }
         Returns: number
       }
+      escalate_incident: { Args: { p_incident_id: string }; Returns: Json }
       evaluate_automation_conditions: {
         Args: { p_event_data: Json; p_rule_id: string }
         Returns: boolean

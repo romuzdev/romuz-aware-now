@@ -1,6 +1,19 @@
 project_id = "varbgkrfwbgzmkkxpqjg"
 
 # ============================================================================
+# M18: Incident Response System
+# ============================================================================
+
+[functions.incident-notify]
+verify_jwt = true  # Requires authentication - send incident notifications
+
+[functions.incident-auto-detect]
+verify_jwt = false  # System job - auto-detect incidents from various sources
+
+[functions.incident-metrics-calculator]
+verify_jwt = false  # System job - calculate incident metrics
+
+# ============================================================================
 # Gate-H: Action Plans Automation
 # ============================================================================
 
