@@ -14,7 +14,7 @@ import { Card } from '@/core/components/ui/card';
 import { format } from 'date-fns';
 import { ar } from 'date-fns/locale';
 
-export default function SecOpsDashboardPage() {
+export default function Dashboard() {
   const { data: statistics, isLoading: statsLoading } = useSecOpsStatistics();
   const { data: criticalEvents, isLoading: eventsLoading } = useRecentCriticalEvents(5);
   const { data: recentExecutions, isLoading: executionsLoading } = useRecentExecutions(5);

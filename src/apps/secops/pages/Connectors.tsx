@@ -13,7 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useState } from 'react';
 import type { ConnectorFilters, ConnectorType } from '@/modules/secops/types';
 
-export default function SecOpsConnectorsPage() {
+export default function Connectors() {
   const [filters, setFilters] = useState<ConnectorFilters>({});
   const {
     connectors,
@@ -54,7 +54,7 @@ export default function SecOpsConnectorsPage() {
               <SelectItem value="siem">SIEM</SelectItem>
               <SelectItem value="firewall">جدار الحماية</SelectItem>
               <SelectItem value="ids_ips">IDS/IPS</SelectItem>
-              <SelectItem value="endpoint">حماية النقاط الطرفية</SelectItem>
+              <SelectItem value="endpoint_protection">حماية النقاط الطرفية</SelectItem>
               <SelectItem value="email_security">أمان البريد</SelectItem>
               <SelectItem value="dlp">DLP</SelectItem>
             </SelectContent>

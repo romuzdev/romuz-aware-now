@@ -13,7 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useState } from 'react';
 import type { SecurityEventFilters, EventSeverity } from '@/modules/secops/types';
 
-export default function SecurityEventsPage() {
+export default function SecurityEvents() {
   const [filters, setFilters] = useState<SecurityEventFilters>({});
   const { events, loading, markAsProcessed } = useSecurityEvents(filters);
 
