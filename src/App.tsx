@@ -30,6 +30,7 @@ import { lmsRoutes } from "@/apps/lms";
 import { getIncidentResponseRoutes } from "@/apps/incident-response";
 import * as KnowledgeHub from "@/apps/knowledge-hub/routes";
 import { predictiveAnalyticsRoutes } from "@/apps/predictive-analytics/routes";
+import { threatIntelligenceRoutes } from "@/apps/threat-intelligence/routes";
 
 // Gate-U: Unified App Shell & Personas
 import { AppShell } from "@/core/components/layout";
@@ -144,6 +145,11 @@ const AppContent = () => {
             {/* M19: Predictive Analytics Routes - Inside AppShell */}
             <Route path="/app/predictive-analytics/*" element={<ProtectedRoute><AppShell /></ProtectedRoute>}>
               {predictiveAnalyticsRoutes}
+            </Route>
+
+            {/* M20: Threat Intelligence Routes - Inside AppShell */}
+            <Route path="/app/threat-intelligence/*" element={<ProtectedRoute><AppShell /></ProtectedRoute>}>
+              {threatIntelligenceRoutes}
             </Route>
             
             {/* Gate-P: Tenant Lifecycle & Automation Engine Routes */}
