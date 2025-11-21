@@ -423,11 +423,9 @@ export async function getIntegrationStats(): Promise<{
     .select('*', { count: 'exact', head: true })
     .gte('received_at', oneDayAgo);
 
-  const { count: incidents_created_last_24h } = await supabase
-    .from('security_incidents')
-    .select('*', { count: 'exact', head: true })
-    .eq('detection_method', 'external_integration')
-    .gte('detected_at', oneDayAgo);
+  // Note: security_incidents table integration pending
+  // For now, return 0 for incidents
+  const incidents_created_last_24h = 0;
 
   return {
     total_integrations,
