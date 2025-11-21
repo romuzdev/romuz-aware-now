@@ -13,6 +13,15 @@ verify_jwt = false  # System job - auto-detect incidents from various sources
 [functions.incident-metrics-calculator]
 verify_jwt = false  # System job - calculate incident metrics
 
+[functions.incident-webhook-receiver]
+verify_jwt = false  # Public endpoint - receives webhooks from external systems
+
+[functions.incident-siem-connector]
+verify_jwt = true  # Requires authentication - SIEM polling connector
+
+[functions.incident-cloud-events]
+verify_jwt = false  # Public endpoint - receives cloud provider events
+
 # ============================================================================
 # Gate-H: Action Plans Automation
 # ============================================================================
