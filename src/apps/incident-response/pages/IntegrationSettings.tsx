@@ -347,3 +347,5 @@ export function IntegrationSettings() {
     </div>
   );
 }
+
+export default IntegrationSettings;
