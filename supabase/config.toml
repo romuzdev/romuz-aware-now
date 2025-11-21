@@ -30,6 +30,19 @@ verify_jwt = true  # Requires authentication - SIEM polling connector
 verify_jwt = false  # Public endpoint - receives cloud provider events
 
 # ============================================================================
+# M18.5: SecOps Integration - Security Operations Management
+# ============================================================================
+
+[functions.siem-event-processor]
+verify_jwt = true  # Requires authentication - Process security events from SIEM
+
+[functions.soar-orchestrator]
+verify_jwt = true  # Requires authentication - Execute SOAR playbooks
+
+[functions.connector-sync]
+verify_jwt = true  # Requires authentication - Sync external security connectors
+
+# ============================================================================
 # Gate-H: Action Plans Automation
 # ============================================================================
 
