@@ -4761,6 +4761,79 @@ export type Database = {
           },
         ]
       }
+      execution_step_logs: {
+        Row: {
+          completed_at: string | null
+          created_at: string | null
+          duration_seconds: number | null
+          error_message: string | null
+          execution_id: string
+          id: string
+          input_data: Json | null
+          last_backed_up_at: string | null
+          output_data: Json | null
+          retry_count: number | null
+          started_at: string | null
+          status: string
+          step_id: string
+          tenant_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string | null
+          duration_seconds?: number | null
+          error_message?: string | null
+          execution_id: string
+          id?: string
+          input_data?: Json | null
+          last_backed_up_at?: string | null
+          output_data?: Json | null
+          retry_count?: number | null
+          started_at?: string | null
+          status: string
+          step_id: string
+          tenant_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string | null
+          duration_seconds?: number | null
+          error_message?: string | null
+          execution_id?: string
+          id?: string
+          input_data?: Json | null
+          last_backed_up_at?: string | null
+          output_data?: Json | null
+          retry_count?: number | null
+          started_at?: string | null
+          status?: string
+          step_id?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "execution_step_logs_execution_id_fkey"
+            columns: ["execution_id"]
+            isOneToOne: false
+            referencedRelation: "soar_executions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "execution_step_logs_step_id_fkey"
+            columns: ["step_id"]
+            isOneToOne: false
+            referencedRelation: "playbook_steps"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "execution_step_logs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       feature_flags: {
         Row: {
           created_at: string
@@ -7548,6 +7621,71 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      integration_actions: {
+        Row: {
+          action_category: string
+          action_config: Json
+          action_name: string
+          created_at: string | null
+          created_by: string
+          id: string
+          input_schema: Json | null
+          integration_type: string
+          is_active: boolean | null
+          last_backed_up_at: string | null
+          output_schema: Json | null
+          rate_limit_per_minute: number | null
+          requires_auth: boolean | null
+          tenant_id: string
+          timeout_seconds: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          action_category: string
+          action_config: Json
+          action_name: string
+          created_at?: string | null
+          created_by: string
+          id?: string
+          input_schema?: Json | null
+          integration_type: string
+          is_active?: boolean | null
+          last_backed_up_at?: string | null
+          output_schema?: Json | null
+          rate_limit_per_minute?: number | null
+          requires_auth?: boolean | null
+          tenant_id: string
+          timeout_seconds?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          action_category?: string
+          action_config?: Json
+          action_name?: string
+          created_at?: string | null
+          created_by?: string
+          id?: string
+          input_schema?: Json | null
+          integration_type?: string
+          is_active?: boolean | null
+          last_backed_up_at?: string | null
+          output_schema?: Json | null
+          rate_limit_per_minute?: number | null
+          requires_auth?: boolean | null
+          tenant_id?: string
+          timeout_seconds?: number | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "integration_actions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       integration_api_keys: {
         Row: {
@@ -10435,6 +10573,153 @@ export type Database = {
         }
         Relationships: []
       }
+      playbook_steps: {
+        Row: {
+          action_config: Json
+          condition_logic: Json | null
+          created_at: string | null
+          created_by: string
+          id: string
+          is_critical: boolean | null
+          last_backed_up_at: string | null
+          next_step_on_failure: string | null
+          next_step_on_success: string | null
+          playbook_id: string
+          retry_on_failure: boolean | null
+          step_description_ar: string | null
+          step_name: string
+          step_order: number
+          step_type: string
+          tenant_id: string
+          timeout_seconds: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          action_config: Json
+          condition_logic?: Json | null
+          created_at?: string | null
+          created_by: string
+          id?: string
+          is_critical?: boolean | null
+          last_backed_up_at?: string | null
+          next_step_on_failure?: string | null
+          next_step_on_success?: string | null
+          playbook_id: string
+          retry_on_failure?: boolean | null
+          step_description_ar?: string | null
+          step_name: string
+          step_order: number
+          step_type: string
+          tenant_id: string
+          timeout_seconds?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          action_config?: Json
+          condition_logic?: Json | null
+          created_at?: string | null
+          created_by?: string
+          id?: string
+          is_critical?: boolean | null
+          last_backed_up_at?: string | null
+          next_step_on_failure?: string | null
+          next_step_on_success?: string | null
+          playbook_id?: string
+          retry_on_failure?: boolean | null
+          step_description_ar?: string | null
+          step_name?: string
+          step_order?: number
+          step_type?: string
+          tenant_id?: string
+          timeout_seconds?: number | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "playbook_steps_playbook_id_fkey"
+            columns: ["playbook_id"]
+            isOneToOne: false
+            referencedRelation: "soar_playbooks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "playbook_steps_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      playbook_triggers: {
+        Row: {
+          cooldown_minutes: number | null
+          created_at: string | null
+          created_by: string
+          id: string
+          is_enabled: boolean | null
+          last_backed_up_at: string | null
+          last_triggered_at: string | null
+          playbook_id: string
+          priority: number | null
+          tenant_id: string
+          trigger_config: Json
+          trigger_count: number | null
+          trigger_name: string
+          trigger_type: string
+          updated_at: string | null
+        }
+        Insert: {
+          cooldown_minutes?: number | null
+          created_at?: string | null
+          created_by: string
+          id?: string
+          is_enabled?: boolean | null
+          last_backed_up_at?: string | null
+          last_triggered_at?: string | null
+          playbook_id: string
+          priority?: number | null
+          tenant_id: string
+          trigger_config: Json
+          trigger_count?: number | null
+          trigger_name: string
+          trigger_type: string
+          updated_at?: string | null
+        }
+        Update: {
+          cooldown_minutes?: number | null
+          created_at?: string | null
+          created_by?: string
+          id?: string
+          is_enabled?: boolean | null
+          last_backed_up_at?: string | null
+          last_triggered_at?: string | null
+          playbook_id?: string
+          priority?: number | null
+          tenant_id?: string
+          trigger_config?: Json
+          trigger_count?: number | null
+          trigger_name?: string
+          trigger_type?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "playbook_triggers_playbook_id_fkey"
+            columns: ["playbook_id"]
+            isOneToOne: false
+            referencedRelation: "soar_playbooks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "playbook_triggers_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       policies: {
         Row: {
           category: string | null
@@ -12018,49 +12303,76 @@ export type Database = {
       soar_executions: {
         Row: {
           actions_taken: string[] | null
+          approval_status: string | null
+          approved_at: string | null
+          approved_by: string | null
           completed_at: string | null
           created_at: string
+          current_step_id: string | null
+          error_details: string | null
           error_message: string | null
           executed_by: string | null
+          execution_context: Json | null
           execution_log: Json | null
           id: string
           last_backed_up_at: string | null
           playbook_id: string
           result: Json | null
+          rollback_status: string | null
           started_at: string
           status: string
+          steps_completed: number | null
+          steps_total: number | null
           tenant_id: string
           trigger_event_id: string | null
         }
         Insert: {
           actions_taken?: string[] | null
+          approval_status?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
           completed_at?: string | null
           created_at?: string
+          current_step_id?: string | null
+          error_details?: string | null
           error_message?: string | null
           executed_by?: string | null
+          execution_context?: Json | null
           execution_log?: Json | null
           id?: string
           last_backed_up_at?: string | null
           playbook_id: string
           result?: Json | null
+          rollback_status?: string | null
           started_at?: string
           status?: string
+          steps_completed?: number | null
+          steps_total?: number | null
           tenant_id: string
           trigger_event_id?: string | null
         }
         Update: {
           actions_taken?: string[] | null
+          approval_status?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
           completed_at?: string | null
           created_at?: string
+          current_step_id?: string | null
+          error_details?: string | null
           error_message?: string | null
           executed_by?: string | null
+          execution_context?: Json | null
           execution_log?: Json | null
           id?: string
           last_backed_up_at?: string | null
           playbook_id?: string
           result?: Json | null
+          rollback_status?: string | null
           started_at?: string
           status?: string
+          steps_completed?: number | null
+          steps_total?: number | null
           tenant_id?: string
           trigger_event_id?: string | null
         }
@@ -12091,19 +12403,28 @@ export type Database = {
       soar_playbooks: {
         Row: {
           approval_required: boolean | null
+          approver_role: string | null
           automation_steps: Json
           created_at: string
           created_by: string | null
           description_ar: string | null
           description_en: string | null
+          estimated_duration_minutes: number | null
           execution_count: number | null
+          execution_mode: string | null
           id: string
           is_active: boolean | null
+          is_template: boolean | null
           last_backed_up_at: string | null
           last_executed_at: string | null
           playbook_name_ar: string
           playbook_name_en: string | null
+          playbook_version: string | null
+          retry_config: Json | null
           success_count: number | null
+          success_rate_pct: number | null
+          tags: string[] | null
+          template_category: string | null
           tenant_id: string
           trigger_conditions: Json
           updated_at: string
@@ -12111,19 +12432,28 @@ export type Database = {
         }
         Insert: {
           approval_required?: boolean | null
+          approver_role?: string | null
           automation_steps?: Json
           created_at?: string
           created_by?: string | null
           description_ar?: string | null
           description_en?: string | null
+          estimated_duration_minutes?: number | null
           execution_count?: number | null
+          execution_mode?: string | null
           id?: string
           is_active?: boolean | null
+          is_template?: boolean | null
           last_backed_up_at?: string | null
           last_executed_at?: string | null
           playbook_name_ar: string
           playbook_name_en?: string | null
+          playbook_version?: string | null
+          retry_config?: Json | null
           success_count?: number | null
+          success_rate_pct?: number | null
+          tags?: string[] | null
+          template_category?: string | null
           tenant_id: string
           trigger_conditions?: Json
           updated_at?: string
@@ -12131,19 +12461,28 @@ export type Database = {
         }
         Update: {
           approval_required?: boolean | null
+          approver_role?: string | null
           automation_steps?: Json
           created_at?: string
           created_by?: string | null
           description_ar?: string | null
           description_en?: string | null
+          estimated_duration_minutes?: number | null
           execution_count?: number | null
+          execution_mode?: string | null
           id?: string
           is_active?: boolean | null
+          is_template?: boolean | null
           last_backed_up_at?: string | null
           last_executed_at?: string | null
           playbook_name_ar?: string
           playbook_name_en?: string | null
+          playbook_version?: string | null
+          retry_config?: Json | null
           success_count?: number | null
+          success_rate_pct?: number | null
+          tags?: string[] | null
+          template_category?: string | null
           tenant_id?: string
           trigger_conditions?: Json
           updated_at?: string
@@ -14335,6 +14674,10 @@ export type Database = {
           update_count: number
         }[]
       }
+      calculate_playbook_success_rate: {
+        Args: { p_playbook_id: string }
+        Returns: number
+      }
       capture_kpi_snapshot: {
         Args: { p_snapshot_date?: string; p_tenant_id: string }
         Returns: number
@@ -15986,6 +16329,10 @@ export type Database = {
           status: string
           view_name: string
         }[]
+      }
+      get_next_playbook_step: {
+        Args: { p_current_step_id: string; p_execution_status: string }
+        Returns: string
       }
       get_pitr_rollback_history: {
         Args: { p_limit?: number; p_tenant_id: string }

@@ -149,3 +149,16 @@ export const logPredictionAction = (
   action: 'create' | 'read' | 'update' | 'delete',
   payload?: Record<string, any>
 ) => logAuditAction({ entityType: 'prediction_result', entityId: predictionId, action, payload });
+
+// M18 Part 2 - Playbooks Module
+export const logPlaybookAction = (
+  action: string,
+  playbookId: string,
+  userId: string,
+  details?: Record<string, any>
+) => logAuditAction({ 
+  entityType: 'soar_playbook', 
+  entityId: playbookId, 
+  action: action as any, 
+  payload: details 
+});
