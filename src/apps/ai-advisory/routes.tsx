@@ -7,7 +7,7 @@ import AdvisoryDashboard from './pages/AdvisoryDashboard';
 
 export const aiAdvisoryRoutes = (
   <>
-    <Route path="/ai-advisory" element={<AdvisoryDashboard />} />
-    <Route path="/ai-advisory/dashboard" element={<AdvisoryDashboard />} />
+    <Route index element={<AdvisoryDashboard />} />
+    <Route path="dashboard" element={<AdvisoryDashboard />} />
   </>
 );
