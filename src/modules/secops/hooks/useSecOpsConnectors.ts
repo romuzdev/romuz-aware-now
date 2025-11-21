@@ -71,7 +71,7 @@ export function useSecOpsConnectors(filters?: ConnectorFilters) {
   const syncStatusMutation = useMutation({
     mutationFn: ({ id, status, error }: { id: string; status: 'success' | 'error' | 'syncing' | 'idle'; error?: string }) => {
       logConnectorAction(id, 'sync', { status, error: error || '' });
-      return updateConnectorSyncStatus(id, status, error);
+      return updateConnectorSyncStatus(id, status, undefined, error);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['secops-connectors', tenantId] });
