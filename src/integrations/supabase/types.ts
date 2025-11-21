@@ -10849,6 +10849,270 @@ export type Database = {
         }
         Relationships: []
       }
+      threat_indicators: {
+        Row: {
+          confidence_score: number | null
+          created_at: string
+          description_ar: string | null
+          description_en: string | null
+          detection_count: number | null
+          feed_id: string | null
+          first_seen_at: string
+          id: string
+          indicator_type: string
+          indicator_value: string
+          is_whitelisted: boolean | null
+          last_backed_up_at: string | null
+          last_seen_at: string
+          match_count: number | null
+          metadata: Json | null
+          tags: string[] | null
+          tenant_id: string
+          threat_category: string | null
+          threat_level: string
+          updated_at: string
+          whitelist_reason: string | null
+          whitelisted_at: string | null
+          whitelisted_by: string | null
+        }
+        Insert: {
+          confidence_score?: number | null
+          created_at?: string
+          description_ar?: string | null
+          description_en?: string | null
+          detection_count?: number | null
+          feed_id?: string | null
+          first_seen_at?: string
+          id?: string
+          indicator_type: string
+          indicator_value: string
+          is_whitelisted?: boolean | null
+          last_backed_up_at?: string | null
+          last_seen_at?: string
+          match_count?: number | null
+          metadata?: Json | null
+          tags?: string[] | null
+          tenant_id: string
+          threat_category?: string | null
+          threat_level: string
+          updated_at?: string
+          whitelist_reason?: string | null
+          whitelisted_at?: string | null
+          whitelisted_by?: string | null
+        }
+        Update: {
+          confidence_score?: number | null
+          created_at?: string
+          description_ar?: string | null
+          description_en?: string | null
+          detection_count?: number | null
+          feed_id?: string | null
+          first_seen_at?: string
+          id?: string
+          indicator_type?: string
+          indicator_value?: string
+          is_whitelisted?: boolean | null
+          last_backed_up_at?: string | null
+          last_seen_at?: string
+          match_count?: number | null
+          metadata?: Json | null
+          tags?: string[] | null
+          tenant_id?: string
+          threat_category?: string | null
+          threat_level?: string
+          updated_at?: string
+          whitelist_reason?: string | null
+          whitelisted_at?: string | null
+          whitelisted_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "threat_indicators_feed_id_fkey"
+            columns: ["feed_id"]
+            isOneToOne: false
+            referencedRelation: "threat_intelligence_feeds"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "threat_indicators_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      threat_intelligence_feeds: {
+        Row: {
+          api_key_configured: boolean | null
+          config: Json | null
+          created_at: string
+          created_by: string
+          feed_name: string
+          feed_name_ar: string
+          feed_type: string
+          id: string
+          is_active: boolean | null
+          last_backed_up_at: string | null
+          last_error_message: string | null
+          last_fetch_status: string | null
+          last_fetched_at: string | null
+          source_provider: string | null
+          source_url: string | null
+          sync_interval_hours: number | null
+          tenant_id: string
+          total_indicators_fetched: number | null
+          updated_at: string
+          updated_by: string
+        }
+        Insert: {
+          api_key_configured?: boolean | null
+          config?: Json | null
+          created_at?: string
+          created_by: string
+          feed_name: string
+          feed_name_ar: string
+          feed_type: string
+          id?: string
+          is_active?: boolean | null
+          last_backed_up_at?: string | null
+          last_error_message?: string | null
+          last_fetch_status?: string | null
+          last_fetched_at?: string | null
+          source_provider?: string | null
+          source_url?: string | null
+          sync_interval_hours?: number | null
+          tenant_id: string
+          total_indicators_fetched?: number | null
+          updated_at?: string
+          updated_by: string
+        }
+        Update: {
+          api_key_configured?: boolean | null
+          config?: Json | null
+          created_at?: string
+          created_by?: string
+          feed_name?: string
+          feed_name_ar?: string
+          feed_type?: string
+          id?: string
+          is_active?: boolean | null
+          last_backed_up_at?: string | null
+          last_error_message?: string | null
+          last_fetch_status?: string | null
+          last_fetched_at?: string | null
+          source_provider?: string | null
+          source_url?: string | null
+          sync_interval_hours?: number | null
+          tenant_id?: string
+          total_indicators_fetched?: number | null
+          updated_at?: string
+          updated_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "threat_intelligence_feeds_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      threat_matches: {
+        Row: {
+          action_taken: string | null
+          action_taken_at: string | null
+          action_taken_by: string | null
+          created_at: string
+          false_positive_marked_at: string | null
+          false_positive_marked_by: string | null
+          false_positive_reason: string | null
+          id: string
+          indicator_id: string
+          investigation_notes: string | null
+          investigation_status: string | null
+          is_false_positive: boolean | null
+          last_backed_up_at: string | null
+          matched_at: string
+          matched_entity_id: string | null
+          matched_entity_type: string
+          matched_value: string
+          metadata: Json | null
+          severity: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          action_taken?: string | null
+          action_taken_at?: string | null
+          action_taken_by?: string | null
+          created_at?: string
+          false_positive_marked_at?: string | null
+          false_positive_marked_by?: string | null
+          false_positive_reason?: string | null
+          id?: string
+          indicator_id: string
+          investigation_notes?: string | null
+          investigation_status?: string | null
+          is_false_positive?: boolean | null
+          last_backed_up_at?: string | null
+          matched_at?: string
+          matched_entity_id?: string | null
+          matched_entity_type: string
+          matched_value: string
+          metadata?: Json | null
+          severity: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          action_taken?: string | null
+          action_taken_at?: string | null
+          action_taken_by?: string | null
+          created_at?: string
+          false_positive_marked_at?: string | null
+          false_positive_marked_by?: string | null
+          false_positive_reason?: string | null
+          id?: string
+          indicator_id?: string
+          investigation_notes?: string | null
+          investigation_status?: string | null
+          is_false_positive?: boolean | null
+          last_backed_up_at?: string | null
+          matched_at?: string
+          matched_entity_id?: string | null
+          matched_entity_type?: string
+          matched_value?: string
+          metadata?: Json | null
+          severity?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_threat_matches_indicator"
+            columns: ["indicator_id"]
+            isOneToOne: false
+            referencedRelation: "threat_indicators"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "threat_matches_indicator_id_fkey"
+            columns: ["indicator_id"]
+            isOneToOne: false
+            referencedRelation: "threat_indicators"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "threat_matches_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_content_interactions: {
         Row: {
           backup_metadata: Json | null
@@ -13804,6 +14068,18 @@ export type Database = {
         Args: { p_tables: string[] }
         Returns: string[]
       }
+      get_threat_statistics: {
+        Args: { p_tenant_id: string }
+        Returns: {
+          active_feeds: number
+          critical_indicators: number
+          false_positives: number
+          high_indicators: number
+          recent_matches_24h: number
+          total_indicators: number
+          total_matches: number
+        }[]
+      }
       get_transaction_logs_for_pitr: {
         Args: {
           p_base_backup_timestamp?: string
@@ -13850,6 +14126,10 @@ export type Database = {
       has_role_in_tenant: {
         Args: { _role: string; _tenant_id: string; _user_id: string }
         Returns: boolean
+      }
+      increment_indicator_match_count: {
+        Args: { p_indicator_id: string }
+        Returns: undefined
       }
       is_platform_admin: { Args: { _user_id: string }; Returns: boolean }
       is_view_security_approved: {
