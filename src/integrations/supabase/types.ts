@@ -333,9 +333,12 @@ export type Database = {
       }
       admin_settings: {
         Row: {
+          allowed_domains: string[] | null
           api_rate_limit_per_hour: number | null
           api_rate_limit_per_minute: number | null
           api_unlimited: boolean | null
+          backup_settings: Json | null
+          blocked_ips: string[] | null
           branding_app_name: string | null
           branding_logo_url: string | null
           branding_primary_color: string | null
@@ -345,6 +348,8 @@ export type Database = {
           created_at: string
           created_by: string | null
           current_database_size_gb: number | null
+          custom_css: string | null
+          custom_js: string | null
           email_quota_monthly: number | null
           email_quota_reset_date: string | null
           email_used_current_month: number | null
@@ -355,6 +360,8 @@ export type Database = {
           limits: Json
           login_lockout_duration_minutes: number | null
           login_notification_enabled: boolean | null
+          maintenance_message: string | null
+          maintenance_mode: boolean | null
           max_concurrent_users: number | null
           max_database_size_gb: number | null
           max_file_upload_size_mb: number | null
@@ -367,6 +374,7 @@ export type Database = {
           password_require_numbers: boolean | null
           password_require_special_chars: boolean | null
           password_require_uppercase: boolean | null
+          security_headers: Json | null
           session_absolute_timeout_minutes: number | null
           session_timeout_minutes: number | null
           sla_config: Json
@@ -377,9 +385,12 @@ export type Database = {
           updated_by: string | null
         }
         Insert: {
+          allowed_domains?: string[] | null
           api_rate_limit_per_hour?: number | null
           api_rate_limit_per_minute?: number | null
           api_unlimited?: boolean | null
+          backup_settings?: Json | null
+          blocked_ips?: string[] | null
           branding_app_name?: string | null
           branding_logo_url?: string | null
           branding_primary_color?: string | null
@@ -389,6 +400,8 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           current_database_size_gb?: number | null
+          custom_css?: string | null
+          custom_js?: string | null
           email_quota_monthly?: number | null
           email_quota_reset_date?: string | null
           email_used_current_month?: number | null
@@ -399,6 +412,8 @@ export type Database = {
           limits?: Json
           login_lockout_duration_minutes?: number | null
           login_notification_enabled?: boolean | null
+          maintenance_message?: string | null
+          maintenance_mode?: boolean | null
           max_concurrent_users?: number | null
           max_database_size_gb?: number | null
           max_file_upload_size_mb?: number | null
@@ -411,6 +426,7 @@ export type Database = {
           password_require_numbers?: boolean | null
           password_require_special_chars?: boolean | null
           password_require_uppercase?: boolean | null
+          security_headers?: Json | null
           session_absolute_timeout_minutes?: number | null
           session_timeout_minutes?: number | null
           sla_config?: Json
@@ -421,9 +437,12 @@ export type Database = {
           updated_by?: string | null
         }
         Update: {
+          allowed_domains?: string[] | null
           api_rate_limit_per_hour?: number | null
           api_rate_limit_per_minute?: number | null
           api_unlimited?: boolean | null
+          backup_settings?: Json | null
+          blocked_ips?: string[] | null
           branding_app_name?: string | null
           branding_logo_url?: string | null
           branding_primary_color?: string | null
@@ -433,6 +452,8 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           current_database_size_gb?: number | null
+          custom_css?: string | null
+          custom_js?: string | null
           email_quota_monthly?: number | null
           email_quota_reset_date?: string | null
           email_used_current_month?: number | null
@@ -443,6 +464,8 @@ export type Database = {
           limits?: Json
           login_lockout_duration_minutes?: number | null
           login_notification_enabled?: boolean | null
+          maintenance_message?: string | null
+          maintenance_mode?: boolean | null
           max_concurrent_users?: number | null
           max_database_size_gb?: number | null
           max_file_upload_size_mb?: number | null
@@ -455,6 +478,7 @@ export type Database = {
           password_require_numbers?: boolean | null
           password_require_special_chars?: boolean | null
           password_require_uppercase?: boolean | null
+          security_headers?: Json | null
           session_absolute_timeout_minutes?: number | null
           session_timeout_minutes?: number | null
           sla_config?: Json
@@ -10662,6 +10686,83 @@ export type Database = {
         }
         Relationships: []
       }
+      platform_alerts: {
+        Row: {
+          acknowledged_at: string | null
+          acknowledged_by: string | null
+          alert_type: string
+          created_at: string
+          description: string | null
+          expires_at: string | null
+          id: string
+          last_backed_up_at: string | null
+          metadata: Json | null
+          resolution_notes: string | null
+          resolved_at: string | null
+          resolved_by: string | null
+          severity: string
+          source_entity_id: string | null
+          source_entity_type: string | null
+          source_module: string | null
+          status: string | null
+          tenant_id: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          acknowledged_at?: string | null
+          acknowledged_by?: string | null
+          alert_type: string
+          created_at?: string
+          description?: string | null
+          expires_at?: string | null
+          id?: string
+          last_backed_up_at?: string | null
+          metadata?: Json | null
+          resolution_notes?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          severity?: string
+          source_entity_id?: string | null
+          source_entity_type?: string | null
+          source_module?: string | null
+          status?: string | null
+          tenant_id?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          acknowledged_at?: string | null
+          acknowledged_by?: string | null
+          alert_type?: string
+          created_at?: string
+          description?: string | null
+          expires_at?: string | null
+          id?: string
+          last_backed_up_at?: string | null
+          metadata?: Json | null
+          resolution_notes?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          severity?: string
+          source_entity_id?: string | null
+          source_entity_type?: string | null
+          source_module?: string | null
+          status?: string | null
+          tenant_id?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "platform_alerts_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       playbook_steps: {
         Row: {
           action_config: Json
@@ -12590,6 +12691,68 @@ export type Database = {
           },
         ]
       }
+      system_configurations: {
+        Row: {
+          category: string
+          config_key: string
+          config_type: string
+          config_value: Json
+          created_at: string
+          created_by: string | null
+          description: string | null
+          id: string
+          is_readonly: boolean | null
+          is_sensitive: boolean | null
+          last_backed_up_at: string | null
+          tenant_id: string | null
+          updated_at: string
+          updated_by: string | null
+          validation_rules: Json | null
+        }
+        Insert: {
+          category: string
+          config_key: string
+          config_type: string
+          config_value: Json
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_readonly?: boolean | null
+          is_sensitive?: boolean | null
+          last_backed_up_at?: string | null
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+          validation_rules?: Json | null
+        }
+        Update: {
+          category?: string
+          config_key?: string
+          config_type?: string
+          config_value?: Json
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_readonly?: boolean | null
+          is_sensitive?: boolean | null
+          last_backed_up_at?: string | null
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+          validation_rules?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "system_configurations_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       system_events: {
         Row: {
           created_at: string | null
@@ -12747,6 +12910,56 @@ export type Database = {
         }
         Relationships: []
       }
+      system_metrics: {
+        Row: {
+          created_at: string
+          id: string
+          last_backed_up_at: string | null
+          metadata: Json | null
+          metric_type: string
+          metric_unit: string | null
+          metric_value: number
+          recorded_at: string
+          severity: string | null
+          source_component: string | null
+          tenant_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          last_backed_up_at?: string | null
+          metadata?: Json | null
+          metric_type: string
+          metric_unit?: string | null
+          metric_value: number
+          recorded_at?: string
+          severity?: string | null
+          source_component?: string | null
+          tenant_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          last_backed_up_at?: string | null
+          metadata?: Json | null
+          metric_type?: string
+          metric_unit?: string | null
+          metric_value?: number
+          recorded_at?: string
+          severity?: string | null
+          source_component?: string | null
+          tenant_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "system_metrics_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tenant_automation_actions: {
         Row: {
           action_type: string
@@ -12893,6 +13106,71 @@ export type Database = {
             foreignKeyName: "tenant_health_status_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: true
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tenant_lifecycle_events: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          duration_seconds: number | null
+          error_message: string | null
+          event_status: string | null
+          event_type: string
+          id: string
+          last_backed_up_at: string | null
+          metadata: Json | null
+          new_state: Json | null
+          previous_state: Json | null
+          rollback_info: Json | null
+          tenant_id: string
+          triggered_at: string
+          triggered_by: string | null
+          updated_at: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          duration_seconds?: number | null
+          error_message?: string | null
+          event_status?: string | null
+          event_type: string
+          id?: string
+          last_backed_up_at?: string | null
+          metadata?: Json | null
+          new_state?: Json | null
+          previous_state?: Json | null
+          rollback_info?: Json | null
+          tenant_id: string
+          triggered_at?: string
+          triggered_by?: string | null
+          updated_at?: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          duration_seconds?: number | null
+          error_message?: string | null
+          event_status?: string | null
+          event_type?: string
+          id?: string
+          last_backed_up_at?: string | null
+          metadata?: Json | null
+          new_state?: Json | null
+          previous_state?: Json | null
+          rollback_info?: Json | null
+          tenant_id?: string
+          triggered_at?: string
+          triggered_by?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tenant_lifecycle_events_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
             referencedRelation: "tenants"
             referencedColumns: ["id"]
           },
@@ -13068,6 +13346,148 @@ export type Database = {
           updated_by?: string | null
         }
         Relationships: []
+      }
+      tenant_subscriptions: {
+        Row: {
+          api_calls_limit: number | null
+          auto_renew: boolean | null
+          billing_cycle: string | null
+          created_at: string
+          end_date: string | null
+          features: Json | null
+          id: string
+          last_backed_up_at: string | null
+          metadata: Json | null
+          monthly_price: number | null
+          plan_name: string
+          plan_tier: string
+          pricing_currency: string | null
+          start_date: string
+          storage_limit_gb: number | null
+          subscription_status: string | null
+          tenant_id: string
+          trial_end_date: string | null
+          updated_at: string
+          user_limit: number | null
+          yearly_price: number | null
+        }
+        Insert: {
+          api_calls_limit?: number | null
+          auto_renew?: boolean | null
+          billing_cycle?: string | null
+          created_at?: string
+          end_date?: string | null
+          features?: Json | null
+          id?: string
+          last_backed_up_at?: string | null
+          metadata?: Json | null
+          monthly_price?: number | null
+          plan_name: string
+          plan_tier: string
+          pricing_currency?: string | null
+          start_date: string
+          storage_limit_gb?: number | null
+          subscription_status?: string | null
+          tenant_id: string
+          trial_end_date?: string | null
+          updated_at?: string
+          user_limit?: number | null
+          yearly_price?: number | null
+        }
+        Update: {
+          api_calls_limit?: number | null
+          auto_renew?: boolean | null
+          billing_cycle?: string | null
+          created_at?: string
+          end_date?: string | null
+          features?: Json | null
+          id?: string
+          last_backed_up_at?: string | null
+          metadata?: Json | null
+          monthly_price?: number | null
+          plan_name?: string
+          plan_tier?: string
+          pricing_currency?: string | null
+          start_date?: string
+          storage_limit_gb?: number | null
+          subscription_status?: string | null
+          tenant_id?: string
+          trial_end_date?: string | null
+          updated_at?: string
+          user_limit?: number | null
+          yearly_price?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tenant_subscriptions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: true
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tenant_usage_stats: {
+        Row: {
+          active_users_count: number | null
+          api_calls_count: number | null
+          awareness_campaigns_count: number | null
+          created_at: string
+          database_queries_count: number | null
+          id: string
+          incidents_count: number | null
+          last_backed_up_at: string | null
+          metadata: Json | null
+          phishing_simulations_count: number | null
+          policies_count: number | null
+          stat_date: string
+          tenant_id: string
+          total_storage_gb: number | null
+          updated_at: string
+        }
+        Insert: {
+          active_users_count?: number | null
+          api_calls_count?: number | null
+          awareness_campaigns_count?: number | null
+          created_at?: string
+          database_queries_count?: number | null
+          id?: string
+          incidents_count?: number | null
+          last_backed_up_at?: string | null
+          metadata?: Json | null
+          phishing_simulations_count?: number | null
+          policies_count?: number | null
+          stat_date: string
+          tenant_id: string
+          total_storage_gb?: number | null
+          updated_at?: string
+        }
+        Update: {
+          active_users_count?: number | null
+          api_calls_count?: number | null
+          awareness_campaigns_count?: number | null
+          created_at?: string
+          database_queries_count?: number | null
+          id?: string
+          incidents_count?: number | null
+          last_backed_up_at?: string | null
+          metadata?: Json | null
+          phishing_simulations_count?: number | null
+          policies_count?: number | null
+          stat_date?: string
+          tenant_id?: string
+          total_storage_gb?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tenant_usage_stats_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       tenants: {
         Row: {
