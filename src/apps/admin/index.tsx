@@ -7,6 +7,7 @@ import UnifiedDashboardPage from './pages/UnifiedDashboardPage';
 import BackupRecoveryPage from './pages/BackupRecoveryPage';
 import ContentHubPage from './pages/ContentHub';
 import AIRecommendationsPage from './pages/AIRecommendationsPage';
+import IntegrationMarketplace from './pages/IntegrationMarketplace';
 
 export function AdminApp() {
   return (
@@ -17,6 +18,7 @@ export function AdminApp() {
       <Route path="backup" element={<BackupRecoveryPage />} />
       <Route path="content-hub" element={<ContentHubPage />} />
       <Route path="ai-recommendations" element={<AIRecommendationsPage />} />
+      <Route path="integrations" element={<IntegrationMarketplace />} />
     </Routes>
   );
 }
