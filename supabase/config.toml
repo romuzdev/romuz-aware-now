@@ -160,3 +160,6 @@ verify_jwt = true  # Requires authentication - Generate AI predictions
 
 [functions.init-prediction-models]
 verify_jwt = true  # Requires authentication - Initialize default models
+
+[functions.seed-predictions-data]
+verify_jwt = true  # Requires authentication - Create sample data for testing

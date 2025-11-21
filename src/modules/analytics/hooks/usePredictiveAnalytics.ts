@@ -9,6 +9,7 @@ import {
   fetchPredictionModels,
   fetchPredictions,
   fetchPredictionStats,
+  fetchPerformanceMetrics,
 } from '../integration/predictive-analytics.integration';
 import type {
   PredictionRequest,
@@ -36,6 +37,14 @@ export function usePredictionStats(tenantId: string) {
   return useQuery({
     queryKey: ['prediction-stats', tenantId],
     queryFn: () => fetchPredictionStats(tenantId),
+    enabled: !!tenantId,
+  });
+}
+
+export function usePerformanceMetrics(tenantId: string, modelId?: string) {
+  return useQuery({
+    queryKey: ['performance-metrics', tenantId, modelId],
+    queryFn: () => fetchPerformanceMetrics(tenantId, modelId),
     enabled: !!tenantId,
   });
 }
@@ -87,12 +96,43 @@ export function useCreatePrediction() {
       });
       queryClient.invalidateQueries({ queryKey: ['predictions'] });
       queryClient.invalidateQueries({ queryKey: ['prediction-stats'] });
+      queryClient.invalidateQueries({ queryKey: ['prediction-models'] });
     },
     onError: (error) => {
       toast({
         variant: 'destructive',
         title: 'Prediction Failed',
         description: error instanceof Error ? error.message : 'Failed to create prediction',
+      });
+    },
+  });
+}
+
+export function useSeedData() {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async () => {
+      const { data, error } = await supabase.functions.invoke('seed-predictions-data');
+      if (error) throw error;
+      return data;
+    },
+    onSuccess: (data) => {
+      toast({
+        title: 'Sample Data Created',
+        description: `Created ${data.predictions} predictions and ${data.metrics} metrics`,
+      });
+      queryClient.invalidateQueries({ queryKey: ['predictions'] });
+      queryClient.invalidateQueries({ queryKey: ['prediction-stats'] });
+      queryClient.invalidateQueries({ queryKey: ['prediction-models'] });
+      queryClient.invalidateQueries({ queryKey: ['performance-metrics'] });
+    },
+    onError: (error) => {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: error instanceof Error ? error.message : 'Failed to create sample data',
       });
     },
   });
