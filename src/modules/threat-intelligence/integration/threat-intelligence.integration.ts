@@ -360,7 +360,7 @@ export async function fetchThreatMatches(
     .from('threat_matches')
     .select(`
       *,
-      indicator:threat_indicators(
+      indicator:threat_indicators!threat_matches_indicator_id_fkey(
         *,
         feed:threat_intelligence_feeds(*)
       )
@@ -416,7 +416,7 @@ export async function fetchThreatMatchById(
     .from('threat_matches')
     .select(`
       *,
-      indicator:threat_indicators(
+      indicator:threat_indicators!threat_matches_indicator_id_fkey(
         *,
         feed:threat_intelligence_feeds(*)
       )
