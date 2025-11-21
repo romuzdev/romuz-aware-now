@@ -4,7 +4,8 @@
  */
 
 import { useState } from 'react';
-import { Plus, RefreshCw, Settings2, Plug, Cloud, Webhook, Shield } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Plus, RefreshCw, Settings2, Plug, Cloud, Webhook, Shield, TestTube2 } from 'lucide-react';
 import {
   useIntegrations,
   useIntegrationStats,
@@ -19,6 +20,7 @@ import { IntegrationDetailsDialog } from '../components/IntegrationDetailsDialog
 import type { IncidentIntegration } from '@/integrations/external';
 
 export function IntegrationSettings() {
+  const navigate = useNavigate();
   const [selectedIntegration, setSelectedIntegration] = useState<IncidentIntegration | null>(null);
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [showEditDialog, setShowEditDialog] = useState(false);
@@ -96,13 +98,22 @@ export function IntegrationSettings() {
             إدارة التكاملات مع الأنظمة الخارجية (SIEM، Cloud Providers، Webhooks)
           </p>
         </div>
-        <button
-          onClick={() => setShowCreateDialog(true)}
-          className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 flex items-center gap-2"
-        >
-          <Plus className="w-4 h-4" />
-          إضافة تكامل جديد
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={() => navigate('/incident-response/integrations/testing')}
+            className="px-4 py-2 border rounded-lg hover:bg-muted flex items-center gap-2"
+          >
+            <TestTube2 className="w-4 h-4" />
+            اختبار التكاملات
+          </button>
+          <button
+            onClick={() => setShowCreateDialog(true)}
+            className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 flex items-center gap-2"
+          >
+            <Plus className="w-4 h-4" />
+            إضافة تكامل جديد
+          </button>
+        </div>
       </div>
 
       {/* Statistics Cards */}
