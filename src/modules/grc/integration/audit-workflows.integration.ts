@@ -15,6 +15,13 @@ import type {
   WorkflowStatistics,
   AuditWorkflowWithDetails,
 } from '../types/audit-workflow.types';
+import {
+  logWorkflowCreated,
+  logWorkflowUpdated,
+  logWorkflowAssigned,
+  logWorkflowCompleted,
+  logStageUpdated,
+} from '../utils/auditLogger';
 
 // ============================================================================
 // Audit Workflows CRUD
@@ -121,6 +128,10 @@ export async function createAuditWorkflow(input: CreateWorkflowInput) {
     .single();
 
   if (error) throw error;
+
+  // 🟡 Log workflow creation
+  await logWorkflowCreated(data.id, input.audit_id, input.workflow_type);
+
   return data as AuditWorkflow;
 }
 
@@ -152,6 +163,10 @@ export async function updateAuditWorkflow(input: UpdateWorkflowInput) {
     .single();
 
   if (error) throw error;
+
+  // 🟡 Log workflow update
+  await logWorkflowUpdated(input.workflow_id, updates);
+
   return data as AuditWorkflow;
 }
 
@@ -223,6 +238,10 @@ export async function assignWorkflow(workflowId: string, userId: string) {
     .single();
 
   if (error) throw error;
+
+  // 🟡 Log workflow assignment
+  await logWorkflowAssigned(workflowId, userId);
+
   return data as AuditWorkflow;
 }
 
@@ -247,6 +266,10 @@ export async function completeWorkflow(workflowId: string, notes?: string) {
     .single();
 
   if (error) throw error;
+
+  // 🟡 Log workflow completion
+  await logWorkflowCompleted(workflowId, notes);
+
   return data as AuditWorkflow;
 }
 
