@@ -3,3 +3,13 @@
  */
 
 export * from './useThreatIntelligence';
+export {
+  useThreatFeeds,
+  useThreatIndicators,
+  useIOCCheck,
+  useThreatMatches,
+  useThreatActors,
+  useMITREMappings,
+  useThreatStats,
+  useRecentMatches,
+} from './useThreatIntelligence';
