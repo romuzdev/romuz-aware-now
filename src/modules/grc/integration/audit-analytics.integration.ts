@@ -24,7 +24,7 @@ export interface ClosureTimeData {
   max_days: number;
 }
 
-export interface WorkflowProgress {
+export interface WorkflowProgressSummary {
   total_stages: number;
   completed_stages: number;
   in_progress_stages: number;
@@ -123,14 +123,14 @@ export async function getAvgFindingClosureTime(
  */
 export async function getWorkflowProgressSummary(
   workflowId: string
-): Promise<WorkflowProgress> {
+): Promise<WorkflowProgressSummary> {
   const { data, error } = await supabase
     .rpc('get_workflow_progress_summary', {
       p_workflow_id: workflowId,
     });
 
   if (error) throw error;
-  return data[0] as WorkflowProgress;
+  return data[0] as WorkflowProgressSummary;
 }
 
 /**
@@ -190,9 +190,9 @@ export async function getAuditTrends(
 }
 
 /**
- * Get compliance gap analysis
+ * Get compliance gap analysis for audits (Analytics-specific)
  */
-export async function getComplianceGaps(): Promise<Array<{
+export async function getAuditComplianceGaps(): Promise<Array<{
   framework: string;
   total_audits: number;
   compliant: number;

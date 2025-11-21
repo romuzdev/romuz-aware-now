@@ -10,7 +10,7 @@ import {
   getAvgFindingClosureTime,
   getWorkflowProgressSummary,
   getAuditTrends,
-  getComplianceGaps,
+  getAuditComplianceGaps,
 } from '../integration/audit-analytics.integration';
 
 /**
@@ -75,7 +75,7 @@ export function useAuditTrends(months: number = 6) {
 export function useAuditComplianceGaps() {
   return useQuery({
     queryKey: ['grc', 'audit-analytics', 'compliance-gaps'],
-    queryFn: () => getComplianceGaps(),
+    queryFn: () => getAuditComplianceGaps(),
     staleTime: 10 * 60 * 1000,
   });
 }

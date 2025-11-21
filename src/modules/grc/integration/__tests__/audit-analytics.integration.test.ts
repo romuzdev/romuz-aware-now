@@ -11,7 +11,7 @@ import {
   getAvgFindingClosureTime,
   getWorkflowProgressSummary,
   getAuditTrends,
-  getComplianceGaps,
+  getAuditComplianceGaps,
 } from '../audit-analytics.integration';
 
 // Mock Supabase client
@@ -207,7 +207,7 @@ describe('Audit Analytics Integration', () => {
     });
   });
 
-  describe('getComplianceGaps', () => {
+  describe('getAuditComplianceGaps', () => {
     it('should return compliance gaps by framework', async () => {
       vi.mocked(supabase.auth.getUser).mockResolvedValue({
         data: { user: { id: 'user-123' } },
@@ -230,7 +230,7 @@ describe('Audit Analytics Integration', () => {
         }),
       } as any);
 
-      const result = await getComplianceGaps();
+      const result = await getAuditComplianceGaps();
 
       expect(Array.isArray(result)).toBe(true);
       if (result.length > 0) {
