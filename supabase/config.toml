@@ -150,3 +150,13 @@ verify_jwt = true  # Requires authentication - Semantic search
 
 [functions.knowledge-qa]
 verify_jwt = true  # Requires authentication - RAG Q&A system
+
+# ============================================================================
+# M19: Predictive Analytics
+# ============================================================================
+
+[functions.create-prediction]
+verify_jwt = true  # Requires authentication - Generate AI predictions
+
+[functions.init-prediction-models]
+verify_jwt = true  # Requires authentication - Initialize default models

@@ -2,15 +2,30 @@
  * Predictive Analytics - Dashboard
  */
 
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PageHeader } from '@/core/components/ui/page-header';
-import { TrendingUp, Brain, Target, AlertTriangle } from 'lucide-react';
+import { TrendingUp, Brain, Target, AlertTriangle, Plus } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/core/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/core/components/ui/tabs';
+import { Button } from '@/core/components/ui/button';
+import { Skeleton } from '@/core/components/ui/skeleton';
+import { useAppContext } from '@/lib/app-context/AppContextProvider';
+import { 
+  usePredictionModels, 
+  usePredictions, 
+  usePredictionStats,
+  useInitializeModels 
+} from '@/modules/analytics/hooks/usePredictiveAnalytics';
+import { format } from 'date-fns';
 
 export default function Dashboard() {
   const { t } = useTranslation();
+  const { tenantId } = useAppContext();
+  
+  const { data: stats, isLoading: statsLoading } = usePredictionStats(tenantId || '');
+  const { data: models, isLoading: modelsLoading } = usePredictionModels(tenantId || '', { is_active: true });
+  const { data: predictions, isLoading: predictionsLoading } = usePredictions(tenantId || '');
+  const initModels = useInitializeModels();
 
   return (
     <div className="space-y-6">
@@ -18,6 +33,17 @@ export default function Dashboard() {
         icon={TrendingUp}
         title={t('Predictive Analytics Dashboard', 'لوحة التحكم - التحليلات التنبؤية')}
         description={t('AI-powered predictions and insights', 'تنبؤات ورؤى مدعومة بالذكاء الاصطناعي')}
+        actions={
+          !models?.length && (
+            <Button
+              onClick={() => initModels.mutate()}
+              disabled={initModels.isPending}
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              {t('Initialize Models', 'تهيئة النماذج')}
+            </Button>
+          )
+        }
       />
 
       {/* Overview Cards */}
@@ -30,10 +56,16 @@ export default function Dashboard() {
             <Brain className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">0</div>
-            <p className="text-xs text-muted-foreground">
-              {t('Ready for predictions', 'جاهزة للتنبؤات')}
-            </p>
+            {statsLoading ? (
+              <Skeleton className="h-8 w-16" />
+            ) : (
+              <>
+                <div className="text-2xl font-bold">{stats?.totalModels || 0}</div>
+                <p className="text-xs text-muted-foreground">
+                  {t('Ready for predictions', 'جاهزة للتنبؤات')}
+                </p>
+              </>
+            )}
           </CardContent>
         </Card>
 
@@ -45,10 +77,16 @@ export default function Dashboard() {
             <Target className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">0</div>
-            <p className="text-xs text-muted-foreground">
-              {t('All time', 'على الإطلاق')}
-            </p>
+            {statsLoading ? (
+              <Skeleton className="h-8 w-16" />
+            ) : (
+              <>
+                <div className="text-2xl font-bold">{stats?.totalPredictions || 0}</div>
+                <p className="text-xs text-muted-foreground">
+                  {t('All time', 'على الإطلاق')}
+                </p>
+              </>
+            )}
           </CardContent>
         </Card>
 
@@ -60,10 +98,18 @@ export default function Dashboard() {
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">-</div>
-            <p className="text-xs text-muted-foreground">
-              {t('No data yet', 'لا توجد بيانات بعد')}
-            </p>
+            {statsLoading ? (
+              <Skeleton className="h-8 w-16" />
+            ) : (
+              <>
+                <div className="text-2xl font-bold">
+                  {stats?.averageAccuracy ? `${stats.averageAccuracy.toFixed(1)}%` : '-'}
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  {stats?.averageAccuracy ? t('Based on validated predictions', 'بناءً على التنبؤات المتحققة') : t('No data yet', 'لا توجد بيانات بعد')}
+                </p>
+              </>
+            )}
           </CardContent>
         </Card>
 
@@ -75,10 +121,16 @@ export default function Dashboard() {
             <AlertTriangle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">0</div>
-            <p className="text-xs text-muted-foreground">
-              {t('Requires attention', 'تحتاج انتباه')}
-            </p>
+            {statsLoading ? (
+              <Skeleton className="h-8 w-16" />
+            ) : (
+              <>
+                <div className="text-2xl font-bold">{stats?.highRiskPredictions || 0}</div>
+                <p className="text-xs text-muted-foreground">
+                  {t('Requires attention', 'تحتاج انتباه')}
+                </p>
+              </>
+            )}
           </CardContent>
         </Card>
       </div>
@@ -106,9 +158,59 @@ export default function Dashboard() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="text-center py-12 text-muted-foreground">
-                {t('No predictions yet. Create a model to get started.', 'لا توجد تنبؤات بعد. أنشئ نموذجاً للبدء.')}
-              </div>
+              {predictionsLoading ? (
+                <div className="space-y-3">
+                  {[1, 2, 3].map((i) => (
+                    <Skeleton key={i} className="h-20 w-full" />
+                  ))}
+                </div>
+              ) : predictions && predictions.length > 0 ? (
+                <div className="space-y-4">
+                  {predictions.slice(0, 5).map((prediction) => (
+                    <div
+                      key={prediction.id}
+                      className="flex items-center justify-between p-4 border rounded-lg"
+                    >
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2">
+                          <span className="font-medium">{prediction.prediction_type}</span>
+                          <span
+                            className={`px-2 py-1 rounded text-xs ${
+                              prediction.predicted_category === 'critical'
+                                ? 'bg-destructive/10 text-destructive'
+                                : prediction.predicted_category === 'high'
+                                ? 'bg-orange-500/10 text-orange-500'
+                                : prediction.predicted_category === 'medium'
+                                ? 'bg-yellow-500/10 text-yellow-500'
+                                : 'bg-green-500/10 text-green-500'
+                            }`}
+                          >
+                            {prediction.predicted_category}
+                          </span>
+                        </div>
+                        <p className="text-sm text-muted-foreground mt-1">
+                          {prediction.ai_reasoning?.slice(0, 100)}...
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          {format(new Date(prediction.created_at), 'PPp')}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-2xl font-bold">
+                          {prediction.predicted_value?.toFixed(0)}
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {t('Confidence', 'الثقة')}: {prediction.confidence_score?.toFixed(0)}%
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-12 text-muted-foreground">
+                  {t('No predictions yet. Create a model to get started.', 'لا توجد تنبؤات بعد. أنشئ نموذجاً للبدء.')}
+                </div>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
