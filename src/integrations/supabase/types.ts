@@ -514,6 +514,7 @@ export type Database = {
           decision_type: string
           error_message: string | null
           id: string
+          last_backed_up_at: string | null
           model_used: string | null
           outcome: string | null
           outcome_details: Json | null
@@ -533,6 +534,7 @@ export type Database = {
           decision_type: string
           error_message?: string | null
           id?: string
+          last_backed_up_at?: string | null
           model_used?: string | null
           outcome?: string | null
           outcome_details?: Json | null
@@ -552,6 +554,7 @@ export type Database = {
           decision_type?: string
           error_message?: string | null
           id?: string
+          last_backed_up_at?: string | null
           model_used?: string | null
           outcome?: string | null
           outcome_details?: Json | null
@@ -572,6 +575,78 @@ export type Database = {
           },
           {
             foreignKeyName: "fk_ai_decision_logs_tenant"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ai_learning_metrics: {
+        Row: {
+          acceptance_rate: number | null
+          avg_confidence_score: number | null
+          avg_feedback_rating: number | null
+          common_rejection_reasons: string[] | null
+          context_type: string
+          created_at: string | null
+          feedback_count: number | null
+          id: string
+          improvement_suggestions: Json | null
+          last_backed_up_at: string | null
+          model_performance_score: number | null
+          period_end: string
+          period_start: string
+          recommendation_id: string | null
+          tenant_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          acceptance_rate?: number | null
+          avg_confidence_score?: number | null
+          avg_feedback_rating?: number | null
+          common_rejection_reasons?: string[] | null
+          context_type: string
+          created_at?: string | null
+          feedback_count?: number | null
+          id?: string
+          improvement_suggestions?: Json | null
+          last_backed_up_at?: string | null
+          model_performance_score?: number | null
+          period_end: string
+          period_start: string
+          recommendation_id?: string | null
+          tenant_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          acceptance_rate?: number | null
+          avg_confidence_score?: number | null
+          avg_feedback_rating?: number | null
+          common_rejection_reasons?: string[] | null
+          context_type?: string
+          created_at?: string | null
+          feedback_count?: number | null
+          id?: string
+          improvement_suggestions?: Json | null
+          last_backed_up_at?: string | null
+          model_performance_score?: number | null
+          period_end?: string
+          period_start?: string
+          recommendation_id?: string | null
+          tenant_id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_learning_metrics_recommendation_id_fkey"
+            columns: ["recommendation_id"]
+            isOneToOne: false
+            referencedRelation: "ai_recommendations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ai_learning_metrics_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -601,6 +676,7 @@ export type Database = {
           implementation_notes: string | null
           implemented_at: string | null
           implemented_by: string | null
+          last_backed_up_at: string | null
           metadata: Json | null
           model_used: string
           priority: string
@@ -636,6 +712,7 @@ export type Database = {
           implementation_notes?: string | null
           implemented_at?: string | null
           implemented_by?: string | null
+          last_backed_up_at?: string | null
           metadata?: Json | null
           model_used?: string
           priority?: string
@@ -671,6 +748,7 @@ export type Database = {
           implementation_notes?: string | null
           implemented_at?: string | null
           implemented_by?: string | null
+          last_backed_up_at?: string | null
           metadata?: Json | null
           model_used?: string
           priority?: string
@@ -7878,6 +7956,113 @@ export type Database = {
         }
         Relationships: []
       }
+      knowledge_articles: {
+        Row: {
+          author_id: string | null
+          category: string
+          content_ar: string
+          content_en: string | null
+          created_at: string | null
+          document_type: string
+          helpful_count: number | null
+          id: string
+          is_published: boolean | null
+          is_verified: boolean | null
+          keywords: string[] | null
+          language: string | null
+          last_backed_up_at: string | null
+          not_helpful_count: number | null
+          published_at: string | null
+          related_articles: string[] | null
+          search_count: number | null
+          source_url: string | null
+          summary_ar: string | null
+          summary_en: string | null
+          superseded_by: string | null
+          tags: string[] | null
+          tenant_id: string
+          title_ar: string
+          title_en: string | null
+          updated_at: string | null
+          verified_at: string | null
+          verified_by: string | null
+          version: number | null
+          view_count: number | null
+        }
+        Insert: {
+          author_id?: string | null
+          category: string
+          content_ar: string
+          content_en?: string | null
+          created_at?: string | null
+          document_type: string
+          helpful_count?: number | null
+          id?: string
+          is_published?: boolean | null
+          is_verified?: boolean | null
+          keywords?: string[] | null
+          language?: string | null
+          last_backed_up_at?: string | null
+          not_helpful_count?: number | null
+          published_at?: string | null
+          related_articles?: string[] | null
+          search_count?: number | null
+          source_url?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          superseded_by?: string | null
+          tags?: string[] | null
+          tenant_id: string
+          title_ar: string
+          title_en?: string | null
+          updated_at?: string | null
+          verified_at?: string | null
+          verified_by?: string | null
+          version?: number | null
+          view_count?: number | null
+        }
+        Update: {
+          author_id?: string | null
+          category?: string
+          content_ar?: string
+          content_en?: string | null
+          created_at?: string | null
+          document_type?: string
+          helpful_count?: number | null
+          id?: string
+          is_published?: boolean | null
+          is_verified?: boolean | null
+          keywords?: string[] | null
+          language?: string | null
+          last_backed_up_at?: string | null
+          not_helpful_count?: number | null
+          published_at?: string | null
+          related_articles?: string[] | null
+          search_count?: number | null
+          source_url?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          superseded_by?: string | null
+          tags?: string[] | null
+          tenant_id?: string
+          title_ar?: string
+          title_en?: string | null
+          updated_at?: string | null
+          verified_at?: string | null
+          verified_by?: string | null
+          version?: number | null
+          view_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "knowledge_articles_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       knowledge_document_versions: {
         Row: {
           change_summary: string | null
@@ -8046,6 +8231,66 @@ export type Database = {
           },
         ]
       }
+      knowledge_embeddings: {
+        Row: {
+          article_id: string
+          chunk_index: number
+          chunk_text: string
+          chunk_tokens: number | null
+          created_at: string | null
+          embedding: string | null
+          id: string
+          language: string | null
+          last_backed_up_at: string | null
+          section_title: string | null
+          tenant_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          article_id: string
+          chunk_index: number
+          chunk_text: string
+          chunk_tokens?: number | null
+          created_at?: string | null
+          embedding?: string | null
+          id?: string
+          language?: string | null
+          last_backed_up_at?: string | null
+          section_title?: string | null
+          tenant_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          article_id?: string
+          chunk_index?: number
+          chunk_text?: string
+          chunk_tokens?: number | null
+          created_at?: string | null
+          embedding?: string | null
+          id?: string
+          language?: string | null
+          last_backed_up_at?: string | null
+          section_title?: string | null
+          tenant_id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "knowledge_embeddings_article_id_fkey"
+            columns: ["article_id"]
+            isOneToOne: false
+            referencedRelation: "knowledge_articles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "knowledge_embeddings_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       knowledge_qa: {
         Row: {
           answer_ar: string
@@ -8110,6 +8355,68 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "knowledge_qa_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      knowledge_queries: {
+        Row: {
+          answer_text: string | null
+          confidence_score: number | null
+          created_at: string | null
+          feedback_at: string | null
+          feedback_comment: string | null
+          id: string
+          last_backed_up_at: string | null
+          model_used: string | null
+          query_language: string | null
+          query_text: string
+          response_time_ms: number | null
+          source_articles: string[] | null
+          tenant_id: string
+          user_id: string | null
+          was_helpful: boolean | null
+        }
+        Insert: {
+          answer_text?: string | null
+          confidence_score?: number | null
+          created_at?: string | null
+          feedback_at?: string | null
+          feedback_comment?: string | null
+          id?: string
+          last_backed_up_at?: string | null
+          model_used?: string | null
+          query_language?: string | null
+          query_text: string
+          response_time_ms?: number | null
+          source_articles?: string[] | null
+          tenant_id: string
+          user_id?: string | null
+          was_helpful?: boolean | null
+        }
+        Update: {
+          answer_text?: string | null
+          confidence_score?: number | null
+          created_at?: string | null
+          feedback_at?: string | null
+          feedback_comment?: string | null
+          id?: string
+          last_backed_up_at?: string | null
+          model_used?: string | null
+          query_language?: string | null
+          query_text?: string
+          response_time_ms?: number | null
+          source_articles?: string[] | null
+          tenant_id?: string
+          user_id?: string | null
+          was_helpful?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "knowledge_queries_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -15454,6 +15761,14 @@ export type Database = {
         Args: { _role: string; _tenant_id: string; _user_id: string }
         Returns: boolean
       }
+      increment_article_search: {
+        Args: { p_article_id: string }
+        Returns: undefined
+      }
+      increment_article_view: {
+        Args: { p_article_id: string }
+        Returns: undefined
+      }
       increment_indicator_match_count: {
         Args: { p_indicator_id: string }
         Returns: undefined
@@ -15481,6 +15796,24 @@ export type Database = {
           p_view_name: string
         }
         Returns: undefined
+      }
+      match_knowledge_chunks: {
+        Args: {
+          match_count?: number
+          match_threshold?: number
+          p_tenant_id?: string
+          query_embedding: string
+        }
+        Returns: {
+          article_category: string
+          article_id: string
+          article_title: string
+          chunk_index: number
+          chunk_text: string
+          document_type: string
+          id: string
+          similarity: number
+        }[]
       }
       match_knowledge_documents: {
         Args: {
