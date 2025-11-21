@@ -64,8 +64,115 @@ export function useContentEvents() {
     return await publishEvent(params);
   }, [publishEvent]);
 
+  /**
+   * Content Liked Event
+   */
+  const publishContentLiked = useCallback(async (
+    contentId: string,
+    contentTitle: string
+  ) => {
+    const params: PublishEventParams = {
+      event_type: 'content_liked',
+      event_category: 'content',
+      source_module: 'content_hub',
+      entity_type: 'content_interaction',
+      entity_id: contentId,
+      priority: 'low',
+      payload: {
+        content_id: contentId,
+        content_title: contentTitle,
+        interaction_type: 'like',
+        timestamp: new Date().toISOString(),
+      },
+    };
+
+    return await publishEvent(params);
+  }, [publishEvent]);
+
+  /**
+   * Content Shared Event
+   */
+  const publishContentShared = useCallback(async (
+    contentId: string,
+    contentTitle: string,
+    channel: string
+  ) => {
+    const params: PublishEventParams = {
+      event_type: 'content_shared',
+      event_category: 'content',
+      source_module: 'content_hub',
+      entity_type: 'content_interaction',
+      entity_id: contentId,
+      priority: 'medium',
+      payload: {
+        content_id: contentId,
+        content_title: contentTitle,
+        share_channel: channel,
+        timestamp: new Date().toISOString(),
+      },
+    };
+
+    return await publishEvent(params);
+  }, [publishEvent]);
+
+  /**
+   * Content Bookmarked Event
+   */
+  const publishContentBookmarked = useCallback(async (
+    contentId: string,
+    contentTitle: string,
+    folderName?: string
+  ) => {
+    const params: PublishEventParams = {
+      event_type: 'content_bookmarked',
+      event_category: 'content',
+      source_module: 'content_hub',
+      entity_type: 'content_interaction',
+      entity_id: contentId,
+      priority: 'low',
+      payload: {
+        content_id: contentId,
+        content_title: contentTitle,
+        folder_name: folderName,
+        timestamp: new Date().toISOString(),
+      },
+    };
+
+    return await publishEvent(params);
+  }, [publishEvent]);
+
+  /**
+   * Content Comment Added Event
+   */
+  const publishContentCommentAdded = useCallback(async (
+    contentId: string,
+    contentTitle: string,
+    commentId: string
+  ) => {
+    const params: PublishEventParams = {
+      event_type: 'content_comment_added',
+      event_category: 'content',
+      source_module: 'content_hub',
+      entity_type: 'content_comment',
+      entity_id: commentId,
+      priority: 'low',
+      payload: {
+        content_id: contentId,
+        content_title: contentTitle,
+        comment_id: commentId,
+        timestamp: new Date().toISOString(),
+      },
+    };
+
+    return await publishEvent(params);
+  }, [publishEvent]);
+
   return {
     publishContentPublished,
     publishContentViewed,
+    publishContentLiked,
+    publishContentShared,
+    publishContentBookmarked,
+    publishContentCommentAdded,
   };
 }

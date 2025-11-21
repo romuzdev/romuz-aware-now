@@ -11,10 +11,12 @@ import {
   deleteComment,
   flagComment,
 } from '@/integrations/supabase/content-hub/comments';
+import { useContentEvents } from '@/lib/events/hooks/useContentEvents';
 
 export function useContentComments(contentId: string) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const { publishContentCommentAdded } = useContentEvents();
 
   // Get comments
   const {
@@ -29,8 +31,18 @@ export function useContentComments(contentId: string) {
 
   // Add comment mutation
   const addMutation = useMutation({
-    mutationFn: (params: { text: string; parentId?: string }) =>
-      addComment(contentId, params.text, params.parentId),
+    mutationFn: async (params: { text: string; parentId?: string }) => {
+      const result = await addComment(contentId, params.text, params.parentId);
+      
+      // Publish event
+      try {
+        await publishContentCommentAdded(contentId, 'Content', result.id);
+      } catch (error) {
+        console.error('Failed to publish comment event:', error);
+      }
+      
+      return result;
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['content-comments', contentId] });
       queryClient.invalidateQueries({ queryKey: ['content-stats', contentId] });
