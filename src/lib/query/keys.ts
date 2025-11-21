@@ -34,4 +34,14 @@ export const qk = {
     recommendationById: (id: string) => ['ai-recommendation', id] as const,
     stats: (tenantId?: string) => ['ai-recommendation-stats', tenantId ?? 'all'] as const,
   },
+  threatIntelligence: {
+    feeds: (filters?: any) => ['threat-feeds', filters ?? {}] as const,
+    feedById: (id: string) => ['threat-feed', id] as const,
+    indicators: (filters?: any) => ['threat-indicators', filters ?? {}] as const,
+    indicatorById: (id: string) => ['threat-indicator', id] as const,
+    matches: (filters?: any) => ['threat-matches', filters ?? {}] as const,
+    matchById: (id: string) => ['threat-match', id] as const,
+    stats: () => ['threat-stats'] as const,
+    recentMatches: (limit: number) => ['threat-recent-matches', limit] as const,
+  },
 };
