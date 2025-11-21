@@ -7,3 +7,4 @@ export * from './SecurityEventCard';
 export * from './SOARPlaybookCard';
 export * from './ConnectorCard';
 export * from './SecOpsStatisticsCards';
+export * from './CreatePlaybookDialog';
