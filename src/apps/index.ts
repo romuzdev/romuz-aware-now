@@ -11,3 +11,4 @@ export * from './admin';
 export * from './lms';
 export * from './incident-response';
 export * from './predictive-analytics/config';
+export * from './threat-intelligence/config';
