@@ -16,7 +16,7 @@ import {
   recordTrainingSession,
   fetchModelAccuracyMetrics,
 } from '@/integrations/supabase/predictive-analytics';
-import { useToast } from '@/core/hooks/use-toast';
+import { useToast } from '@/hooks/use-toast';
 
 /**
  * Fetch all prediction models

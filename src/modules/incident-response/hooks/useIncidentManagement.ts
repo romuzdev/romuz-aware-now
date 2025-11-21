@@ -15,7 +15,7 @@ import {
   checkSLABreach,
   fetchIncidentStatistics
 } from '@/integrations/supabase/incident-response';
-import { useToast } from '@/core/hooks/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import { logIncidentAction } from '@/lib/audit/audit-logger';
 
 /**
