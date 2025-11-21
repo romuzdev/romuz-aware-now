@@ -5,6 +5,7 @@
 import { Navigate, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import PredictiveAnalytics from './pages/PredictiveAnalytics';
+import ModelsManagement from './pages/ModelsManagement';
 import Predictions from './pages/Predictions';
 import Models from './pages/Models';
 import Performance from './pages/Performance';
@@ -14,6 +15,7 @@ export const predictiveAnalyticsRoutes = (
   <>
     <Route index element={<Dashboard />} />
     <Route path="analytics" element={<PredictiveAnalytics />} />
+    <Route path="models-management" element={<ModelsManagement />} />
     <Route path="predictions" element={<Predictions />} />
     <Route path="models" element={<Models />} />
     <Route path="performance" element={<Performance />} />

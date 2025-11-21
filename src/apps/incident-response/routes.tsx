@@ -14,6 +14,7 @@ const PageLoader = () => (
 // Lazy load pages
 const IncidentDashboard = lazy(() => import('./pages/IncidentDashboard'));
 const IncidentManagement = lazy(() => import('./pages/IncidentManagement'));
+const PlaybooksManagement = lazy(() => import('./pages/PlaybooksManagement'));
 const ActiveIncidents = lazy(() => import('./pages/ActiveIncidents'));
 const IncidentDetails = lazy(() => import('./pages/IncidentDetails'));
 const ResponsePlans = lazy(() => import('./pages/ResponsePlans'));
@@ -31,6 +32,7 @@ export function IncidentResponseRoutes() {
       <Routes>
         <Route index element={<IncidentDashboard />} />
         <Route path="management" element={<IncidentManagement />} />
+        <Route path="playbooks" element={<PlaybooksManagement />} />
         <Route path="active" element={<ActiveIncidents />} />
         <Route path="incident/:id" element={<IncidentDetails />} />
         <Route path="plans" element={<ResponsePlans />} />

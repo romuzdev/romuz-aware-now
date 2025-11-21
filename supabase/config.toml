@@ -30,6 +30,16 @@ verify_jwt = true  # Requires authentication - SIEM polling connector
 verify_jwt = false  # Public endpoint - receives cloud provider events
 
 # ============================================================================
+# M18 Part 2: Playbooks & SOAR Automation
+# ============================================================================
+
+[functions.execute-playbook]
+verify_jwt = true  # Requires authentication - Execute SOAR playbooks
+
+[functions.check-playbook-triggers]
+verify_jwt = false  # System job - Monitor and trigger playbooks automatically
+
+# ============================================================================
 # M18.5: SecOps Integration - Security Operations Management
 # ============================================================================
 
@@ -174,6 +184,12 @@ verify_jwt = true  # Requires authentication - RAG answer generation
 # ============================================================================
 # M19: Predictive Analytics
 # ============================================================================
+
+[functions.train-prediction-model]
+verify_jwt = true  # Requires authentication - Train ML models
+
+[functions.run-prediction]
+verify_jwt = true  # Requires authentication - Execute predictions
 
 [functions.create-prediction]
 verify_jwt = true  # Requires authentication - Generate AI predictions
