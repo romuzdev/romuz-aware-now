@@ -7,5 +7,6 @@ export * from './useRisks';
 export * from './useControls';
 export * from './useCompliance';
 export * from './useAudits';
+export * from './useAuditAnalytics';
 export * from './useAuditWorkflows';
 export * from './useReports';

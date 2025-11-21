@@ -15,6 +15,14 @@ import type {
   AuditFindingFilters,
   AuditStatistics,
 } from '../types/audit.types';
+import {
+  logAuditCreate,
+  logAuditRead,
+  logAuditUpdate,
+  logAuditDelete,
+  logFindingAdd,
+  logFindingResolve,
+} from '@/lib/audit/grc-audit-logger';
 
 // ============================================================================
 // Audits
@@ -71,6 +79,13 @@ export async function getAuditById(id: string) {
     .single();
 
   if (error) throw error;
+  
+  // Log read action
+  await logAuditRead(id, {
+    audit_code: data.audit_code,
+    audit_title: data.audit_title,
+  });
+  
   return data as Audit;
 }
 
@@ -111,6 +126,14 @@ export async function createAudit(audit: AuditInsert) {
     .single();
 
   if (error) throw error;
+  
+  // Log create action
+  await logAuditCreate(data.id, {
+    audit_code: data.audit_code,
+    audit_title: data.audit_title,
+    audit_type: data.audit_type,
+  });
+  
   return data as Audit;
 }
 
@@ -123,16 +146,36 @@ export async function updateAudit(id: string, updates: AuditUpdate) {
     .single();
 
   if (error) throw error;
+  
+  // Log update action
+  await logAuditUpdate(id, {
+    updated_fields: Object.keys(updates),
+    audit_status: updates.audit_status,
+  });
+  
   return data as Audit;
 }
 
 export async function deleteAudit(id: string) {
+  // Get audit info before deletion
+  const { data: auditData } = await supabase
+    .from('grc_audits')
+    .select('audit_code, audit_title')
+    .eq('id', id)
+    .single();
+  
   const { error } = await supabase
     .from('grc_audits')
     .delete()
     .eq('id', id);
 
   if (error) throw error;
+  
+  // Log delete action
+  await logAuditDelete(id, {
+    audit_code: auditData?.audit_code,
+    audit_title: auditData?.audit_title,
+  });
 }
 
 // ============================================================================
@@ -235,6 +278,14 @@ export async function createAuditFinding(finding: AuditFindingInsert) {
     .single();
 
   if (error) throw error;
+  
+  // Log finding creation
+  await logFindingAdd(data.id, {
+    audit_id: data.audit_id,
+    finding_code: data.finding_code,
+    severity: data.severity,
+  });
+  
   return data as AuditFinding;
 }
 
@@ -247,6 +298,14 @@ export async function updateAuditFinding(id: string, updates: AuditFindingUpdate
     .single();
 
   if (error) throw error;
+  
+  // Log resolution if status changed to resolved
+  if (updates.finding_status === 'resolved' || updates.finding_status === 'verified') {
+    await logFindingResolve(id, {
+      finding_status: updates.finding_status,
+    });
+  }
+  
   return data as AuditFinding;
 }
 
