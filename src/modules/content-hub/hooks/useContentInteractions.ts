@@ -13,11 +13,18 @@ import {
   getContentEngagementMetrics,
   type InteractionType,
 } from '@/integrations/supabase/content-hub/interactions';
+import { useContentEvents } from '@/lib/events/hooks/useContentEvents';
 import type { ShareChannel } from '../types';
 
 export function useContentInteractions(contentId: string) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const {
+    publishContentLiked,
+    publishContentShared,
+    publishContentBookmarked,
+    publishContentViewed,
+  } = useContentEvents();
   const [isLiking, setIsLiking] = useState(false);
   const [tenantId, setTenantId] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
@@ -86,6 +93,14 @@ export function useContentInteractions(contentId: string) {
         return { liked: false };
       } else {
         await trackInteraction(tenantId!, userId!, contentId, 'like');
+        
+        // Publish event
+        try {
+          await publishContentLiked(contentId, 'Content');
+        } catch (error) {
+          console.error('Failed to publish like event:', error);
+        }
+        
         return { liked: true };
       }
     },
@@ -111,14 +126,22 @@ export function useContentInteractions(contentId: string) {
 
   // Share mutation
   const shareMutation = useMutation({
-    mutationFn: (params: { channel: ShareChannel; metadata?: Record<string, any> }) =>
-      trackInteraction(
+    mutationFn: async (params: { channel: ShareChannel; metadata?: Record<string, any> }) => {
+      await trackInteraction(
         tenantId!,
         userId!,
         contentId,
         'share',
         { ...params.metadata, channel: params.channel }
-      ),
+      );
+      
+      // Publish event
+      try {
+        await publishContentShared(contentId, 'Content', params.channel);
+      } catch (error) {
+        console.error('Failed to publish share event:', error);
+      }
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['content-metrics', contentId] });
       toast({

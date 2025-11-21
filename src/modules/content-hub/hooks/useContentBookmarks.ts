@@ -10,10 +10,12 @@ import {
   updateBookmark,
   getBookmarkFolders,
 } from '@/integrations/supabase/content-hub/bookmarks';
+import { useContentEvents } from '@/lib/events/hooks/useContentEvents';
 
 export function useContentBookmarks(contentId?: string) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const { publishContentBookmarked } = useContentEvents();
 
   // Get user's bookmarks
   const {
@@ -35,8 +37,20 @@ export function useContentBookmarks(contentId?: string) {
 
   // Toggle bookmark mutation
   const toggleMutation = useMutation({
-    mutationFn: (params: { contentId: string; folderName?: string; notes?: string }) =>
-      toggleBookmark(params.contentId, params.folderName, params.notes),
+    mutationFn: async (params: { contentId: string; folderName?: string; notes?: string }) => {
+      const result = await toggleBookmark(params.contentId, params.folderName, params.notes);
+      
+      // Publish event if bookmarked
+      if (result.bookmarked) {
+        try {
+          await publishContentBookmarked(params.contentId, 'Content', params.folderName);
+        } catch (error) {
+          console.error('Failed to publish bookmark event:', error);
+        }
+      }
+      
+      return result;
+    },
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({ queryKey: ['user-bookmarks'] });
       queryClient.invalidateQueries({ queryKey: ['content-interaction-state', variables.contentId] });
