@@ -18,6 +18,7 @@ const IncidentDetails = lazy(() => import('./pages/IncidentDetails'));
 const ResponsePlans = lazy(() => import('./pages/ResponsePlans'));
 const IncidentReports = lazy(() => import('./pages/IncidentReports'));
 const IncidentSettings = lazy(() => import('./pages/IncidentSettings'));
+const IntegrationSettings = lazy(() => import('./pages/IntegrationSettings'));
 
 /**
  * Incident Response Routes Component
@@ -32,6 +33,7 @@ export function IncidentResponseRoutes() {
         <Route path="plans" element={<ResponsePlans />} />
         <Route path="reports" element={<IncidentReports />} />
         <Route path="settings" element={<IncidentSettings />} />
+        <Route path="integrations" element={<IntegrationSettings />} />
       </Routes>
     </Suspense>
   );
