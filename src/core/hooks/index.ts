@@ -14,6 +14,7 @@ export * from './saved-views/useSavedViewsImport';
 // Audit
 export * from './audit/useAuditRealtime';
 export * from './audit/useCampaignAuditLog';
+export * from './audit/useAuditLog';
 
 // Utils
 export * from './utils/useBulkOperations';
