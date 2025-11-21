@@ -5,6 +5,7 @@
 
 import { PageHeader } from '@/core/components/ui/page-header';
 import { Shield } from 'lucide-react';
+import { SeedDataButton } from './SeedDataButton';
 import { useSecOpsStatistics } from '@/modules/secops/hooks';
 import { SecOpsStatisticsCards } from '@/modules/secops/components';
 import { useRecentCriticalEvents } from '@/modules/secops/hooks/useSecurityEvents';
@@ -21,11 +22,14 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-6">
-      <PageHeader
-        icon={Shield}
-        title="مركز العمليات الأمنية (SOC)"
-        description="مراقبة وإدارة الأحداث الأمنية والاستجابة الآلية"
-      />
+      <div className="flex items-center justify-between">
+        <PageHeader
+          icon={Shield}
+          title="مركز العمليات الأمنية (SOC)"
+          description="مراقبة وإدارة الأحداث الأمنية والاستجابة الآلية"
+        />
+        <SeedDataButton />
+      </div>
 
       <SecOpsStatisticsCards statistics={statistics || null} loading={statsLoading} />
 
