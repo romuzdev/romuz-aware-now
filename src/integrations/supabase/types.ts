@@ -6341,6 +6341,158 @@ export type Database = {
         }
         Relationships: []
       }
+      incident_external_sources: {
+        Row: {
+          alert_threshold: string | null
+          auto_create_incident: boolean
+          created_at: string
+          exclude_filters: Json | null
+          id: string
+          include_filters: Json | null
+          integration_id: string
+          is_monitored: boolean
+          last_event_at: string | null
+          source_identifier: string
+          source_name: string
+          source_type: string
+          tenant_id: string
+          total_events: number | null
+          total_incidents_created: number | null
+          updated_at: string
+        }
+        Insert: {
+          alert_threshold?: string | null
+          auto_create_incident?: boolean
+          created_at?: string
+          exclude_filters?: Json | null
+          id?: string
+          include_filters?: Json | null
+          integration_id: string
+          is_monitored?: boolean
+          last_event_at?: string | null
+          source_identifier: string
+          source_name: string
+          source_type: string
+          tenant_id: string
+          total_events?: number | null
+          total_incidents_created?: number | null
+          updated_at?: string
+        }
+        Update: {
+          alert_threshold?: string | null
+          auto_create_incident?: boolean
+          created_at?: string
+          exclude_filters?: Json | null
+          id?: string
+          include_filters?: Json | null
+          integration_id?: string
+          is_monitored?: boolean
+          last_event_at?: string | null
+          source_identifier?: string
+          source_name?: string
+          source_type?: string
+          tenant_id?: string
+          total_events?: number | null
+          total_incidents_created?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "incident_external_sources_integration_id_fkey"
+            columns: ["integration_id"]
+            isOneToOne: false
+            referencedRelation: "incident_integrations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "incident_external_sources_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      incident_integrations: {
+        Row: {
+          auth_config: Json | null
+          auth_type: string | null
+          config_json: Json
+          created_at: string
+          created_by: string
+          field_mapping: Json | null
+          id: string
+          integration_name: string
+          integration_type: string
+          is_active: boolean
+          is_verified: boolean
+          last_error: string | null
+          last_event_at: string | null
+          last_sync_at: string | null
+          provider: string
+          severity_mapping: Json | null
+          sync_status: string | null
+          tenant_id: string
+          total_events_received: number | null
+          updated_at: string
+          updated_by: string
+        }
+        Insert: {
+          auth_config?: Json | null
+          auth_type?: string | null
+          config_json?: Json
+          created_at?: string
+          created_by: string
+          field_mapping?: Json | null
+          id?: string
+          integration_name: string
+          integration_type: string
+          is_active?: boolean
+          is_verified?: boolean
+          last_error?: string | null
+          last_event_at?: string | null
+          last_sync_at?: string | null
+          provider: string
+          severity_mapping?: Json | null
+          sync_status?: string | null
+          tenant_id: string
+          total_events_received?: number | null
+          updated_at?: string
+          updated_by: string
+        }
+        Update: {
+          auth_config?: Json | null
+          auth_type?: string | null
+          config_json?: Json
+          created_at?: string
+          created_by?: string
+          field_mapping?: Json | null
+          id?: string
+          integration_name?: string
+          integration_type?: string
+          is_active?: boolean
+          is_verified?: boolean
+          last_error?: string | null
+          last_event_at?: string | null
+          last_sync_at?: string | null
+          provider?: string
+          severity_mapping?: Json | null
+          sync_status?: string | null
+          tenant_id?: string
+          total_events_received?: number | null
+          updated_at?: string
+          updated_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "incident_integrations_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       incident_metrics: {
         Row: {
           calculated_at: string
@@ -6563,6 +6715,88 @@ export type Database = {
             columns: ["incident_id"]
             isOneToOne: false
             referencedRelation: "security_incidents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      incident_webhook_logs: {
+        Row: {
+          action_taken: string | null
+          created_at: string
+          headers: Json | null
+          http_method: string
+          id: string
+          incident_id: string | null
+          integration_id: string | null
+          parsed_payload: Json | null
+          processed_at: string | null
+          processing_duration_ms: number | null
+          processing_error: string | null
+          processing_status: string
+          raw_payload: Json
+          received_at: string
+          source_identifier: string | null
+          tenant_id: string
+          webhook_source: string
+        }
+        Insert: {
+          action_taken?: string | null
+          created_at?: string
+          headers?: Json | null
+          http_method: string
+          id?: string
+          incident_id?: string | null
+          integration_id?: string | null
+          parsed_payload?: Json | null
+          processed_at?: string | null
+          processing_duration_ms?: number | null
+          processing_error?: string | null
+          processing_status?: string
+          raw_payload: Json
+          received_at?: string
+          source_identifier?: string | null
+          tenant_id: string
+          webhook_source: string
+        }
+        Update: {
+          action_taken?: string | null
+          created_at?: string
+          headers?: Json | null
+          http_method?: string
+          id?: string
+          incident_id?: string | null
+          integration_id?: string | null
+          parsed_payload?: Json | null
+          processed_at?: string | null
+          processing_duration_ms?: number | null
+          processing_error?: string | null
+          processing_status?: string
+          raw_payload?: Json
+          received_at?: string
+          source_identifier?: string | null
+          tenant_id?: string
+          webhook_source?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "incident_webhook_logs_incident_id_fkey"
+            columns: ["incident_id"]
+            isOneToOne: false
+            referencedRelation: "security_incidents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "incident_webhook_logs_integration_id_fkey"
+            columns: ["integration_id"]
+            isOneToOne: false
+            referencedRelation: "incident_integrations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "incident_webhook_logs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
             referencedColumns: ["id"]
           },
         ]
@@ -11470,6 +11704,7 @@ export type Database = {
         Returns: number
       }
       cleanup_expired_pitr_snapshots: { Args: never; Returns: number }
+      cleanup_old_webhook_logs: { Args: never; Returns: undefined }
       cleanup_old_workflow_executions: {
         Args: { p_days_to_keep?: number; p_tenant_id: string }
         Returns: number
