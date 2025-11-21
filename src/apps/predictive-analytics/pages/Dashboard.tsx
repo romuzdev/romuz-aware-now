@@ -2,9 +2,10 @@
  * Predictive Analytics - Dashboard
  */
 
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PageHeader } from '@/core/components/ui/page-header';
-import { TrendingUp, Brain, Target, AlertTriangle, Plus } from 'lucide-react';
+import { TrendingUp, Brain, Target, AlertTriangle, Plus, Sparkles, Database } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/core/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/core/components/ui/tabs';
 import { Button } from '@/core/components/ui/button';
@@ -14,18 +15,22 @@ import {
   usePredictionModels, 
   usePredictions, 
   usePredictionStats,
-  useInitializeModels 
+  useInitializeModels,
+  useSeedData
 } from '@/modules/analytics/hooks/usePredictiveAnalytics';
 import { format } from 'date-fns';
+import { CreatePredictionDialog } from '../components/CreatePredictionDialog';
 
 export default function Dashboard() {
   const { t } = useTranslation();
   const { tenantId } = useAppContext();
+  const [showCreateDialog, setShowCreateDialog] = useState(false);
   
   const { data: stats, isLoading: statsLoading } = usePredictionStats(tenantId || '');
   const { data: models, isLoading: modelsLoading } = usePredictionModels(tenantId || '', { is_active: true });
   const { data: predictions, isLoading: predictionsLoading } = usePredictions(tenantId || '');
   const initModels = useInitializeModels();
+  const seedData = useSeedData();
 
   return (
     <div className="space-y-6">
@@ -34,17 +39,38 @@ export default function Dashboard() {
         title={t('Predictive Analytics Dashboard', 'لوحة التحكم - التحليلات التنبؤية')}
         description={t('AI-powered predictions and insights', 'تنبؤات ورؤى مدعومة بالذكاء الاصطناعي')}
         actions={
-          !models?.length && (
-            <Button
-              onClick={() => initModels.mutate()}
-              disabled={initModels.isPending}
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              {t('Initialize Models', 'تهيئة النماذج')}
-            </Button>
-          )
+          <div className="flex gap-2">
+            {!models?.length ? (
+              <Button
+                onClick={() => initModels.mutate()}
+                disabled={initModels.isPending}
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                {t('Initialize Models', 'تهيئة النماذج')}
+              </Button>
+            ) : (
+              <>
+                {!predictions?.length && (
+                  <Button
+                    variant="outline"
+                    onClick={() => seedData.mutate()}
+                    disabled={seedData.isPending}
+                  >
+                    <Database className="h-4 w-4 mr-2" />
+                    {t('Add Sample Data', 'إضافة بيانات تجريبية')}
+                  </Button>
+                )}
+                <Button onClick={() => setShowCreateDialog(true)}>
+                  <Sparkles className="h-4 w-4 mr-2" />
+                  {t('New Prediction', 'تنبؤ جديد')}
+                </Button>
+              </>
+            )}
+          </div>
         }
       />
+
+      <CreatePredictionDialog open={showCreateDialog} onOpenChange={setShowCreateDialog} />
 
       {/* Overview Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
