@@ -26,6 +26,7 @@ import { knowledgeHubApp } from '@/apps/knowledge-hub/config';
 import { incidentResponseApp } from '@/apps/incident-response/config';
 import { predictiveAnalyticsApp } from '@/apps/predictive-analytics/config';
 import { threatIntelligenceApp } from '@/apps/threat-intelligence/config';
+import { secOpsApp } from '@/apps/secops/config';
 
 /**
  * App Registry - All available apps on the platform
@@ -48,6 +49,7 @@ export const APP_REGISTRY: AppModule[] = [
   incidentResponseApp,
   predictiveAnalyticsApp,
   threatIntelligenceApp,
+  secOpsApp,
   
   // Coming Soon Apps
   {
