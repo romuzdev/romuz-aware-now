@@ -24,6 +24,7 @@ import { auditApp } from '@/apps/admin/config-audit';
 import { lmsApp, employeePortalApp } from '@/apps/lms/config';
 import { knowledgeHubApp } from '@/apps/knowledge-hub/config';
 import { incidentResponseApp } from '@/apps/incident-response/config';
+import { predictiveAnalyticsApp } from '@/apps/predictive-analytics/config';
 
 /**
  * App Registry - All available apps on the platform
@@ -44,6 +45,7 @@ export const APP_REGISTRY: AppModule[] = [
   employeePortalApp,
   knowledgeHubApp,
   incidentResponseApp,
+  predictiveAnalyticsApp,
   
   // Coming Soon Apps
   {

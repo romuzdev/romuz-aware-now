@@ -8763,6 +8763,96 @@ export type Database = {
           },
         ]
       }
+      model_performance_metrics: {
+        Row: {
+          accuracy: number | null
+          backup_metadata: Json | null
+          correct_predictions: number
+          created_at: string
+          created_by: string
+          errors_by_range: Json | null
+          evaluation_date: string
+          evaluation_status: string
+          f1_score: number | null
+          id: string
+          mae: number | null
+          model_id: string
+          notes: string | null
+          period_end: string
+          period_start: string
+          precision: number | null
+          predictions_by_category: Json | null
+          recall: number | null
+          rmse: number | null
+          tenant_id: string
+          total_predictions: number
+          validated_predictions: number
+        }
+        Insert: {
+          accuracy?: number | null
+          backup_metadata?: Json | null
+          correct_predictions?: number
+          created_at?: string
+          created_by: string
+          errors_by_range?: Json | null
+          evaluation_date?: string
+          evaluation_status?: string
+          f1_score?: number | null
+          id?: string
+          mae?: number | null
+          model_id: string
+          notes?: string | null
+          period_end: string
+          period_start: string
+          precision?: number | null
+          predictions_by_category?: Json | null
+          recall?: number | null
+          rmse?: number | null
+          tenant_id: string
+          total_predictions?: number
+          validated_predictions?: number
+        }
+        Update: {
+          accuracy?: number | null
+          backup_metadata?: Json | null
+          correct_predictions?: number
+          created_at?: string
+          created_by?: string
+          errors_by_range?: Json | null
+          evaluation_date?: string
+          evaluation_status?: string
+          f1_score?: number | null
+          id?: string
+          mae?: number | null
+          model_id?: string
+          notes?: string | null
+          period_end?: string
+          period_start?: string
+          precision?: number | null
+          predictions_by_category?: Json | null
+          recall?: number | null
+          rmse?: number | null
+          tenant_id?: string
+          total_predictions?: number
+          validated_predictions?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "model_performance_metrics_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "prediction_models"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "model_performance_metrics_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       module_progress: {
         Row: {
           campaign_id: string
@@ -9157,6 +9247,281 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      prediction_models: {
+        Row: {
+          accuracy_score: number | null
+          ai_model_name: string
+          ai_model_provider: string
+          backup_metadata: Json | null
+          created_at: string
+          created_by: string
+          f1_score: number | null
+          features_config: Json
+          id: string
+          is_active: boolean
+          last_trained_at: string | null
+          mae: number | null
+          model_name: string
+          model_type: string
+          model_version: number
+          notes: string | null
+          precision_score: number | null
+          prompt_template: string
+          recall_score: number | null
+          rmse: number | null
+          status: string
+          tenant_id: string
+          total_predictions: number
+          updated_at: string
+          updated_by: string
+        }
+        Insert: {
+          accuracy_score?: number | null
+          ai_model_name?: string
+          ai_model_provider?: string
+          backup_metadata?: Json | null
+          created_at?: string
+          created_by: string
+          f1_score?: number | null
+          features_config?: Json
+          id?: string
+          is_active?: boolean
+          last_trained_at?: string | null
+          mae?: number | null
+          model_name: string
+          model_type: string
+          model_version?: number
+          notes?: string | null
+          precision_score?: number | null
+          prompt_template: string
+          recall_score?: number | null
+          rmse?: number | null
+          status?: string
+          tenant_id: string
+          total_predictions?: number
+          updated_at?: string
+          updated_by: string
+        }
+        Update: {
+          accuracy_score?: number | null
+          ai_model_name?: string
+          ai_model_provider?: string
+          backup_metadata?: Json | null
+          created_at?: string
+          created_by?: string
+          f1_score?: number | null
+          features_config?: Json
+          id?: string
+          is_active?: boolean
+          last_trained_at?: string | null
+          mae?: number | null
+          model_name?: string
+          model_type?: string
+          model_version?: number
+          notes?: string | null
+          precision_score?: number | null
+          prompt_template?: string
+          recall_score?: number | null
+          rmse?: number | null
+          status?: string
+          tenant_id?: string
+          total_predictions?: number
+          updated_at?: string
+          updated_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prediction_models_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      prediction_training_data: {
+        Row: {
+          backup_metadata: Json | null
+          created_at: string
+          created_by: string
+          features: Json
+          id: string
+          is_outlier: boolean | null
+          model_id: string
+          notes: string | null
+          sample_date: string
+          sample_type: string
+          sample_weight: number | null
+          target_category: string | null
+          target_value: number | null
+          tenant_id: string
+        }
+        Insert: {
+          backup_metadata?: Json | null
+          created_at?: string
+          created_by: string
+          features: Json
+          id?: string
+          is_outlier?: boolean | null
+          model_id: string
+          notes?: string | null
+          sample_date: string
+          sample_type: string
+          sample_weight?: number | null
+          target_category?: string | null
+          target_value?: number | null
+          tenant_id: string
+        }
+        Update: {
+          backup_metadata?: Json | null
+          created_at?: string
+          created_by?: string
+          features?: Json
+          id?: string
+          is_outlier?: boolean | null
+          model_id?: string
+          notes?: string | null
+          sample_date?: string
+          sample_type?: string
+          sample_weight?: number | null
+          target_category?: string | null
+          target_value?: number | null
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prediction_training_data_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "prediction_models"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "prediction_training_data_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      predictions: {
+        Row: {
+          actual_category: string | null
+          actual_value: number | null
+          ai_model_used: string
+          ai_reasoning: string | null
+          ai_response_raw: Json | null
+          ai_tokens_used: number | null
+          backup_metadata: Json | null
+          confidence_score: number | null
+          created_at: string
+          created_by: string
+          entity_id: string | null
+          entity_type: string | null
+          error_message: string | null
+          id: string
+          input_features: Json
+          input_timestamp: string
+          model_id: string
+          notes: string | null
+          predicted_category: string | null
+          predicted_value: number | null
+          prediction_error: number | null
+          prediction_range_max: number | null
+          prediction_range_min: number | null
+          prediction_type: string
+          processing_time_ms: number | null
+          status: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string
+          validation_date: string | null
+          validation_status: string | null
+        }
+        Insert: {
+          actual_category?: string | null
+          actual_value?: number | null
+          ai_model_used: string
+          ai_reasoning?: string | null
+          ai_response_raw?: Json | null
+          ai_tokens_used?: number | null
+          backup_metadata?: Json | null
+          confidence_score?: number | null
+          created_at?: string
+          created_by: string
+          entity_id?: string | null
+          entity_type?: string | null
+          error_message?: string | null
+          id?: string
+          input_features: Json
+          input_timestamp?: string
+          model_id: string
+          notes?: string | null
+          predicted_category?: string | null
+          predicted_value?: number | null
+          prediction_error?: number | null
+          prediction_range_max?: number | null
+          prediction_range_min?: number | null
+          prediction_type: string
+          processing_time_ms?: number | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by: string
+          validation_date?: string | null
+          validation_status?: string | null
+        }
+        Update: {
+          actual_category?: string | null
+          actual_value?: number | null
+          ai_model_used?: string
+          ai_reasoning?: string | null
+          ai_response_raw?: Json | null
+          ai_tokens_used?: number | null
+          backup_metadata?: Json | null
+          confidence_score?: number | null
+          created_at?: string
+          created_by?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          error_message?: string | null
+          id?: string
+          input_features?: Json
+          input_timestamp?: string
+          model_id?: string
+          notes?: string | null
+          predicted_category?: string | null
+          predicted_value?: number | null
+          prediction_error?: number | null
+          prediction_range_max?: number | null
+          prediction_range_min?: number | null
+          prediction_type?: string
+          processing_time_ms?: number | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string
+          validation_date?: string | null
+          validation_status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "predictions_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "prediction_models"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "predictions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
