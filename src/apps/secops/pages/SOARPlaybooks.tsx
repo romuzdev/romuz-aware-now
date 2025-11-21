@@ -4,32 +4,47 @@
  */
 
 import { PageHeader } from '@/core/components/ui/page-header';
-import { Zap } from 'lucide-react';
+import { Zap, Plus } from 'lucide-react';
 import { useSOARPlaybooks } from '@/modules/secops/hooks';
-import { SOARPlaybookCard } from '@/modules/secops/components';
+import { SOARPlaybookCard, CreatePlaybookDialog } from '@/modules/secops/components';
 import { Card } from '@/core/components/ui/card';
 import { Input } from '@/core/components/ui/input';
+import { Button } from '@/core/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/core/components/ui/select';
 import { useState } from 'react';
 import type { SOARPlaybookFilters } from '@/modules/secops/types';
 
 export default function SOARPlaybooks() {
   const [filters, setFilters] = useState<SOARPlaybookFilters>({});
+  const [createDialogOpen, setCreateDialogOpen] = useState(false);
+  
   const {
     playbooks,
     loading,
+    createPlaybook,
     activatePlaybook,
     deactivatePlaybook,
     deletePlaybook,
   } = useSOARPlaybooks(filters);
 
+  const handleCreatePlaybook = (playbookData: any) => {
+    createPlaybook(playbookData);
+    setCreateDialogOpen(false);
+  };
+
   return (
     <div className="space-y-6">
-      <PageHeader
-        icon={Zap}
-        title="أدلة SOAR"
-        description="إدارة أدلة الاستجابة الآلية للأحداث الأمنية"
-      />
+      <div className="flex items-center justify-between">
+        <PageHeader
+          icon={Zap}
+          title="أدلة SOAR"
+          description="إدارة أدلة الاستجابة الآلية للأحداث الأمنية"
+        />
+        <Button onClick={() => setCreateDialogOpen(true)}>
+          <Plus className="h-4 w-4 ml-2" />
+          إنشاء دليل جديد
+        </Button>
+      </div>
 
       <Card className="p-4">
         <div className="grid gap-4 md:grid-cols-2">
@@ -87,6 +102,12 @@ export default function SOARPlaybooks() {
           لا توجد أدلة SOAR متطابقة مع المعايير المحددة
         </Card>
       )}
+
+      <CreatePlaybookDialog
+        open={createDialogOpen}
+        onOpenChange={setCreateDialogOpen}
+        onSubmit={handleCreatePlaybook}
+      />
     </div>
   );
 }
