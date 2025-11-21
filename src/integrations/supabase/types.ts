@@ -7197,6 +7197,118 @@ export type Database = {
           },
         ]
       }
+      incident_response_teams: {
+        Row: {
+          availability_schedule: Json | null
+          contact_info: Json | null
+          created_at: string | null
+          description_ar: string | null
+          description_en: string | null
+          id: string
+          is_active: boolean | null
+          last_backed_up_at: string | null
+          members: string[] | null
+          name_ar: string
+          name_en: string
+          specializations: string[] | null
+          team_lead_id: string | null
+          tenant_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          availability_schedule?: Json | null
+          contact_info?: Json | null
+          created_at?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          id?: string
+          is_active?: boolean | null
+          last_backed_up_at?: string | null
+          members?: string[] | null
+          name_ar: string
+          name_en: string
+          specializations?: string[] | null
+          team_lead_id?: string | null
+          tenant_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          availability_schedule?: Json | null
+          contact_info?: Json | null
+          created_at?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          id?: string
+          is_active?: boolean | null
+          last_backed_up_at?: string | null
+          members?: string[] | null
+          name_ar?: string
+          name_en?: string
+          specializations?: string[] | null
+          team_lead_id?: string | null
+          tenant_id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "incident_response_teams_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      incident_sla_config: {
+        Row: {
+          business_hours_only: boolean | null
+          created_at: string | null
+          escalation_time_minutes: number | null
+          id: string
+          incident_type: string
+          is_active: boolean | null
+          resolution_time_hours: number
+          response_time_minutes: number
+          severity: string
+          tenant_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          business_hours_only?: boolean | null
+          created_at?: string | null
+          escalation_time_minutes?: number | null
+          id?: string
+          incident_type: string
+          is_active?: boolean | null
+          resolution_time_hours: number
+          response_time_minutes: number
+          severity: string
+          tenant_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          business_hours_only?: boolean | null
+          created_at?: string | null
+          escalation_time_minutes?: number | null
+          id?: string
+          incident_type?: string
+          is_active?: boolean | null
+          resolution_time_hours?: number
+          response_time_minutes?: number
+          severity?: string
+          tenant_id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "incident_sla_config_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       incident_timeline: {
         Row: {
           action_ar: string
@@ -7252,6 +7364,69 @@ export type Database = {
             columns: ["incident_id"]
             isOneToOne: false
             referencedRelation: "security_incidents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      incident_timeline_events: {
+        Row: {
+          actor_id: string
+          created_at: string | null
+          event_data: Json | null
+          event_description_ar: string | null
+          event_description_en: string | null
+          event_title_ar: string
+          event_title_en: string
+          event_type: string
+          id: string
+          incident_id: string
+          last_backed_up_at: string | null
+          occurred_at: string | null
+          tenant_id: string
+        }
+        Insert: {
+          actor_id: string
+          created_at?: string | null
+          event_data?: Json | null
+          event_description_ar?: string | null
+          event_description_en?: string | null
+          event_title_ar: string
+          event_title_en: string
+          event_type: string
+          id?: string
+          incident_id: string
+          last_backed_up_at?: string | null
+          occurred_at?: string | null
+          tenant_id: string
+        }
+        Update: {
+          actor_id?: string
+          created_at?: string | null
+          event_data?: Json | null
+          event_description_ar?: string | null
+          event_description_en?: string | null
+          event_title_ar?: string
+          event_title_en?: string
+          event_type?: string
+          id?: string
+          incident_id?: string
+          last_backed_up_at?: string | null
+          occurred_at?: string | null
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "incident_timeline_events_incident_id_fkey"
+            columns: ["incident_id"]
+            isOneToOne: false
+            referencedRelation: "security_incidents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "incident_timeline_events_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
             referencedColumns: ["id"]
           },
         ]
@@ -9844,6 +10019,69 @@ export type Database = {
           },
         ]
       }
+      model_training_history: {
+        Row: {
+          accuracy_metrics: Json
+          created_at: string | null
+          dataset_size: number
+          id: string
+          last_backed_up_at: string | null
+          model_id: string
+          model_parameters: Json
+          notes: string | null
+          tenant_id: string
+          trained_by: string
+          training_date: string | null
+          training_duration_seconds: number | null
+          validation_results: Json | null
+        }
+        Insert: {
+          accuracy_metrics: Json
+          created_at?: string | null
+          dataset_size: number
+          id?: string
+          last_backed_up_at?: string | null
+          model_id: string
+          model_parameters: Json
+          notes?: string | null
+          tenant_id: string
+          trained_by: string
+          training_date?: string | null
+          training_duration_seconds?: number | null
+          validation_results?: Json | null
+        }
+        Update: {
+          accuracy_metrics?: Json
+          created_at?: string | null
+          dataset_size?: number
+          id?: string
+          last_backed_up_at?: string | null
+          model_id?: string
+          model_parameters?: Json
+          notes?: string | null
+          tenant_id?: string
+          trained_by?: string
+          training_date?: string | null
+          training_duration_seconds?: number | null
+          validation_results?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "model_training_history_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "prediction_models"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "model_training_history_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       module_progress: {
         Row: {
           campaign_id: string
@@ -10239,6 +10477,78 @@ export type Database = {
         }
         Relationships: []
       }
+      prediction_alerts: {
+        Row: {
+          acknowledged_at: string | null
+          alert_type: string
+          created_at: string | null
+          description_ar: string | null
+          description_en: string | null
+          id: string
+          last_backed_up_at: string | null
+          notified_users: string[] | null
+          prediction_id: string
+          recommended_actions: Json | null
+          resolved_at: string | null
+          severity: string
+          status: string | null
+          tenant_id: string
+          title_ar: string
+          title_en: string
+        }
+        Insert: {
+          acknowledged_at?: string | null
+          alert_type: string
+          created_at?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          id?: string
+          last_backed_up_at?: string | null
+          notified_users?: string[] | null
+          prediction_id: string
+          recommended_actions?: Json | null
+          resolved_at?: string | null
+          severity: string
+          status?: string | null
+          tenant_id: string
+          title_ar: string
+          title_en: string
+        }
+        Update: {
+          acknowledged_at?: string | null
+          alert_type?: string
+          created_at?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          id?: string
+          last_backed_up_at?: string | null
+          notified_users?: string[] | null
+          prediction_id?: string
+          recommended_actions?: Json | null
+          resolved_at?: string | null
+          severity?: string
+          status?: string | null
+          tenant_id?: string
+          title_ar?: string
+          title_en?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prediction_alerts_prediction_id_fkey"
+            columns: ["prediction_id"]
+            isOneToOne: false
+            referencedRelation: "prediction_results"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "prediction_alerts_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       prediction_models: {
         Row: {
           accuracy_score: number | null
@@ -10324,6 +10634,78 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "prediction_models_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      prediction_results: {
+        Row: {
+          accuracy_delta: number | null
+          actual_recorded_at: string | null
+          actual_value: Json | null
+          confidence_score: number
+          context_id: string | null
+          context_type: string
+          created_at: string | null
+          feedback_data: Json | null
+          feedback_provided: boolean | null
+          id: string
+          last_backed_up_at: string | null
+          model_id: string
+          predicted_value: Json
+          prediction_date: string | null
+          tenant_id: string
+          valid_until: string | null
+        }
+        Insert: {
+          accuracy_delta?: number | null
+          actual_recorded_at?: string | null
+          actual_value?: Json | null
+          confidence_score: number
+          context_id?: string | null
+          context_type: string
+          created_at?: string | null
+          feedback_data?: Json | null
+          feedback_provided?: boolean | null
+          id?: string
+          last_backed_up_at?: string | null
+          model_id: string
+          predicted_value: Json
+          prediction_date?: string | null
+          tenant_id: string
+          valid_until?: string | null
+        }
+        Update: {
+          accuracy_delta?: number | null
+          actual_recorded_at?: string | null
+          actual_value?: Json | null
+          confidence_score?: number
+          context_id?: string | null
+          context_type?: string
+          created_at?: string | null
+          feedback_data?: Json | null
+          feedback_provided?: boolean | null
+          id?: string
+          last_backed_up_at?: string | null
+          model_id?: string
+          predicted_value?: Json
+          prediction_date?: string | null
+          tenant_id?: string
+          valid_until?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prediction_results_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "prediction_models"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "prediction_results_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -11489,6 +11871,9 @@ export type Database = {
           last_backed_up_at: string | null
           lessons_learned_ar: string | null
           lessons_learned_en: string | null
+          linked_events: string[] | null
+          linked_policies: string[] | null
+          linked_risks: string[] | null
           metadata: Json | null
           priority: number | null
           recommendations_ar: string | null
@@ -11502,6 +11887,8 @@ export type Database = {
           root_cause_ar: string | null
           root_cause_en: string | null
           severity: string
+          sla_resolution_deadline: string | null
+          sla_response_deadline: string | null
           status: string
           tags: string[] | null
           tenant_id: string
@@ -11538,6 +11925,9 @@ export type Database = {
           last_backed_up_at?: string | null
           lessons_learned_ar?: string | null
           lessons_learned_en?: string | null
+          linked_events?: string[] | null
+          linked_policies?: string[] | null
+          linked_risks?: string[] | null
           metadata?: Json | null
           priority?: number | null
           recommendations_ar?: string | null
@@ -11551,6 +11941,8 @@ export type Database = {
           root_cause_ar?: string | null
           root_cause_en?: string | null
           severity: string
+          sla_resolution_deadline?: string | null
+          sla_response_deadline?: string | null
           status?: string
           tags?: string[] | null
           tenant_id: string
@@ -11587,6 +11979,9 @@ export type Database = {
           last_backed_up_at?: string | null
           lessons_learned_ar?: string | null
           lessons_learned_en?: string | null
+          linked_events?: string[] | null
+          linked_policies?: string[] | null
+          linked_risks?: string[] | null
           metadata?: Json | null
           priority?: number | null
           recommendations_ar?: string | null
@@ -11600,6 +11995,8 @@ export type Database = {
           root_cause_ar?: string | null
           root_cause_en?: string | null
           severity?: string
+          sla_resolution_deadline?: string | null
+          sla_response_deadline?: string | null
           status?: string
           tags?: string[] | null
           tenant_id?: string
@@ -13910,6 +14307,18 @@ export type Database = {
         Args: { p_incident_id: string }
         Returns: undefined
       }
+      calculate_incident_sla: {
+        Args: {
+          p_created_at: string
+          p_incident_type: string
+          p_severity: string
+          p_tenant_id: string
+        }
+        Returns: {
+          resolution_deadline: string
+          response_deadline: string
+        }[]
+      }
       calculate_pitr_stats: {
         Args: {
           p_base_backup_timestamp?: string
@@ -13929,6 +14338,15 @@ export type Database = {
       capture_kpi_snapshot: {
         Args: { p_snapshot_date?: string; p_tenant_id: string }
         Returns: number
+      }
+      check_sla_breach: {
+        Args: { p_incident_id: string }
+        Returns: {
+          resolution_breached: boolean
+          resolution_hours_overdue: number
+          response_breached: boolean
+          response_minutes_overdue: number
+        }[]
       }
       clean_expired_widget_cache: { Args: never; Returns: number }
       cleanup_expired_pitr_snapshots: { Args: never; Returns: number }
