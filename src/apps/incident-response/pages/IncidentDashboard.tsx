@@ -4,7 +4,7 @@
 
 import { PageHeader } from '@/core/components/ui/page-header';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/core/components/ui/card';
-import { AlertTriangle, Shield, Clock, CheckCircle, TrendingUp, Activity } from 'lucide-react';
+import { AlertTriangle, Shield, Clock, CheckCircle, TrendingUp, Activity, Plug, Settings } from 'lucide-react';
 import { useIncidentStatistics, useIncidents } from '../hooks';
 import { Skeleton } from '@/core/components/ui/skeleton';
 import { Badge } from '@/core/components/ui/badge';
@@ -66,10 +66,26 @@ export default function IncidentDashboard() {
 
   return (
     <div className="space-y-6">
-      <PageHeader
-        title={isRTL ? 'لوحة تحكم الاستجابة للحوادث' : 'Incident Response Dashboard'}
-        description={isRTL ? 'نظرة عامة على الحوادث الأمنية والاستجابة' : 'Overview of security incidents and response status'}
-      />
+      <div className="flex justify-between items-start">
+        <PageHeader
+          title={isRTL ? 'لوحة تحكم الاستجابة للحوادث' : 'Incident Response Dashboard'}
+          description={isRTL ? 'نظرة عامة على الحوادث الأمنية والاستجابة' : 'Overview of security incidents and response status'}
+        />
+        <div className="flex gap-2">
+          <Link to="/incident-response/integrations">
+            <Button variant="outline" size="sm">
+              <Plug className="h-4 w-4 mr-2" />
+              {isRTL ? 'التكاملات الخارجية' : 'Integrations'}
+            </Button>
+          </Link>
+          <Link to="/incident-response/settings">
+            <Button variant="outline" size="sm">
+              <Settings className="h-4 w-4 mr-2" />
+              {isRTL ? 'الإعدادات' : 'Settings'}
+            </Button>
+          </Link>
+        </div>
+      </div>
 
       {/* Stats Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
