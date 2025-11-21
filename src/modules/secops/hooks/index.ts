@@ -8,3 +8,5 @@ export * from './useSOARPlaybooks';
 export * from './useSOARExecutions';
 export * from './useSecOpsConnectors';
 export * from './useSecOpsStatistics';
+export * from './useThreatHunting';
+export * from './useIncidentIntegration';

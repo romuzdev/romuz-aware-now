@@ -16,6 +16,7 @@ const Dashboard = lazy(() => import('./pages/Dashboard'));
 const SecurityEvents = lazy(() => import('./pages/SecurityEvents'));
 const SOARPlaybooks = lazy(() => import('./pages/SOARPlaybooks'));
 const Connectors = lazy(() => import('./pages/Connectors'));
+const ThreatHunting = lazy(() => import('./pages/ThreatHunting'));
 
 // Loading fallback component
 const LoadingFallback = () => (
@@ -44,6 +45,7 @@ export function getSecOpsRoutes() {
         <Route path="events" element={<Suspense fallback={<LoadingFallback />}><SecurityEvents /></Suspense>} />
         <Route path="playbooks" element={<Suspense fallback={<LoadingFallback />}><SOARPlaybooks /></Suspense>} />
         <Route path="connectors" element={<Suspense fallback={<LoadingFallback />}><Connectors /></Suspense>} />
+        <Route path="threat-hunting" element={<Suspense fallback={<LoadingFallback />}><ThreatHunting /></Suspense>} />
       </Route>
     </>
   );

@@ -17,3 +17,9 @@ export * from './connectors.integration';
 
 // Statistics
 export * from './statistics.integration';
+
+// Threat Hunting
+export * from './threat-hunting.integration';
+
+// Incident Integration
+export * from './incidents-integration.integration';
