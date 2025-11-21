@@ -4128,6 +4128,83 @@ export type Database = {
           },
         ]
       }
+      event_correlation_rules: {
+        Row: {
+          auto_create_incident: boolean | null
+          correlation_logic: string
+          created_at: string
+          created_by: string | null
+          description_ar: string | null
+          description_en: string | null
+          event_patterns: Json
+          id: string
+          is_active: boolean | null
+          last_backed_up_at: string | null
+          last_matched_at: string | null
+          match_count: number | null
+          rule_name_ar: string
+          rule_name_en: string | null
+          severity_override: string | null
+          tenant_id: string
+          threshold_count: number | null
+          time_window_minutes: number | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          auto_create_incident?: boolean | null
+          correlation_logic: string
+          created_at?: string
+          created_by?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          event_patterns?: Json
+          id?: string
+          is_active?: boolean | null
+          last_backed_up_at?: string | null
+          last_matched_at?: string | null
+          match_count?: number | null
+          rule_name_ar: string
+          rule_name_en?: string | null
+          severity_override?: string | null
+          tenant_id: string
+          threshold_count?: number | null
+          time_window_minutes?: number | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          auto_create_incident?: boolean | null
+          correlation_logic?: string
+          created_at?: string
+          created_by?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          event_patterns?: Json
+          id?: string
+          is_active?: boolean | null
+          last_backed_up_at?: string | null
+          last_matched_at?: string | null
+          match_count?: number | null
+          rule_name_ar?: string
+          rule_name_en?: string | null
+          severity_override?: string | null
+          tenant_id?: string
+          threshold_count?: number | null
+          time_window_minutes?: number | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_correlation_rules_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       event_execution_log: {
         Row: {
           error_message: string | null
@@ -10179,6 +10256,226 @@ export type Database = {
           },
         ]
       }
+      secops_connector_sync_logs: {
+        Row: {
+          connector_id: string
+          created_at: string
+          error_message: string | null
+          id: string
+          records_failed: number | null
+          records_imported: number | null
+          records_processed: number | null
+          status: string
+          sync_completed_at: string | null
+          sync_details: Json | null
+          sync_started_at: string
+          tenant_id: string
+        }
+        Insert: {
+          connector_id: string
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          records_failed?: number | null
+          records_imported?: number | null
+          records_processed?: number | null
+          status: string
+          sync_completed_at?: string | null
+          sync_details?: Json | null
+          sync_started_at?: string
+          tenant_id: string
+        }
+        Update: {
+          connector_id?: string
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          records_failed?: number | null
+          records_imported?: number | null
+          records_processed?: number | null
+          status?: string
+          sync_completed_at?: string | null
+          sync_details?: Json | null
+          sync_started_at?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "secops_connector_sync_logs_connector_id_fkey"
+            columns: ["connector_id"]
+            isOneToOne: false
+            referencedRelation: "secops_connectors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "secops_connector_sync_logs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      secops_connectors: {
+        Row: {
+          auth_config: Json | null
+          connection_config: Json
+          connector_type: string
+          created_at: string
+          created_by: string | null
+          error_count: number | null
+          id: string
+          is_active: boolean | null
+          last_backed_up_at: string | null
+          last_error: string | null
+          last_sync_at: string | null
+          last_sync_result: Json | null
+          name_ar: string
+          name_en: string
+          next_sync_at: string | null
+          sync_enabled: boolean | null
+          sync_interval_minutes: number | null
+          sync_status: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          vendor: string
+          version: string | null
+        }
+        Insert: {
+          auth_config?: Json | null
+          connection_config?: Json
+          connector_type: string
+          created_at?: string
+          created_by?: string | null
+          error_count?: number | null
+          id?: string
+          is_active?: boolean | null
+          last_backed_up_at?: string | null
+          last_error?: string | null
+          last_sync_at?: string | null
+          last_sync_result?: Json | null
+          name_ar: string
+          name_en: string
+          next_sync_at?: string | null
+          sync_enabled?: boolean | null
+          sync_interval_minutes?: number | null
+          sync_status?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          vendor: string
+          version?: string | null
+        }
+        Update: {
+          auth_config?: Json | null
+          connection_config?: Json
+          connector_type?: string
+          created_at?: string
+          created_by?: string | null
+          error_count?: number | null
+          id?: string
+          is_active?: boolean | null
+          last_backed_up_at?: string | null
+          last_error?: string | null
+          last_sync_at?: string | null
+          last_sync_result?: Json | null
+          name_ar?: string
+          name_en?: string
+          next_sync_at?: string | null
+          sync_enabled?: boolean | null
+          sync_interval_minutes?: number | null
+          sync_status?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          vendor?: string
+          version?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "secops_connectors_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      security_events: {
+        Row: {
+          correlation_id: string | null
+          created_at: string
+          destination_ip: unknown
+          event_data: Json
+          event_timestamp: string
+          event_type: string
+          id: string
+          incident_id: string | null
+          is_processed: boolean | null
+          last_backed_up_at: string | null
+          normalized_fields: Json | null
+          raw_log: string | null
+          severity: string
+          source_ip: unknown
+          source_system: string | null
+          tenant_id: string
+          threat_indicator_matched: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          correlation_id?: string | null
+          created_at?: string
+          destination_ip?: unknown
+          event_data?: Json
+          event_timestamp: string
+          event_type: string
+          id?: string
+          incident_id?: string | null
+          is_processed?: boolean | null
+          last_backed_up_at?: string | null
+          normalized_fields?: Json | null
+          raw_log?: string | null
+          severity: string
+          source_ip?: unknown
+          source_system?: string | null
+          tenant_id: string
+          threat_indicator_matched?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          correlation_id?: string | null
+          created_at?: string
+          destination_ip?: unknown
+          event_data?: Json
+          event_timestamp?: string
+          event_type?: string
+          id?: string
+          incident_id?: string | null
+          is_processed?: boolean | null
+          last_backed_up_at?: string | null
+          normalized_fields?: Json | null
+          raw_log?: string | null
+          severity?: string
+          source_ip?: unknown
+          source_system?: string | null
+          tenant_id?: string
+          threat_indicator_matched?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "security_events_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       security_incidents: {
         Row: {
           acknowledged_at: string | null
@@ -10330,6 +10627,150 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "security_incidents_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      soar_executions: {
+        Row: {
+          actions_taken: string[] | null
+          completed_at: string | null
+          created_at: string
+          error_message: string | null
+          executed_by: string | null
+          execution_log: Json | null
+          id: string
+          last_backed_up_at: string | null
+          playbook_id: string
+          result: Json | null
+          started_at: string
+          status: string
+          tenant_id: string
+          trigger_event_id: string | null
+        }
+        Insert: {
+          actions_taken?: string[] | null
+          completed_at?: string | null
+          created_at?: string
+          error_message?: string | null
+          executed_by?: string | null
+          execution_log?: Json | null
+          id?: string
+          last_backed_up_at?: string | null
+          playbook_id: string
+          result?: Json | null
+          started_at?: string
+          status?: string
+          tenant_id: string
+          trigger_event_id?: string | null
+        }
+        Update: {
+          actions_taken?: string[] | null
+          completed_at?: string | null
+          created_at?: string
+          error_message?: string | null
+          executed_by?: string | null
+          execution_log?: Json | null
+          id?: string
+          last_backed_up_at?: string | null
+          playbook_id?: string
+          result?: Json | null
+          started_at?: string
+          status?: string
+          tenant_id?: string
+          trigger_event_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "soar_executions_playbook_id_fkey"
+            columns: ["playbook_id"]
+            isOneToOne: false
+            referencedRelation: "soar_playbooks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "soar_executions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "soar_executions_trigger_event_id_fkey"
+            columns: ["trigger_event_id"]
+            isOneToOne: false
+            referencedRelation: "security_events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      soar_playbooks: {
+        Row: {
+          approval_required: boolean | null
+          automation_steps: Json
+          created_at: string
+          created_by: string | null
+          description_ar: string | null
+          description_en: string | null
+          execution_count: number | null
+          id: string
+          is_active: boolean | null
+          last_backed_up_at: string | null
+          last_executed_at: string | null
+          playbook_name_ar: string
+          playbook_name_en: string | null
+          success_count: number | null
+          tenant_id: string
+          trigger_conditions: Json
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          approval_required?: boolean | null
+          automation_steps?: Json
+          created_at?: string
+          created_by?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          execution_count?: number | null
+          id?: string
+          is_active?: boolean | null
+          last_backed_up_at?: string | null
+          last_executed_at?: string | null
+          playbook_name_ar: string
+          playbook_name_en?: string | null
+          success_count?: number | null
+          tenant_id: string
+          trigger_conditions?: Json
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          approval_required?: boolean | null
+          automation_steps?: Json
+          created_at?: string
+          created_by?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          execution_count?: number | null
+          id?: string
+          is_active?: boolean | null
+          last_backed_up_at?: string | null
+          last_executed_at?: string | null
+          playbook_name_ar?: string
+          playbook_name_en?: string | null
+          success_count?: number | null
+          tenant_id?: string
+          trigger_conditions?: Json
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "soar_playbooks_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -12267,6 +12708,29 @@ export type Database = {
           },
           {
             foreignKeyName: "campaign_participants_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vw_secops_statistics: {
+        Row: {
+          active_connectors: number | null
+          active_playbooks: number | null
+          completed_executions_24h: number | null
+          connectors_with_errors: number | null
+          correlated_event_groups: number | null
+          critical_events_24h: number | null
+          events_last_24h: number | null
+          running_executions: number | null
+          tenant_id: string | null
+          unprocessed_events: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "security_events_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -14232,6 +14696,10 @@ export type Database = {
       }
       set_default_tenant: { Args: { p_tenant_id: string }; Returns: undefined }
       to_riyadh_date: { Args: { ts: string }; Returns: string }
+      update_secops_backup_metadata: {
+        Args: { p_table_name: string; p_tenant_id: string }
+        Returns: number
+      }
       validate_snapshot_integrity: {
         Args: { p_snapshot_id: string }
         Returns: Json
