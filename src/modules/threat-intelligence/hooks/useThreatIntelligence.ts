@@ -427,3 +427,43 @@ export function useSyncFeed() {
     },
   });
 }
+
+// ============================================================
+// Dashboard Stats Hooks
+// ============================================================
+
+export function useThreatStats() {
+  const { tenantId } = useAppContext();
+
+  return useQuery({
+    queryKey: ['threat-stats', tenantId],
+    queryFn: async () => {
+      if (!tenantId) throw new Error('Tenant ID is required');
+
+      const stats = await fetchThreatStatistics(tenantId);
+      
+      return {
+        activeFeeds: stats.active_feeds,
+        totalIndicators: stats.total_indicators,
+        recentMatches: stats.recent_matches_24h,
+        criticalThreats: stats.critical_indicators,
+      };
+    },
+    enabled: !!tenantId,
+  });
+}
+
+export function useRecentMatches(limit = 10) {
+  const { tenantId } = useAppContext();
+
+  return useQuery({
+    queryKey: ['threat-recent-matches', tenantId, limit],
+    queryFn: async () => {
+      if (!tenantId) throw new Error('Tenant ID is required');
+      
+      const matches = await fetchThreatMatches(tenantId, {});
+      return matches.slice(0, limit);
+    },
+    enabled: !!tenantId,
+  });
+}
