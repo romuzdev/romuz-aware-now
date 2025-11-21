@@ -10402,6 +10402,76 @@ export type Database = {
           },
         ]
       }
+      security_event_threat_matches: {
+        Row: {
+          confidence_score: number | null
+          confirmed_at: string | null
+          confirmed_by: string | null
+          created_at: string
+          event_id: string
+          id: string
+          indicator_id: string
+          is_confirmed: boolean | null
+          match_type: string
+          match_value: string
+          matched_at: string
+          notes: string | null
+          tenant_id: string
+        }
+        Insert: {
+          confidence_score?: number | null
+          confirmed_at?: string | null
+          confirmed_by?: string | null
+          created_at?: string
+          event_id: string
+          id?: string
+          indicator_id: string
+          is_confirmed?: boolean | null
+          match_type: string
+          match_value: string
+          matched_at?: string
+          notes?: string | null
+          tenant_id: string
+        }
+        Update: {
+          confidence_score?: number | null
+          confirmed_at?: string | null
+          confirmed_by?: string | null
+          created_at?: string
+          event_id?: string
+          id?: string
+          indicator_id?: string
+          is_confirmed?: boolean | null
+          match_type?: string
+          match_value?: string
+          matched_at?: string
+          notes?: string | null
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "security_event_threat_matches_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "security_events"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "security_event_threat_matches_indicator_id_fkey"
+            columns: ["indicator_id"]
+            isOneToOne: false
+            referencedRelation: "threat_indicators"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "security_event_threat_matches_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       security_events: {
         Row: {
           correlation_id: string | null
@@ -11289,6 +11359,137 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      threat_hunt_queries: {
+        Row: {
+          created_at: string
+          created_by: string
+          description_ar: string | null
+          execution_count: number | null
+          id: string
+          is_active: boolean | null
+          is_scheduled: boolean | null
+          last_backed_up_at: string | null
+          last_executed_at: string | null
+          query_config: Json
+          query_name: string
+          query_type: string
+          results_count: number | null
+          saved_filters: Json | null
+          schedule_cron: string | null
+          tags: string[] | null
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          description_ar?: string | null
+          execution_count?: number | null
+          id?: string
+          is_active?: boolean | null
+          is_scheduled?: boolean | null
+          last_backed_up_at?: string | null
+          last_executed_at?: string | null
+          query_config?: Json
+          query_name: string
+          query_type: string
+          results_count?: number | null
+          saved_filters?: Json | null
+          schedule_cron?: string | null
+          tags?: string[] | null
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          description_ar?: string | null
+          execution_count?: number | null
+          id?: string
+          is_active?: boolean | null
+          is_scheduled?: boolean | null
+          last_backed_up_at?: string | null
+          last_executed_at?: string | null
+          query_config?: Json
+          query_name?: string
+          query_type?: string
+          results_count?: number | null
+          saved_filters?: Json | null
+          schedule_cron?: string | null
+          tags?: string[] | null
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "threat_hunt_queries_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      threat_hunt_results: {
+        Row: {
+          created_at: string
+          error_message: string | null
+          executed_at: string
+          executed_by: string
+          execution_time_ms: number | null
+          id: string
+          matched_events_count: number | null
+          matched_indicators_count: number | null
+          query_id: string
+          results_data: Json
+          status: string | null
+          tenant_id: string
+        }
+        Insert: {
+          created_at?: string
+          error_message?: string | null
+          executed_at?: string
+          executed_by: string
+          execution_time_ms?: number | null
+          id?: string
+          matched_events_count?: number | null
+          matched_indicators_count?: number | null
+          query_id: string
+          results_data?: Json
+          status?: string | null
+          tenant_id: string
+        }
+        Update: {
+          created_at?: string
+          error_message?: string | null
+          executed_at?: string
+          executed_by?: string
+          execution_time_ms?: number | null
+          id?: string
+          matched_events_count?: number | null
+          matched_indicators_count?: number | null
+          query_id?: string
+          results_data?: Json
+          status?: string | null
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "threat_hunt_results_query_id_fkey"
+            columns: ["query_id"]
+            isOneToOne: false
+            referencedRelation: "threat_hunt_queries"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "threat_hunt_results_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       threat_indicators: {
         Row: {
@@ -12731,6 +12932,25 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "security_events_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vw_threat_hunt_dashboard: {
+        Row: {
+          active_queries: number | null
+          last_execution: string | null
+          tenant_id: string | null
+          total_executions: number | null
+          total_matches: number | null
+          total_queries: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "threat_hunt_queries_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"

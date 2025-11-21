@@ -9,6 +9,7 @@ import {
   Activity,
   Workflow,
   Link,
+  Search,
 } from 'lucide-react';
 import type { AppModule } from '@/core/config/types';
 
@@ -67,6 +68,16 @@ export const secOpsApp: AppModule = {
       requiredPermission: 'secops.connectors.view' as any,
       showInSidebar: true,
       order: 4,
+    },
+    {
+      id: 'threat-hunting',
+      name: 'Threat Hunting',
+      nameAr: 'الصيد عن التهديدات',
+      route: '/secops/threat-hunting',
+      icon: Search,
+      requiredPermission: 'secops.hunting.view' as any,
+      showInSidebar: true,
+      order: 5,
     },
   ],
   metadata: {
