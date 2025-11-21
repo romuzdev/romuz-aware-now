@@ -3480,6 +3480,51 @@ export type Database = {
         }
         Relationships: []
       }
+      content_bookmarks: {
+        Row: {
+          content_id: string
+          created_at: string
+          folder_name: string | null
+          id: string
+          notes: string | null
+          tenant_id: string
+          user_id: string
+        }
+        Insert: {
+          content_id: string
+          created_at?: string
+          folder_name?: string | null
+          id?: string
+          notes?: string | null
+          tenant_id: string
+          user_id: string
+        }
+        Update: {
+          content_id?: string
+          created_at?: string
+          folder_name?: string | null
+          id?: string
+          notes?: string | null
+          tenant_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_bookmarks_content_id_fkey"
+            columns: ["content_id"]
+            isOneToOne: false
+            referencedRelation: "content_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_bookmarks_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       content_categories: {
         Row: {
           backup_metadata: Json | null
@@ -3568,12 +3613,81 @@ export type Database = {
           },
         ]
       }
+      content_comments: {
+        Row: {
+          comment_text: string
+          content_id: string
+          created_at: string
+          id: string
+          is_approved: boolean
+          is_flagged: boolean
+          last_backed_up_at: string | null
+          like_count: number
+          parent_comment_id: string | null
+          tenant_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          comment_text: string
+          content_id: string
+          created_at?: string
+          id?: string
+          is_approved?: boolean
+          is_flagged?: boolean
+          last_backed_up_at?: string | null
+          like_count?: number
+          parent_comment_id?: string | null
+          tenant_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          comment_text?: string
+          content_id?: string
+          created_at?: string
+          id?: string
+          is_approved?: boolean
+          is_flagged?: boolean
+          last_backed_up_at?: string | null
+          like_count?: number
+          parent_comment_id?: string | null
+          tenant_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_comments_content_id_fkey"
+            columns: ["content_id"]
+            isOneToOne: false
+            referencedRelation: "content_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_comments_parent_comment_id_fkey"
+            columns: ["parent_comment_id"]
+            isOneToOne: false
+            referencedRelation: "content_comments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_comments_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       content_items: {
         Row: {
           ai_generated: boolean | null
           author_id: string
           backup_metadata: Json | null
+          bookmark_count: number
           category: string
+          comment_count: number
           content_body_ar: string | null
           content_body_en: string | null
           content_type: string
@@ -3586,12 +3700,16 @@ export type Database = {
           media_url: string | null
           metadata: Json | null
           published_at: string | null
+          quality_score: number | null
+          reading_time_minutes: number | null
           scheduled_publish_at: string | null
           seo_description: string | null
           seo_keywords: string[] | null
+          seo_title: string | null
           shares_count: number | null
           status: string
           tags: string[] | null
+          template_id: string | null
           tenant_id: string
           thumbnail_url: string | null
           title_ar: string
@@ -3604,7 +3722,9 @@ export type Database = {
           ai_generated?: boolean | null
           author_id: string
           backup_metadata?: Json | null
+          bookmark_count?: number
           category: string
+          comment_count?: number
           content_body_ar?: string | null
           content_body_en?: string | null
           content_type: string
@@ -3617,12 +3737,16 @@ export type Database = {
           media_url?: string | null
           metadata?: Json | null
           published_at?: string | null
+          quality_score?: number | null
+          reading_time_minutes?: number | null
           scheduled_publish_at?: string | null
           seo_description?: string | null
           seo_keywords?: string[] | null
+          seo_title?: string | null
           shares_count?: number | null
           status?: string
           tags?: string[] | null
+          template_id?: string | null
           tenant_id: string
           thumbnail_url?: string | null
           title_ar: string
@@ -3635,7 +3759,9 @@ export type Database = {
           ai_generated?: boolean | null
           author_id?: string
           backup_metadata?: Json | null
+          bookmark_count?: number
           category?: string
+          comment_count?: number
           content_body_ar?: string | null
           content_body_en?: string | null
           content_type?: string
@@ -3648,12 +3774,16 @@ export type Database = {
           media_url?: string | null
           metadata?: Json | null
           published_at?: string | null
+          quality_score?: number | null
+          reading_time_minutes?: number | null
           scheduled_publish_at?: string | null
           seo_description?: string | null
           seo_keywords?: string[] | null
+          seo_title?: string | null
           shares_count?: number | null
           status?: string
           tags?: string[] | null
+          template_id?: string | null
           tenant_id?: string
           thumbnail_url?: string | null
           title_ar?: string
@@ -3672,6 +3802,68 @@ export type Database = {
           },
           {
             foreignKeyName: "content_items_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      content_templates: {
+        Row: {
+          ai_prompt_template: string | null
+          content_type: string
+          created_at: string
+          created_by: string
+          default_values: Json | null
+          description: string | null
+          id: string
+          is_active: boolean
+          is_system: boolean
+          last_backed_up_at: string | null
+          name: string
+          structure: Json
+          tenant_id: string
+          updated_at: string
+          usage_count: number
+        }
+        Insert: {
+          ai_prompt_template?: string | null
+          content_type: string
+          created_at?: string
+          created_by: string
+          default_values?: Json | null
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          is_system?: boolean
+          last_backed_up_at?: string | null
+          name: string
+          structure: Json
+          tenant_id: string
+          updated_at?: string
+          usage_count?: number
+        }
+        Update: {
+          ai_prompt_template?: string | null
+          content_type?: string
+          created_at?: string
+          created_by?: string
+          default_values?: Json | null
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          is_system?: boolean
+          last_backed_up_at?: string | null
+          name?: string
+          structure?: Json
+          tenant_id?: string
+          updated_at?: string
+          usage_count?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_templates_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
