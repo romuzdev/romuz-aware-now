@@ -9,7 +9,7 @@ import {
   createPredictionAlert,
   acknowledgePredictionAlert,
 } from '@/integrations/supabase/predictive-analytics';
-import { useToast } from '@/core/hooks/use-toast';
+import { useToast } from '@/hooks/use-toast';
 
 /**
  * Fetch prediction alerts

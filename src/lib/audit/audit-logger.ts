@@ -135,3 +135,17 @@ export const logObjectiveAction = (
   action: 'create' | 'read' | 'update' | 'delete',
   payload?: Record<string, any>
 ) => logAuditAction({ entityType: 'objective', entityId: objectiveId, action, payload });
+
+// M18 - Incident Response Module
+export const logIncidentAction = (
+  incidentId: string,
+  action: 'create' | 'read' | 'update' | 'delete',
+  payload?: Record<string, any>
+) => logAuditAction({ entityType: 'security_incident', entityId: incidentId, action, payload });
+
+// M19 - Predictive Analytics Module
+export const logPredictionAction = (
+  predictionId: string,
+  action: 'create' | 'read' | 'update' | 'delete',
+  payload?: Record<string, any>
+) => logAuditAction({ entityType: 'prediction_result', entityId: predictionId, action, payload });
