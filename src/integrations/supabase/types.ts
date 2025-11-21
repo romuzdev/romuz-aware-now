@@ -1150,6 +1150,7 @@ export type Database = {
           framework_ref: string | null
           id: string
           impact_description: string | null
+          last_backed_up_at: string | null
           recommendation_ar: string | null
           recommendation_en: string | null
           resolution_notes: string | null
@@ -1177,6 +1178,7 @@ export type Database = {
           framework_ref?: string | null
           id?: string
           impact_description?: string | null
+          last_backed_up_at?: string | null
           recommendation_ar?: string | null
           recommendation_en?: string | null
           resolution_notes?: string | null
@@ -1204,6 +1206,7 @@ export type Database = {
           framework_ref?: string | null
           id?: string
           impact_description?: string | null
+          last_backed_up_at?: string | null
           recommendation_ar?: string | null
           recommendation_en?: string | null
           resolution_notes?: string | null
@@ -1357,6 +1360,7 @@ export type Database = {
           current_stage: string
           due_date: string | null
           id: string
+          last_backed_up_at: string | null
           metadata: Json | null
           notes: string | null
           priority: string | null
@@ -1381,6 +1385,7 @@ export type Database = {
           current_stage: string
           due_date?: string | null
           id?: string
+          last_backed_up_at?: string | null
           metadata?: Json | null
           notes?: string | null
           priority?: string | null
@@ -1405,6 +1410,7 @@ export type Database = {
           current_stage?: string
           due_date?: string | null
           id?: string
+          last_backed_up_at?: string | null
           metadata?: Json | null
           notes?: string | null
           priority?: string | null
@@ -5240,6 +5246,7 @@ export type Database = {
           id: string
           identified_by: string | null
           identified_date: string
+          last_backed_up_at: string | null
           linked_action_id: string | null
           linked_control_id: string | null
           linked_gap_id: string | null
@@ -5281,6 +5288,7 @@ export type Database = {
           id?: string
           identified_by?: string | null
           identified_date?: string
+          last_backed_up_at?: string | null
           linked_action_id?: string | null
           linked_control_id?: string | null
           linked_gap_id?: string | null
@@ -5322,6 +5330,7 @@ export type Database = {
           id?: string
           identified_by?: string | null
           identified_date?: string
+          last_backed_up_at?: string | null
           linked_action_id?: string | null
           linked_control_id?: string | null
           linked_gap_id?: string | null
@@ -5379,6 +5388,7 @@ export type Database = {
           framework_id: string | null
           high_findings: number | null
           id: string
+          last_backed_up_at: string | null
           lead_auditor_id: string | null
           low_findings: number | null
           management_response_date: string | null
@@ -5413,6 +5423,7 @@ export type Database = {
           framework_id?: string | null
           high_findings?: number | null
           id?: string
+          last_backed_up_at?: string | null
           lead_auditor_id?: string | null
           low_findings?: number | null
           management_response_date?: string | null
@@ -5447,6 +5458,7 @@ export type Database = {
           framework_id?: string | null
           high_findings?: number | null
           id?: string
+          last_backed_up_at?: string | null
           lead_auditor_id?: string | null
           low_findings?: number | null
           management_response_date?: string | null
@@ -14384,6 +14396,14 @@ export type Database = {
           total_rows: number
         }[]
       }
+      get_audit_completion_rate: {
+        Args: { p_end_date: string; p_start_date: string; p_tenant_id: string }
+        Returns: {
+          completed_audits: number
+          completion_rate: number
+          total_audits: number
+        }[]
+      }
       get_audit_workflow_progress: {
         Args: { p_audit_id: string }
         Returns: {
@@ -14394,6 +14414,15 @@ export type Database = {
           progress_pct: number
           status: string
           workflow_type: string
+        }[]
+      }
+      get_avg_finding_closure_time: {
+        Args: { p_audit_id?: string; p_tenant_id: string }
+        Returns: {
+          avg_days: number
+          max_days: number
+          median_days: number
+          min_days: number
         }[]
       }
       get_backup_chain: {
@@ -14453,6 +14482,14 @@ export type Database = {
         }[]
       }
       get_dr_plan_compliance: { Args: { p_dr_plan_id: string }; Returns: Json }
+      get_findings_severity_distribution: {
+        Args: { p_audit_id?: string; p_tenant_id: string }
+        Returns: {
+          count: number
+          percentage: number
+          severity: string
+        }[]
+      }
       get_findings_summary: {
         Args: { p_audit_id: string }
         Returns: {
@@ -14797,6 +14834,16 @@ export type Database = {
         }[]
       }
       get_user_tenant_id: { Args: { _user_id: string }; Returns: string }
+      get_workflow_progress_summary: {
+        Args: { p_workflow_id: string }
+        Returns: {
+          completed_stages: number
+          in_progress_stages: number
+          pending_stages: number
+          progress_percentage: number
+          total_stages: number
+        }[]
+      }
       get_workflow_stage_progress: {
         Args: { p_workflow_id: string }
         Returns: {
