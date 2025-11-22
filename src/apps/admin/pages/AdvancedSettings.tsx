@@ -4,6 +4,7 @@
  */
 
 import { useState } from 'react';
+import * as React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/core/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/core/components/ui/tabs';
 import { Button } from '@/core/components/ui/button';
@@ -68,7 +69,7 @@ export default function AdvancedSettings() {
   const [maintenanceMessage, setMaintenanceMessage] = useState('');
 
   // Update form when settings load
-  useState(() => {
+  React.useEffect(() => {
     if (settings) {
       setBrandingForm({
         app_name: settings.branding_app_name || '',
@@ -94,7 +95,7 @@ export default function AdvancedSettings() {
       setMaintenanceEnabled(settings.maintenance_mode || false);
       setMaintenanceMessage(settings.maintenance_message || '');
     }
-  });
+  }, [settings]);
 
   const handleSaveBranding = () => {
     if (!tenantId) return;
