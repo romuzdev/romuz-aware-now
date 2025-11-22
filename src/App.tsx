@@ -20,6 +20,11 @@ const UserDashboard = lazy(() => import("./apps/platform/pages/user/UserDashboar
 const EventMonitor = lazy(() => import("./pages/EventMonitor"));
 const AutomationRules = lazy(() => import("./pages/AutomationRules"));
 
+// M21, M22, M24: Admin pages
+const SystemCommand = lazy(() => import("./apps/admin/pages/SystemCommand"));
+const AdvancedSettings = lazy(() => import("./apps/admin/pages/AdvancedSettings"));
+const TenantLifecycle = lazy(() => import("./apps/admin/pages/TenantLifecycle"));
+
 import { ProtectedRoute, RoleGuard } from "@/core/components";
 
 // App Routes
@@ -106,6 +111,13 @@ const AppContent = () => {
             <Route path="/lms" element={<Navigate to="/admin/lms" replace />} />
             <Route path="/admin/grc/*" element={<Navigate to="/grc" replace />} />
             <Route path="/admin/backup" element={<Navigate to="/platform/admin/backup" replace />} />
+            
+            {/* M21, M22, M24: New Admin Routes */}
+            <Route path="/admin/system-command" element={<ProtectedRoute><SystemCommand /></ProtectedRoute>} />
+            <Route path="/admin/advanced-settings" element={<ProtectedRoute><AdvancedSettings /></ProtectedRoute>} />
+            <Route path="/admin/tenant-lifecycle" element={<ProtectedRoute><TenantLifecycle /></ProtectedRoute>} />
+            
+            {/* Catch-all redirect for remaining /admin/* paths */}
             <Route path="/admin/*" element={<Navigate to="/platform" replace />} />
             <Route path="/audits" element={<Navigate to="/audit/audits" replace />} />
             <Route path="/audits/*" element={<Navigate to="/audit/audits" replace />} />

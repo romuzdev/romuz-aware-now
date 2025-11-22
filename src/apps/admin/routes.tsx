@@ -75,6 +75,11 @@ const ContentHubPage = lazy(() => import('./pages/ContentHub'));
 // M16: AI Advisory Engine
 const AIRecommendationsPage = lazy(() => import('./pages/AIRecommendationsPage'));
 
+// M21, M22, M24: System Command, Advanced Settings, Tenant Lifecycle
+const SystemCommandPage = lazy(() => import('./pages/SystemCommand'));
+const AdvancedSettingsPage = lazy(() => import('./pages/AdvancedSettings'));
+const TenantLifecyclePage = lazy(() => import('./pages/TenantLifecycle'));
+
 // Loading fallback component
 const LoadingFallback = () => (
   <div className="container mx-auto py-6 space-y-6">
