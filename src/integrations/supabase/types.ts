@@ -10961,6 +10961,7 @@ export type Database = {
           created_at: string
           horizon: string | null
           id: string
+          last_backed_up_at: string | null
           owner_user_id: string | null
           status: string
           tenant_id: string
@@ -10972,6 +10973,7 @@ export type Database = {
           created_at?: string
           horizon?: string | null
           id?: string
+          last_backed_up_at?: string | null
           owner_user_id?: string | null
           status?: string
           tenant_id: string
@@ -10983,6 +10985,7 @@ export type Database = {
           created_at?: string
           horizon?: string | null
           id?: string
+          last_backed_up_at?: string | null
           owner_user_id?: string | null
           status?: string
           tenant_id?: string
@@ -14690,6 +14693,62 @@ export type Database = {
           },
           {
             foreignKeyName: "threat_matches_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      transaction_log: {
+        Row: {
+          change_summary: string | null
+          changed_at: string
+          changed_by: string
+          created_at: string
+          id: string
+          ip_address: unknown
+          new_data: Json | null
+          old_data: Json | null
+          operation: string
+          record_id: string
+          table_name: string
+          tenant_id: string
+          user_agent: string | null
+        }
+        Insert: {
+          change_summary?: string | null
+          changed_at?: string
+          changed_by: string
+          created_at?: string
+          id?: string
+          ip_address?: unknown
+          new_data?: Json | null
+          old_data?: Json | null
+          operation: string
+          record_id: string
+          table_name: string
+          tenant_id: string
+          user_agent?: string | null
+        }
+        Update: {
+          change_summary?: string | null
+          changed_at?: string
+          changed_by?: string
+          created_at?: string
+          id?: string
+          ip_address?: unknown
+          new_data?: Json | null
+          old_data?: Json | null
+          operation?: string
+          record_id?: string
+          table_name?: string
+          tenant_id?: string
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transaction_log_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -18622,6 +18681,18 @@ export type Database = {
           recent_matches_24h: number
           total_indicators: number
           total_matches: number
+        }[]
+      }
+      get_transaction_history: {
+        Args: { p_limit?: number; p_record_id: string; p_table_name: string }
+        Returns: {
+          change_summary: string
+          changed_at: string
+          changed_by: string
+          id: string
+          new_data: Json
+          old_data: Json
+          operation: string
         }[]
       }
       get_transaction_logs_for_pitr: {

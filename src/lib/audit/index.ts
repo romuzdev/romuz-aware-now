@@ -16,3 +16,6 @@ export {
 
 // NEW: Unified GRC Logger (All GRC modules) - Primary export
 export * from './unified-grc-logger';
+
+// NEW: Unified Audit Logger (Cross-module) - Security Enhancement Phase 1
+export * from './unified-audit-logger';
