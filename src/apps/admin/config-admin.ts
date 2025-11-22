@@ -19,6 +19,9 @@ import {
   Link,
   Library,
   Sparkles,
+  Gauge,
+  Sliders,
+  RefreshCw,
 } from 'lucide-react';
 import type { AppModule } from '@/core/config/types';
 
@@ -193,6 +196,39 @@ export const adminApp: AppModule = {
       requiredPermission: 'admin.access' as any,
       showInSidebar: true,
       order: 14,
+    },
+    // M21: System Command Dashboard
+    {
+      id: 'system-command',
+      name: 'System Command',
+      nameAr: 'لوحة القيادة المركزية',
+      route: '/admin/system-command',
+      icon: Gauge,
+      requiredPermission: 'admin.access' as any,
+      showInSidebar: true,
+      order: 15,
+    },
+    // M22: Advanced Settings
+    {
+      id: 'advanced-settings',
+      name: 'Advanced Settings',
+      nameAr: 'الإعدادات المتقدمة',
+      route: '/admin/advanced-settings',
+      icon: Sliders,
+      requiredPermission: 'admin.access' as any,
+      showInSidebar: true,
+      order: 16,
+    },
+    // M24: Tenant Lifecycle
+    {
+      id: 'tenant-lifecycle',
+      name: 'Tenant Lifecycle',
+      nameAr: 'إدارة دورة حياة العميل',
+      route: '/admin/tenant-lifecycle',
+      icon: RefreshCw,
+      requiredPermission: 'admin.access' as any,
+      showInSidebar: true,
+      order: 17,
     },
   ],
   metadata: {
