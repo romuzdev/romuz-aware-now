@@ -214,7 +214,7 @@ export async function fetchVendorContracts(
     query = query.eq('vendor_id', vendorId);
   }
 
-  const { data, error } = await query.order('effective_date', { ascending: false });
+  const { data, error } = await query.order('start_date', { ascending: false });
 
   if (error) throw error;
   return data || [];
