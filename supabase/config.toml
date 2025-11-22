@@ -199,3 +199,10 @@ verify_jwt = true  # Requires authentication - Initialize default models
 
 [functions.seed-predictions-data]
 verify_jwt = true  # Requires authentication - Create sample data for testing
+
+# ============================================================================
+# Third-Party Risk Management - AI Features
+# ============================================================================
+
+[functions.vendor-risk-ai]
+verify_jwt = true  # Requires authentication - AI-powered vendor risk analysis

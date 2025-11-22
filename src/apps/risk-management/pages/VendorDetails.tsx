@@ -4,6 +4,7 @@
  */
 
 import { useParams, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { 
   ArrowRight, 
   Building2, 
@@ -16,12 +17,16 @@ import {
   Globe,
   Mail,
   Phone,
-  MapPin
+  MapPin,
+  Brain,
+  Sparkles,
+  AlertTriangle
 } from 'lucide-react';
 import { Button } from '@/core/components/ui/button';
-import { Card } from '@/core/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/core/components/ui/card';
 import { Badge } from '@/core/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/core/components/ui/tabs';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/core/components/ui/dialog';
 import { Skeleton } from '@/core/components/ui/skeleton';
 import {
   AlertDialog,
@@ -42,16 +47,21 @@ import {
   useVendorContracts,
   useVendorDocuments,
 } from '@/modules/grc/hooks/useThirdPartyRisk';
+import { useVendorRiskAI, VendorAnalysisResult } from '@/hooks/useVendorRiskAI';
 
 export default function VendorDetails() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const [showAIAnalysis, setShowAIAnalysis] = useState(false);
+  const [aiAnalysisResult, setAIAnalysisResult] = useState<VendorAnalysisResult | null>(null);
+  
   const { data: vendor, isLoading } = useVendorById(id!);
   const { data: contacts } = useVendorContacts(id!);
   const { data: assessments } = useVendorRiskAssessments(id);
   const { data: contracts } = useVendorContracts(id);
   const { data: documents } = useVendorDocuments(id);
   const deleteVendor = useDeleteVendor();
+  const { analyzeVendor, isAnalyzing } = useVendorRiskAI();
 
   const handleDelete = async () => {
     try {
@@ -122,6 +132,20 @@ export default function VendorDetails() {
           )}
         </div>
         <div className="flex gap-2">
+          <Button
+            variant="outline"
+            onClick={async () => {
+              const result = await analyzeVendor(vendor);
+              if (result) {
+                setAIAnalysisResult(result);
+                setShowAIAnalysis(true);
+              }
+            }}
+            disabled={isAnalyzing}
+          >
+            <Brain className="h-4 w-4 ml-2" />
+            {isAnalyzing ? 'جاري التحليل...' : 'تحليل ذكي'}
+          </Button>
           <Button
             variant="outline"
             onClick={() => navigate(`/risk/vendors/${id}/edit`)}
@@ -523,6 +547,53 @@ export default function VendorDetails() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* AI Analysis Dialog */}
+      <Dialog open={showAIAnalysis} onOpenChange={setShowAIAnalysis}>
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-primary" />
+              التحليل الذكي للمخاطر
+            </DialogTitle>
+            <DialogDescription>
+              تحليل شامل لمخاطر المورد باستخدام الذكاء الاصطناعي
+            </DialogDescription>
+          </DialogHeader>
+
+          {aiAnalysisResult && (
+            <div className="space-y-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle>التقييم الشامل</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm whitespace-pre-wrap">{aiAnalysisResult.overall_assessment}</p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Sparkles className="h-5 w-5 text-primary" />
+                    التوصيات
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2">
+                    {aiAnalysisResult.recommendations.map((rec, index) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <span className="text-primary font-bold">{index + 1}.</span>
+                        <span className="text-sm">{rec}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
