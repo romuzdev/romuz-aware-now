@@ -1,244 +1,375 @@
 /**
  * Third-Party Risk Management Hooks
- * React Query hooks for third-party vendor risk management
+ * React Query hooks for vendor management
  */
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useAppContext } from '@/lib/app-context/AppContextProvider';
 import { toast } from 'sonner';
-import {
-  fetchThirdPartyVendors,
-  fetchThirdPartyVendorById,
-  createThirdPartyVendor,
-  updateThirdPartyVendor,
-  deleteThirdPartyVendor,
-  fetchThirdPartyRiskAssessments,
-  fetchThirdPartyRiskAssessmentsByVendor,
-  createThirdPartyRiskAssessment,
-  updateThirdPartyRiskAssessment,
-  deleteThirdPartyRiskAssessment,
-  fetchThirdPartyDueDiligence,
-  createThirdPartyDueDiligence,
-  updateThirdPartyDueDiligence,
-  deleteThirdPartyDueDiligence,
-  fetchVendorRiskSummary,
-} from '../integration/third-party-risk.integration';
+import * as thirdPartyRiskIntegration from '../integration/third-party-risk.integration';
 
-/**
- * Vendor Hooks
- */
+// ========== VENDORS ==========
 
-export function useThirdPartyVendors(tenantId: string) {
+export function useVendors() {
+  const { tenantId } = useAppContext();
+
   return useQuery({
-    queryKey: ['third-party-vendors', tenantId],
-    queryFn: () => fetchThirdPartyVendors(tenantId),
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    queryKey: ['vendors', tenantId],
+    queryFn: () => thirdPartyRiskIntegration.fetchVendors(tenantId),
+    enabled: !!tenantId,
   });
 }
 
-export function useThirdPartyVendor(id: string) {
+export function useVendorById(id: string) {
   return useQuery({
-    queryKey: ['third-party-vendor', id],
-    queryFn: () => fetchThirdPartyVendorById(id),
+    queryKey: ['vendor', id],
+    queryFn: () => thirdPartyRiskIntegration.fetchVendorById(id),
     enabled: !!id,
   });
 }
 
-export function useCreateThirdPartyVendor() {
+export function useCreateVendor() {
+  const { tenantId } = useAppContext();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: createThirdPartyVendor,
+    mutationFn: (vendor: Parameters<typeof thirdPartyRiskIntegration.createVendor>[1]) =>
+      thirdPartyRiskIntegration.createVendor(tenantId, vendor),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['third-party-vendors'] });
+      queryClient.invalidateQueries({ queryKey: ['vendors', tenantId] });
       toast.success('تم إنشاء المورد بنجاح');
     },
     onError: (error: Error) => {
-      console.error('❌ Create vendor error:', error);
-      toast.error(error.message || 'فشل إنشاء المورد');
+      toast.error(`فشل إنشاء المورد: ${error.message}`);
     },
   });
 }
 
-export function useUpdateThirdPartyVendor() {
+export function useUpdateVendor() {
+  const { tenantId } = useAppContext();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, updates }: { id: string; updates: any }) =>
-      updateThirdPartyVendor(id, updates),
-    onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ['third-party-vendors'] });
-      queryClient.invalidateQueries({
-        queryKey: ['third-party-vendor', variables.id],
-      });
+    mutationFn: ({ id, updates }: { id: string; updates: Parameters<typeof thirdPartyRiskIntegration.updateVendor>[1] }) =>
+      thirdPartyRiskIntegration.updateVendor(id, updates),
+    onSuccess: (_, { id }) => {
+      queryClient.invalidateQueries({ queryKey: ['vendors', tenantId] });
+      queryClient.invalidateQueries({ queryKey: ['vendor', id] });
       toast.success('تم تحديث المورد بنجاح');
     },
     onError: (error: Error) => {
-      console.error('❌ Update vendor error:', error);
-      toast.error(error.message || 'فشل تحديث المورد');
+      toast.error(`فشل تحديث المورد: ${error.message}`);
     },
   });
 }
 
-export function useDeleteThirdPartyVendor() {
+export function useDeleteVendor() {
+  const { tenantId } = useAppContext();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: deleteThirdPartyVendor,
+    mutationFn: (id: string) => thirdPartyRiskIntegration.deleteVendor(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['third-party-vendors'] });
+      queryClient.invalidateQueries({ queryKey: ['vendors', tenantId] });
       toast.success('تم حذف المورد بنجاح');
     },
     onError: (error: Error) => {
-      console.error('❌ Delete vendor error:', error);
-      toast.error(error.message || 'فشل حذف المورد');
+      toast.error(`فشل حذف المورد: ${error.message}`);
     },
   });
 }
 
-/**
- * Risk Assessment Hooks
- */
+// ========== VENDOR CONTACTS ==========
 
-export function useThirdPartyRiskAssessments(tenantId: string) {
+export function useVendorContacts(vendorId: string) {
   return useQuery({
-    queryKey: ['third-party-risk-assessments', tenantId],
-    queryFn: () => fetchThirdPartyRiskAssessments(tenantId),
-    staleTime: 5 * 60 * 1000,
-  });
-}
-
-export function useThirdPartyRiskAssessmentsByVendor(vendorId: string) {
-  return useQuery({
-    queryKey: ['third-party-risk-assessments', 'vendor', vendorId],
-    queryFn: () => fetchThirdPartyRiskAssessmentsByVendor(vendorId),
+    queryKey: ['vendor-contacts', vendorId],
+    queryFn: () => thirdPartyRiskIntegration.fetchVendorContacts(vendorId),
     enabled: !!vendorId,
   });
 }
 
-export function useCreateThirdPartyRiskAssessment() {
+export function useCreateVendorContact() {
+  const { tenantId } = useAppContext();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: createThirdPartyRiskAssessment,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['third-party-risk-assessments'],
-      });
+    mutationFn: (contact: Parameters<typeof thirdPartyRiskIntegration.createVendorContact>[1]) =>
+      thirdPartyRiskIntegration.createVendorContact(tenantId, contact),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['vendor-contacts', data.vendor_id] });
+      toast.success('تم إضافة جهة الاتصال بنجاح');
+    },
+    onError: (error: Error) => {
+      toast.error(`فشل إضافة جهة الاتصال: ${error.message}`);
+    },
+  });
+}
+
+export function useDeleteVendorContact() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, vendorId }: { id: string; vendorId: string }) =>
+      thirdPartyRiskIntegration.deleteVendorContact(id),
+    onSuccess: (_, { vendorId }) => {
+      queryClient.invalidateQueries({ queryKey: ['vendor-contacts', vendorId] });
+      toast.success('تم حذف جهة الاتصال بنجاح');
+    },
+    onError: (error: Error) => {
+      toast.error(`فشل حذف جهة الاتصال: ${error.message}`);
+    },
+  });
+}
+
+// ========== RISK ASSESSMENTS ==========
+
+export function useVendorRiskAssessments(vendorId?: string) {
+  const { tenantId } = useAppContext();
+
+  return useQuery({
+    queryKey: ['vendor-risk-assessments', tenantId, vendorId],
+    queryFn: () => thirdPartyRiskIntegration.fetchVendorRiskAssessments(tenantId, vendorId),
+    enabled: !!tenantId,
+  });
+}
+
+export function useVendorRiskAssessmentById(id: string) {
+  return useQuery({
+    queryKey: ['vendor-risk-assessment', id],
+    queryFn: () => thirdPartyRiskIntegration.fetchVendorRiskAssessmentById(id),
+    enabled: !!id,
+  });
+}
+
+export function useCreateVendorRiskAssessment() {
+  const { tenantId } = useAppContext();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (assessment: Parameters<typeof thirdPartyRiskIntegration.createVendorRiskAssessment>[1]) =>
+      thirdPartyRiskIntegration.createVendorRiskAssessment(tenantId, assessment),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['vendor-risk-assessments', tenantId] });
+      queryClient.invalidateQueries({ queryKey: ['vendor-risk-assessments', tenantId, data.vendor_id] });
       toast.success('تم إنشاء تقييم المخاطر بنجاح');
     },
     onError: (error: Error) => {
-      console.error('❌ Create assessment error:', error);
-      toast.error(error.message || 'فشل إنشاء تقييم المخاطر');
+      toast.error(`فشل إنشاء تقييم المخاطر: ${error.message}`);
     },
   });
 }
 
-export function useUpdateThirdPartyRiskAssessment() {
+export function useUpdateVendorRiskAssessment() {
+  const { tenantId } = useAppContext();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, updates }: { id: string; updates: any }) =>
-      updateThirdPartyRiskAssessment(id, updates),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['third-party-risk-assessments'],
-      });
+    mutationFn: ({ id, updates }: { id: string; updates: Parameters<typeof thirdPartyRiskIntegration.updateVendorRiskAssessment>[1] }) =>
+      thirdPartyRiskIntegration.updateVendorRiskAssessment(id, updates),
+    onSuccess: (_, { id }) => {
+      queryClient.invalidateQueries({ queryKey: ['vendor-risk-assessments', tenantId] });
+      queryClient.invalidateQueries({ queryKey: ['vendor-risk-assessment', id] });
       toast.success('تم تحديث تقييم المخاطر بنجاح');
     },
     onError: (error: Error) => {
-      console.error('❌ Update assessment error:', error);
-      toast.error(error.message || 'فشل تحديث تقييم المخاطر');
+      toast.error(`فشل تحديث تقييم المخاطر: ${error.message}`);
     },
   });
 }
 
-export function useDeleteThirdPartyRiskAssessment() {
+export function useDeleteVendorRiskAssessment() {
+  const { tenantId } = useAppContext();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: deleteThirdPartyRiskAssessment,
+    mutationFn: (id: string) => thirdPartyRiskIntegration.deleteVendorRiskAssessment(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['third-party-risk-assessments'],
-      });
+      queryClient.invalidateQueries({ queryKey: ['vendor-risk-assessments', tenantId] });
       toast.success('تم حذف تقييم المخاطر بنجاح');
     },
     onError: (error: Error) => {
-      console.error('❌ Delete assessment error:', error);
-      toast.error(error.message || 'فشل حذف تقييم المخاطر');
+      toast.error(`فشل حذف تقييم المخاطر: ${error.message}`);
     },
   });
 }
 
-/**
- * Due Diligence Hooks
- */
+// ========== CONTRACTS ==========
 
-export function useThirdPartyDueDiligence(vendorId: string) {
+export function useVendorContracts(vendorId?: string) {
+  const { tenantId } = useAppContext();
+
   return useQuery({
-    queryKey: ['third-party-due-diligence', vendorId],
-    queryFn: () => fetchThirdPartyDueDiligence(vendorId),
-    enabled: !!vendorId,
+    queryKey: ['vendor-contracts', tenantId, vendorId],
+    queryFn: () => thirdPartyRiskIntegration.fetchVendorContracts(tenantId, vendorId),
+    enabled: !!tenantId,
   });
 }
 
-export function useCreateThirdPartyDueDiligence() {
+export function useVendorContractById(id: string) {
+  return useQuery({
+    queryKey: ['vendor-contract', id],
+    queryFn: () => thirdPartyRiskIntegration.fetchVendorContractById(id),
+    enabled: !!id,
+  });
+}
+
+export function useCreateVendorContract() {
+  const { tenantId } = useAppContext();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: createThirdPartyDueDiligence,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['third-party-due-diligence'] });
-      toast.success('تم إضافة المستند بنجاح');
+    mutationFn: (contract: Parameters<typeof thirdPartyRiskIntegration.createVendorContract>[1]) =>
+      thirdPartyRiskIntegration.createVendorContract(tenantId, contract),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['vendor-contracts', tenantId] });
+      queryClient.invalidateQueries({ queryKey: ['vendor-contracts', tenantId, data.vendor_id] });
+      toast.success('تم إنشاء العقد بنجاح');
     },
     onError: (error: Error) => {
-      console.error('❌ Create document error:', error);
-      toast.error(error.message || 'فشل إضافة المستند');
+      toast.error(`فشل إنشاء العقد: ${error.message}`);
     },
   });
 }
 
-export function useUpdateThirdPartyDueDiligence() {
+export function useUpdateVendorContract() {
+  const { tenantId } = useAppContext();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, updates }: { id: string; updates: any }) =>
-      updateThirdPartyDueDiligence(id, updates),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['third-party-due-diligence'] });
-      toast.success('تم تحديث المستند بنجاح');
+    mutationFn: ({ id, updates }: { id: string; updates: Parameters<typeof thirdPartyRiskIntegration.updateVendorContract>[1] }) =>
+      thirdPartyRiskIntegration.updateVendorContract(id, updates),
+    onSuccess: (_, { id }) => {
+      queryClient.invalidateQueries({ queryKey: ['vendor-contracts', tenantId] });
+      queryClient.invalidateQueries({ queryKey: ['vendor-contract', id] });
+      toast.success('تم تحديث العقد بنجاح');
     },
     onError: (error: Error) => {
-      console.error('❌ Update document error:', error);
-      toast.error(error.message || 'فشل تحديث المستند');
+      toast.error(`فشل تحديث العقد: ${error.message}`);
     },
   });
 }
 
-export function useDeleteThirdPartyDueDiligence() {
+export function useDeleteVendorContract() {
+  const { tenantId } = useAppContext();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: deleteThirdPartyDueDiligence,
+    mutationFn: (id: string) => thirdPartyRiskIntegration.deleteVendorContract(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['third-party-due-diligence'] });
+      queryClient.invalidateQueries({ queryKey: ['vendor-contracts', tenantId] });
+      toast.success('تم حذف العقد بنجاح');
+    },
+    onError: (error: Error) => {
+      toast.error(`فشل حذف العقد: ${error.message}`);
+    },
+  });
+}
+
+// ========== SECURITY QUESTIONNAIRES ==========
+
+export function useVendorSecurityQuestionnaires(vendorId?: string) {
+  const { tenantId } = useAppContext();
+
+  return useQuery({
+    queryKey: ['vendor-security-questionnaires', tenantId, vendorId],
+    queryFn: () => thirdPartyRiskIntegration.fetchVendorSecurityQuestionnaires(tenantId, vendorId),
+    enabled: !!tenantId,
+  });
+}
+
+export function useCreateVendorSecurityQuestionnaire() {
+  const { tenantId } = useAppContext();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (questionnaire: Parameters<typeof thirdPartyRiskIntegration.createVendorSecurityQuestionnaire>[1]) =>
+      thirdPartyRiskIntegration.createVendorSecurityQuestionnaire(tenantId, questionnaire),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['vendor-security-questionnaires', tenantId] });
+      queryClient.invalidateQueries({ queryKey: ['vendor-security-questionnaires', tenantId, data.vendor_id] });
+      toast.success('تم إنشاء الاستبيان الأمني بنجاح');
+    },
+    onError: (error: Error) => {
+      toast.error(`فشل إنشاء الاستبيان الأمني: ${error.message}`);
+    },
+  });
+}
+
+// ========== COMPLIANCE CHECKS ==========
+
+export function useVendorComplianceChecks(vendorId?: string) {
+  const { tenantId } = useAppContext();
+
+  return useQuery({
+    queryKey: ['vendor-compliance-checks', tenantId, vendorId],
+    queryFn: () => thirdPartyRiskIntegration.fetchVendorComplianceChecks(tenantId, vendorId),
+    enabled: !!tenantId,
+  });
+}
+
+export function useCreateVendorComplianceCheck() {
+  const { tenantId } = useAppContext();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (check: Parameters<typeof thirdPartyRiskIntegration.createVendorComplianceCheck>[1]) =>
+      thirdPartyRiskIntegration.createVendorComplianceCheck(tenantId, check),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['vendor-compliance-checks', tenantId] });
+      queryClient.invalidateQueries({ queryKey: ['vendor-compliance-checks', tenantId, data.vendor_id] });
+      toast.success('تم إنشاء فحص الامتثال بنجاح');
+    },
+    onError: (error: Error) => {
+      toast.error(`فشل إنشاء فحص الامتثال: ${error.message}`);
+    },
+  });
+}
+
+// ========== DOCUMENTS ==========
+
+export function useVendorDocuments(vendorId?: string) {
+  const { tenantId } = useAppContext();
+
+  return useQuery({
+    queryKey: ['vendor-documents', tenantId, vendorId],
+    queryFn: () => thirdPartyRiskIntegration.fetchVendorDocuments(tenantId, vendorId),
+    enabled: !!tenantId,
+  });
+}
+
+export function useCreateVendorDocument() {
+  const { tenantId } = useAppContext();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (document: Parameters<typeof thirdPartyRiskIntegration.createVendorDocument>[1]) =>
+      thirdPartyRiskIntegration.createVendorDocument(tenantId, document),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['vendor-documents', tenantId] });
+      queryClient.invalidateQueries({ queryKey: ['vendor-documents', tenantId, data.vendor_id] });
+      toast.success('تم رفع المستند بنجاح');
+    },
+    onError: (error: Error) => {
+      toast.error(`فشل رفع المستند: ${error.message}`);
+    },
+  });
+}
+
+export function useDeleteVendorDocument() {
+  const { tenantId } = useAppContext();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, vendorId }: { id: string; vendorId: string }) =>
+      thirdPartyRiskIntegration.deleteVendorDocument(id),
+    onSuccess: (_, { vendorId }) => {
+      queryClient.invalidateQueries({ queryKey: ['vendor-documents', tenantId] });
+      queryClient.invalidateQueries({ queryKey: ['vendor-documents', tenantId, vendorId] });
       toast.success('تم حذف المستند بنجاح');
     },
     onError: (error: Error) => {
-      console.error('❌ Delete document error:', error);
-      toast.error(error.message || 'فشل حذف المستند');
+      toast.error(`فشل حذف المستند: ${error.message}`);
     },
-  });
-}
-
-/**
- * Analytics Hooks
- */
-
-export function useVendorRiskSummary(tenantId: string) {
-  return useQuery({
-    queryKey: ['vendor-risk-summary', tenantId],
-    queryFn: () => fetchVendorRiskSummary(tenantId),
-    staleTime: 10 * 60 * 1000, // 10 minutes
   });
 }
