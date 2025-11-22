@@ -10,3 +10,7 @@ export * from './audit-workflows.integration';
 export * from './audit-analytics.integration';
 export * from './audit-reports.integration';
 export * from './reports.integration';
+
+// Phase 3: Advanced Features
+export * from './advanced-risk-analytics.integration';
+export * from './compliance-automation.integration';
