@@ -88,7 +88,7 @@ export default function VendorContracts() {
             إدارة ومتابعة عقود الموردين والأطراف الثالثة
           </p>
         </div>
-        <Button onClick={() => navigate('/grc/contracts/new')}>
+        <Button onClick={() => navigate('/risk/contracts/new')}>
           <Plus className="h-4 w-4 ml-2" />
           عقد جديد
         </Button>
@@ -178,7 +178,7 @@ export default function VendorContracts() {
           <Card
             key={contract.id}
             className="p-6 hover:shadow-lg transition-shadow cursor-pointer"
-            onClick={() => navigate(`/grc/contracts/${contract.id}`)}
+            onClick={() => navigate(`/risk/contracts/${contract.id}`)}
           >
             <div className="flex items-start justify-between">
               <div className="flex-1 space-y-3">
@@ -264,7 +264,7 @@ export default function VendorContracts() {
           <p className="text-muted-foreground mb-4">
             ابدأ بإضافة عقد جديد لإدارة العلاقات مع الموردين
           </p>
-          <Button onClick={() => navigate('/grc/contracts/new')}>
+          <Button onClick={() => navigate('/risk/contracts/new')}>
             <Plus className="h-4 w-4 ml-2" />
             عقد جديد
           </Button>

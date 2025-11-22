@@ -11,6 +11,8 @@ import {
   TrendingUp,
   Activity,
   FileText,
+  Building2,
+  FileSearch,
 } from 'lucide-react';
 import type { AppModule } from '@/core/config/types';
 
@@ -89,6 +91,36 @@ export const riskManagementApp: AppModule = {
       requiredPermission: 'risk.view' as any,
       showInSidebar: true,
       order: 5,
+    },
+    {
+      id: 'vendors',
+      name: 'Third-Party Vendors',
+      nameAr: 'الموردون والأطراف الثالثة',
+      route: '/vendors',
+      icon: Building2,
+      requiredPermission: 'risk.view' as any,
+      showInSidebar: true,
+      order: 6,
+    },
+    {
+      id: 'assessments',
+      name: 'Vendor Risk Assessments',
+      nameAr: 'تقييمات مخاطر الموردين',
+      route: '/assessments',
+      icon: FileSearch,
+      requiredPermission: 'risk.view' as any,
+      showInSidebar: true,
+      order: 7,
+    },
+    {
+      id: 'contracts',
+      name: 'Vendor Contracts',
+      nameAr: 'عقود الموردين',
+      route: '/contracts',
+      icon: FileText,
+      requiredPermission: 'risk.view' as any,
+      showInSidebar: true,
+      order: 8,
     },
   ],
   metadata: {

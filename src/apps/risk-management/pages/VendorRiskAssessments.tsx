@@ -79,7 +79,7 @@ export default function VendorRiskAssessments() {
             تقييم وتتبع مخاطر الموردين والأطراف الثالثة
           </p>
         </div>
-        <Button onClick={() => navigate('/grc/risk-assessments/new')}>
+        <Button onClick={() => navigate('/risk/assessments/new')}>
           <Plus className="h-4 w-4 ml-2" />
           تقييم جديد
         </Button>
@@ -170,7 +170,7 @@ export default function VendorRiskAssessments() {
           <Card
             key={assessment.id}
             className="p-6 hover:shadow-lg transition-shadow cursor-pointer"
-            onClick={() => navigate(`/grc/risk-assessments/${assessment.id}`)}
+            onClick={() => navigate(`/risk/assessments/${assessment.id}`)}
           >
             <div className="flex items-start justify-between">
               <div className="flex-1 space-y-3">
@@ -250,7 +250,7 @@ export default function VendorRiskAssessments() {
           <p className="text-muted-foreground mb-4">
             ابدأ بإنشاء تقييم مخاطر جديد للموردين
           </p>
-          <Button onClick={() => navigate('/grc/risk-assessments/new')}>
+          <Button onClick={() => navigate('/risk/assessments/new')}>
             <Plus className="h-4 w-4 ml-2" />
             تقييم جديد
           </Button>

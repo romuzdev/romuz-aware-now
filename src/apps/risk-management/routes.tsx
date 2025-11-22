@@ -16,6 +16,11 @@ const RiskHeatmap = lazy(() => import('./pages/RiskHeatmap'));
 const RiskTrends = lazy(() => import('./pages/RiskTrends'));
 const RiskReports = lazy(() => import('./pages/RiskReports'));
 
+// Third-Party Risk Management
+const ThirdPartyVendors = lazy(() => import('./pages/ThirdPartyVendors'));
+const VendorRiskAssessments = lazy(() => import('./pages/VendorRiskAssessments'));
+const VendorContracts = lazy(() => import('./pages/VendorContracts'));
+
 // Loading fallback
 const PageLoader = () => (
   <div className="flex items-center justify-center min-h-screen">
@@ -63,6 +68,38 @@ export function getRiskManagementRoutes() {
       <Route path="reports" element={
         <Suspense fallback={<PageLoader />}>
           <RiskReports />
+        </Suspense>
+      } />
+      
+      {/* Third-Party Risk Management */}
+      <Route path="vendors" element={
+        <Suspense fallback={<PageLoader />}>
+          <ThirdPartyVendors />
+        </Suspense>
+      } />
+      <Route path="vendors/:id" element={
+        <Suspense fallback={<PageLoader />}>
+          <ThirdPartyVendors />
+        </Suspense>
+      } />
+      <Route path="assessments" element={
+        <Suspense fallback={<PageLoader />}>
+          <VendorRiskAssessments />
+        </Suspense>
+      } />
+      <Route path="assessments/:id" element={
+        <Suspense fallback={<PageLoader />}>
+          <VendorRiskAssessments />
+        </Suspense>
+      } />
+      <Route path="contracts" element={
+        <Suspense fallback={<PageLoader />}>
+          <VendorContracts />
+        </Suspense>
+      } />
+      <Route path="contracts/:id" element={
+        <Suspense fallback={<PageLoader />}>
+          <VendorContracts />
         </Suspense>
       } />
     </Route>
