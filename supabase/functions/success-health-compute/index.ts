@@ -48,19 +48,19 @@ Deno.serve(async (req) => {
 
     console.log('Computing health scores for user:', user.id);
 
-    // Get tenant ID
-    const { data: userRoles, error: rolesError } = await supabase
-      .from('user_roles')
+    // Get tenant ID from user_tenants
+    const { data: userTenant, error: tenantError } = await supabase
+      .from('user_tenants')
       .select('tenant_id')
       .eq('user_id', user.id)
       .limit(1)
       .single();
 
-    if (rolesError || !userRoles) {
-      throw new Error('Tenant not found');
+    if (tenantError || !userTenant?.tenant_id) {
+      throw new Error('Tenant not found for user');
     }
 
-    const tenantId = userRoles.tenant_id;
+    const tenantId = userTenant.tenant_id;
     console.log('Computing for tenant:', tenantId);
 
     // Compute health metrics
