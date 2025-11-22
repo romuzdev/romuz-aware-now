@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -21,6 +21,7 @@ import '@/i18n/config';
 
 export default function CompleteProfilePage() {
   const nav = useNavigate();
+  const location = useLocation();
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language === 'ar';
   
@@ -29,6 +30,9 @@ export default function CompleteProfilePage() {
   const [uploading, setUploading] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string>('');
+  
+  // Get intended destination from navigation state (saved by ProtectedRoute)
+  const intendedPath = (location.state as any)?.from || '/user/dashboard';
 
   const profileSchema = z.object({
     full_name: z.string().trim().min(2, t('completeProfile.errors.nameMin')).max(100, t('completeProfile.errors.nameMax')),
@@ -177,8 +181,8 @@ export default function CompleteProfilePage() {
 
       toast.success(t('completeProfile.success.save'));
       
-      // Redirect to user dashboard after completing profile
-      nav('/user/dashboard');
+      // Redirect to intended destination (saved from ProtectedRoute)
+      nav(intendedPath, { replace: true });
     } catch (error: any) {
       console.error('❌ Error saving profile:', error);
       console.error('Error details:', {
@@ -370,7 +374,7 @@ export default function CompleteProfilePage() {
                       full_name: userEmail || 'User',
                     });
                     toast.success(t('completeProfile.success.skip'));
-                    nav('/user/dashboard');
+                    nav(intendedPath, { replace: true });
                   } catch (error) {
                     console.error('Error skipping profile:', error);
                     toast.error(t('completeProfile.errors.skipFailed'));
