@@ -10,9 +10,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/core/components/ui/c
 import { Button } from '@/core/components/ui/button';
 import { Badge } from '@/core/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/core/components/ui/tabs';
+import { Progress } from '@/core/components/ui/progress';
 import { ArrowLeft, Edit, Shield, AlertTriangle, CheckCircle2, FileText } from 'lucide-react';
 import { useVendorRiskAssessmentById } from '@/modules/grc/hooks/useThirdPartyRisk';
 import { format } from 'date-fns';
+import { ar } from 'date-fns/locale';
 import { Skeleton } from '@/core/components/ui/skeleton';
 
 export default function RiskAssessmentDetails() {
@@ -71,7 +73,7 @@ export default function RiskAssessmentDetails() {
             <ArrowLeft className="h-4 w-4" />
           </Button>
           <div>
-            <h1 className="text-3xl font-bold">{t('riskAssessment.details')}</h1>
+            <h1 className="text-3xl font-bold">تفاصيل تقييم المخاطر</h1>
             <p className="text-muted-foreground">
               {assessment.assessment_code || assessment.id}
             </p>
@@ -88,28 +90,24 @@ export default function RiskAssessmentDetails() {
             onClick={() => navigate(`/risk/assessments/${id}/edit`)}
           >
             <Edit className="h-4 w-4 mr-2" />
-            {t('common.edit')}
+            تعديل
           </Button>
         </div>
       </div>
 
       <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="overview">
             <Shield className="h-4 w-4 mr-2" />
-            {t('common.overview')}
+            نظرة عامة
           </TabsTrigger>
           <TabsTrigger value="scores">
             <CheckCircle2 className="h-4 w-4 mr-2" />
-            {t('riskAssessment.scores')}
+            الدرجات
           </TabsTrigger>
           <TabsTrigger value="findings">
             <AlertTriangle className="h-4 w-4 mr-2" />
-            {t('riskAssessment.findings')}
-          </TabsTrigger>
-          <TabsTrigger value="documents">
-            <FileText className="h-4 w-4 mr-2" />
-            {t('common.documents')}
+            التوصيات
           </TabsTrigger>
         </TabsList>
 
@@ -117,43 +115,50 @@ export default function RiskAssessmentDetails() {
         <TabsContent value="overview" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>{t('riskAssessment.basicInfo')}</CardTitle>
+              <CardTitle>المعلومات الأساسية</CardTitle>
             </CardHeader>
-            <CardContent className="grid grid-cols-2 gap-4">
-              <div>
-                <p className="text-sm text-muted-foreground">{t('riskAssessment.assessmentType')}</p>
-                <p className="font-medium">{assessment.assessment_type || 'N/A'}</p>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">{t('riskAssessment.assessmentDate')}</p>
-                <p className="font-medium">
-                  {assessment.assessment_date 
-                    ? format(new Date(assessment.assessment_date), 'dd/MM/yyyy')
-                    : 'N/A'}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">{t('riskAssessment.assessor')}</p>
-                <p className="font-medium">{assessment.assessor_name || 'N/A'}</p>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">{t('riskAssessment.nextReviewDate')}</p>
-                <p className="font-medium">
-                  {assessment.next_review_date 
-                    ? format(new Date(assessment.next_review_date), 'dd/MM/yyyy')
-                    : 'N/A'}
-                </p>
+            <CardContent>
+              <div className="grid grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">نوع التقييم</span>
+                    <span className="font-medium">{assessment.assessment_type || 'N/A'}</span>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">تاريخ التقييم</span>
+                    <span className="font-medium">
+                      {assessment.assessment_date 
+                        ? format(new Date(assessment.assessment_date), 'yyyy-MM-dd', { locale: ar })
+                        : 'N/A'}
+                    </span>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">المقيّم</span>
+                    <span className="font-medium">{assessment.assessor_name || 'N/A'}</span>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">تاريخ المراجعة</span>
+                    <span className="font-medium">{assessment.reviewed_at ? format(new Date(assessment.reviewed_at), 'yyyy-MM-dd', { locale: ar }) : 'لم تتم المراجعة'}</span>
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>
 
-          {assessment.executive_summary && (
+          {/* Notes Summary */}
+          {assessment.notes_ar && (
             <Card>
               <CardHeader>
-                <CardTitle>{t('riskAssessment.executiveSummary')}</CardTitle>
+                <CardTitle>الملاحظات</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="whitespace-pre-wrap">{assessment.executive_summary}</p>
+                <p className="text-sm text-muted-foreground whitespace-pre-wrap">{assessment.notes_ar}</p>
               </CardContent>
             </Card>
           )}
@@ -166,43 +171,13 @@ export default function RiskAssessmentDetails() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Shield className="h-5 w-5 text-primary" />
-                  {t('riskAssessment.securityScore')}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-3xl font-bold">
-                  {assessment.security_score ?? 'N/A'}
-                  {assessment.security_score && <span className="text-lg text-muted-foreground">/100</span>}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-primary" />
-                  {t('riskAssessment.complianceScore')}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-3xl font-bold">
-                  {assessment.compliance_score ?? 'N/A'}
-                  {assessment.compliance_score && <span className="text-lg text-muted-foreground">/100</span>}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <AlertTriangle className="h-5 w-5 text-primary" />
-                  {t('riskAssessment.overallScore')}
+                  الدرجة الإجمالية
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold">
                   {assessment.overall_risk_score ?? 'N/A'}
-                  {assessment.overall_risk_score && <span className="text-lg text-muted-foreground">/100</span>}
+                  {assessment.overall_risk_score && <span className="text-lg text-muted-foreground">/10</span>}
                 </div>
               </CardContent>
             </Card>
@@ -210,76 +185,54 @@ export default function RiskAssessmentDetails() {
 
           <Card>
             <CardHeader>
-              <CardTitle>{t('riskAssessment.riskCategories')}</CardTitle>
+              <CardTitle>فئات المخاطر</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 <div>
-                  <div className="flex justify-between mb-2">
-                    <span className="text-sm font-medium">{t('riskAssessment.dataSecurity')}</span>
-                    <span className="text-sm text-muted-foreground">
-                      {assessment.data_security_score ?? 'N/A'}/100
-                    </span>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium">المخاطر الأمنية</span>
+                    <span className="text-sm font-bold">{assessment.security_risk_score}/10</span>
                   </div>
-                  {assessment.data_security_score && (
-                    <div className="w-full bg-secondary rounded-full h-2">
-                      <div
-                        className="bg-primary h-2 rounded-full transition-all"
-                        style={{ width: `${assessment.data_security_score}%` }}
-                      />
-                    </div>
-                  )}
+                  <Progress value={assessment.security_risk_score * 10} className="h-2" />
                 </div>
 
                 <div>
-                  <div className="flex justify-between mb-2">
-                    <span className="text-sm font-medium">{t('riskAssessment.operationalRisk')}</span>
-                    <span className="text-sm text-muted-foreground">
-                      {assessment.operational_risk_score ?? 'N/A'}/100
-                    </span>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium">مخاطر الامتثال</span>
+                    <span className="text-sm font-bold">{assessment.compliance_risk_score}/10</span>
                   </div>
-                  {assessment.operational_risk_score && (
-                    <div className="w-full bg-secondary rounded-full h-2">
-                      <div
-                        className="bg-primary h-2 rounded-full transition-all"
-                        style={{ width: `${assessment.operational_risk_score}%` }}
-                      />
-                    </div>
-                  )}
+                  <Progress value={assessment.compliance_risk_score * 10} className="h-2" />
                 </div>
 
                 <div>
-                  <div className="flex justify-between mb-2">
-                    <span className="text-sm font-medium">{t('riskAssessment.financialRisk')}</span>
-                    <span className="text-sm text-muted-foreground">
-                      {assessment.financial_risk_score ?? 'N/A'}/100
-                    </span>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium">المخاطر التشغيلية</span>
+                    <span className="text-sm font-bold">{assessment.operational_risk_score}/10</span>
                   </div>
-                  {assessment.financial_risk_score && (
-                    <div className="w-full bg-secondary rounded-full h-2">
-                      <div
-                        className="bg-primary h-2 rounded-full transition-all"
-                        style={{ width: `${assessment.financial_risk_score}%` }}
-                      />
-                    </div>
-                  )}
+                  <Progress value={assessment.operational_risk_score * 10} className="h-2" />
                 </div>
 
                 <div>
-                  <div className="flex justify-between mb-2">
-                    <span className="text-sm font-medium">{t('riskAssessment.reputationalRisk')}</span>
-                    <span className="text-sm text-muted-foreground">
-                      {assessment.reputational_risk_score ?? 'N/A'}/100
-                    </span>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium">المخاطر المالية</span>
+                    <span className="text-sm font-bold">{assessment.financial_risk_score}/10</span>
                   </div>
-                  {assessment.reputational_risk_score && (
-                    <div className="w-full bg-secondary rounded-full h-2">
-                      <div
-                        className="bg-primary h-2 rounded-full transition-all"
-                        style={{ width: `${assessment.reputational_risk_score}%` }}
-                      />
-                    </div>
-                  )}
+                  <Progress 
+                    value={assessment.financial_risk_score * 10} 
+                    className="h-2" 
+                  />
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium">المخاطر السمعية</span>
+                    <span className="text-sm font-bold">{assessment.reputational_risk_score}/10</span>
+                  </div>
+                  <Progress 
+                    value={assessment.reputational_risk_score * 10} 
+                    className="h-2" 
+                  />
                 </div>
               </div>
             </CardContent>
@@ -288,68 +241,17 @@ export default function RiskAssessmentDetails() {
 
         {/* Findings Tab */}
         <TabsContent value="findings" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>{t('riskAssessment.keyFindings')}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {assessment.key_findings ? (
-                <p className="whitespace-pre-wrap">{assessment.key_findings}</p>
-              ) : (
-                <p className="text-muted-foreground">{t('riskAssessment.noFindings')}</p>
-              )}
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>{t('riskAssessment.recommendations')}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {assessment.recommendations ? (
-                <p className="whitespace-pre-wrap">{assessment.recommendations}</p>
-              ) : (
-                <p className="text-muted-foreground">{t('riskAssessment.noRecommendations')}</p>
-              )}
-            </CardContent>
-          </Card>
-
-          {assessment.remediation_plan && (
+          {/* Recommendations */}
+          {assessment.recommendations_ar && (
             <Card>
               <CardHeader>
-                <CardTitle>{t('riskAssessment.remediationPlan')}</CardTitle>
+                <CardTitle>التوصيات</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="whitespace-pre-wrap">{assessment.remediation_plan}</p>
+                <p className="text-sm text-muted-foreground whitespace-pre-wrap">{assessment.recommendations_ar}</p>
               </CardContent>
             </Card>
           )}
-        </TabsContent>
-
-        {/* Documents Tab */}
-        <TabsContent value="documents" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>{t('common.documents')}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {assessment.evidence_files && assessment.evidence_files.length > 0 ? (
-                <div className="space-y-2">
-                  {assessment.evidence_files.map((file, index) => (
-                    <div key={index} className="flex items-center gap-2 p-3 border rounded-lg">
-                      <FileText className="h-5 w-5 text-muted-foreground" />
-                      <span className="flex-1">{file}</span>
-                      <Button size="sm" variant="outline">
-                        {t('common.download')}
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-muted-foreground">{t('common.noDocuments')}</p>
-              )}
-            </CardContent>
-          </Card>
         </TabsContent>
       </Tabs>
     </div>
