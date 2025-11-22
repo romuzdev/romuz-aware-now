@@ -91,27 +91,11 @@ export default function GRCDashboard() {
   return (
     <div className="container mx-auto p-6 space-y-6" dir="rtl">
       {/* Header */}
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">لوحة تحكم GRC</h1>
-          <p className="text-muted-foreground mt-2">
-            نظرة شاملة على الحوكمة والمخاطر والامتثال
-          </p>
-        </div>
-        <div className="flex gap-2">
-          <Button variant="outline" asChild>
-            <Link to="/grc/reports">
-              <FileText className="ml-2 h-4 w-4" />
-              التقارير
-            </Link>
-          </Button>
-          <Button asChild>
-            <Link to="/grc/framework-mapping">
-              <Target className="ml-2 h-4 w-4" />
-              ربط الأطر
-            </Link>
-          </Button>
-        </div>
+      <div>
+        <h1 className="text-3xl font-bold text-foreground">لوحة تحكم GRC</h1>
+        <p className="text-muted-foreground mt-2">
+          نظرة شاملة على الحوكمة والمخاطر والامتثال
+        </p>
       </div>
 
       {/* Overview Cards */}
