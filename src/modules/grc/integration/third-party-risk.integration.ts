@@ -1,30 +1,41 @@
 /**
  * Third-Party Risk Management Integration
- * Supabase integration for third-party vendor risk management
+ * Handles all Supabase operations for vendors, risk assessments, and contracts
  */
 
 import { supabase } from '@/integrations/supabase/client';
 import type { Database } from '@/integrations/supabase/types';
 
-type ThirdPartyVendor = Database['public']['Tables']['grc_third_party_vendors']['Row'];
-type ThirdPartyVendorInsert = Database['public']['Tables']['grc_third_party_vendors']['Insert'];
-type ThirdPartyVendorUpdate = Database['public']['Tables']['grc_third_party_vendors']['Update'];
+// Type definitions
+type Vendor = Database['public']['Tables']['vendors']['Row'];
+type VendorInsert = Database['public']['Tables']['vendors']['Insert'];
+type VendorUpdate = Database['public']['Tables']['vendors']['Update'];
 
-type ThirdPartyRiskAssessment = Database['public']['Tables']['grc_third_party_risk_assessments']['Row'];
-type ThirdPartyRiskAssessmentInsert = Database['public']['Tables']['grc_third_party_risk_assessments']['Insert'];
-type ThirdPartyRiskAssessmentUpdate = Database['public']['Tables']['grc_third_party_risk_assessments']['Update'];
+type VendorContact = Database['public']['Tables']['vendor_contacts']['Row'];
+type VendorContactInsert = Database['public']['Tables']['vendor_contacts']['Insert'];
 
-type ThirdPartyDueDiligence = Database['public']['Tables']['grc_third_party_due_diligence']['Row'];
-type ThirdPartyDueDiligenceInsert = Database['public']['Tables']['grc_third_party_due_diligence']['Insert'];
-type ThirdPartyDueDiligenceUpdate = Database['public']['Tables']['grc_third_party_due_diligence']['Update'];
+type VendorRiskAssessment = Database['public']['Tables']['vendor_risk_assessments']['Row'];
+type VendorRiskAssessmentInsert = Database['public']['Tables']['vendor_risk_assessments']['Insert'];
+type VendorRiskAssessmentUpdate = Database['public']['Tables']['vendor_risk_assessments']['Update'];
 
-/**
- * Third-Party Vendor Operations
- */
+type VendorContract = Database['public']['Tables']['vendor_contracts']['Row'];
+type VendorContractInsert = Database['public']['Tables']['vendor_contracts']['Insert'];
+type VendorContractUpdate = Database['public']['Tables']['vendor_contracts']['Update'];
 
-export async function fetchThirdPartyVendors(tenantId: string): Promise<ThirdPartyVendor[]> {
+type VendorSecurityQuestionnaire = Database['public']['Tables']['vendor_security_questionnaires']['Row'];
+type VendorSecurityQuestionnaireInsert = Database['public']['Tables']['vendor_security_questionnaires']['Insert'];
+
+type VendorComplianceCheck = Database['public']['Tables']['vendor_compliance_checks']['Row'];
+type VendorComplianceCheckInsert = Database['public']['Tables']['vendor_compliance_checks']['Insert'];
+
+type VendorDocument = Database['public']['Tables']['vendor_documents']['Row'];
+type VendorDocumentInsert = Database['public']['Tables']['vendor_documents']['Insert'];
+
+// ========== VENDORS ==========
+
+export async function fetchVendors(tenantId: string): Promise<Vendor[]> {
   const { data, error } = await supabase
-    .from('grc_third_party_vendors')
+    .from('vendors')
     .select('*')
     .eq('tenant_id', tenantId)
     .order('created_at', { ascending: false });
@@ -33,9 +44,9 @@ export async function fetchThirdPartyVendors(tenantId: string): Promise<ThirdPar
   return data || [];
 }
 
-export async function fetchThirdPartyVendorById(id: string): Promise<ThirdPartyVendor> {
+export async function fetchVendorById(id: string): Promise<Vendor> {
   const { data, error } = await supabase
-    .from('grc_third_party_vendors')
+    .from('vendors')
     .select('*')
     .eq('id', id)
     .single();
@@ -44,12 +55,13 @@ export async function fetchThirdPartyVendorById(id: string): Promise<ThirdPartyV
   return data;
 }
 
-export async function createThirdPartyVendor(
-  vendor: ThirdPartyVendorInsert
-): Promise<ThirdPartyVendor> {
+export async function createVendor(
+  tenantId: string,
+  vendor: Omit<VendorInsert, 'tenant_id'>
+): Promise<Vendor> {
   const { data, error } = await supabase
-    .from('grc_third_party_vendors')
-    .insert(vendor)
+    .from('vendors')
+    .insert({ ...vendor, tenant_id: tenantId })
     .select()
     .single();
 
@@ -57,12 +69,12 @@ export async function createThirdPartyVendor(
   return data;
 }
 
-export async function updateThirdPartyVendor(
+export async function updateVendor(
   id: string,
-  updates: ThirdPartyVendorUpdate
-): Promise<ThirdPartyVendor> {
+  updates: VendorUpdate
+): Promise<Vendor> {
   const { data, error } = await supabase
-    .from('grc_third_party_vendors')
+    .from('vendors')
     .update(updates)
     .eq('id', id)
     .select()
@@ -72,51 +84,35 @@ export async function updateThirdPartyVendor(
   return data;
 }
 
-export async function deleteThirdPartyVendor(id: string): Promise<void> {
+export async function deleteVendor(id: string): Promise<void> {
   const { error } = await supabase
-    .from('grc_third_party_vendors')
+    .from('vendors')
     .delete()
     .eq('id', id);
 
   if (error) throw error;
 }
 
-/**
- * Third-Party Risk Assessment Operations
- */
+// ========== VENDOR CONTACTS ==========
 
-export async function fetchThirdPartyRiskAssessments(
-  tenantId: string
-): Promise<ThirdPartyRiskAssessment[]> {
+export async function fetchVendorContacts(vendorId: string): Promise<VendorContact[]> {
   const { data, error } = await supabase
-    .from('grc_third_party_risk_assessments')
-    .select('*, vendor:grc_third_party_vendors(*)')
-    .eq('tenant_id', tenantId)
-    .order('assessment_date', { ascending: false });
-
-  if (error) throw error;
-  return data || [];
-}
-
-export async function fetchThirdPartyRiskAssessmentsByVendor(
-  vendorId: string
-): Promise<ThirdPartyRiskAssessment[]> {
-  const { data, error } = await supabase
-    .from('grc_third_party_risk_assessments')
+    .from('vendor_contacts')
     .select('*')
     .eq('vendor_id', vendorId)
-    .order('assessment_date', { ascending: false });
+    .order('is_primary', { ascending: false });
 
   if (error) throw error;
   return data || [];
 }
 
-export async function createThirdPartyRiskAssessment(
-  assessment: ThirdPartyRiskAssessmentInsert
-): Promise<ThirdPartyRiskAssessment> {
+export async function createVendorContact(
+  tenantId: string,
+  contact: Omit<VendorContactInsert, 'tenant_id'>
+): Promise<VendorContact> {
   const { data, error } = await supabase
-    .from('grc_third_party_risk_assessments')
-    .insert(assessment)
+    .from('vendor_contacts')
+    .insert({ ...contact, tenant_id: tenantId })
     .select()
     .single();
 
@@ -124,150 +120,265 @@ export async function createThirdPartyRiskAssessment(
   return data;
 }
 
-export async function updateThirdPartyRiskAssessment(
-  id: string,
-  updates: ThirdPartyRiskAssessmentUpdate
-): Promise<ThirdPartyRiskAssessment> {
-  const { data, error } = await supabase
-    .from('grc_third_party_risk_assessments')
-    .update(updates)
-    .eq('id', id)
-    .select()
-    .single();
-
-  if (error) throw error;
-  return data;
-}
-
-export async function deleteThirdPartyRiskAssessment(id: string): Promise<void> {
+export async function deleteVendorContact(id: string): Promise<void> {
   const { error } = await supabase
-    .from('grc_third_party_risk_assessments')
+    .from('vendor_contacts')
     .delete()
     .eq('id', id);
 
   if (error) throw error;
 }
 
-/**
- * Third-Party Due Diligence Operations
- */
+// ========== RISK ASSESSMENTS ==========
 
-export async function fetchThirdPartyDueDiligence(
-  vendorId: string
-): Promise<ThirdPartyDueDiligence[]> {
-  const { data, error } = await supabase
-    .from('grc_third_party_due_diligence')
-    .select('*')
-    .eq('vendor_id', vendorId)
-    .order('created_at', { ascending: false });
-
-  if (error) throw error;
-  return data || [];
-}
-
-export async function createThirdPartyDueDiligence(
-  document: ThirdPartyDueDiligenceInsert
-): Promise<ThirdPartyDueDiligence> {
-  const { data, error } = await supabase
-    .from('grc_third_party_due_diligence')
-    .insert(document)
-    .select()
-    .single();
-
-  if (error) throw error;
-  return data;
-}
-
-export async function updateThirdPartyDueDiligence(
-  id: string,
-  updates: ThirdPartyDueDiligenceUpdate
-): Promise<ThirdPartyDueDiligence> {
-  const { data, error } = await supabase
-    .from('grc_third_party_due_diligence')
-    .update(updates)
-    .eq('id', id)
-    .select()
-    .single();
-
-  if (error) throw error;
-  return data;
-}
-
-export async function deleteThirdPartyDueDiligence(id: string): Promise<void> {
-  const { error } = await supabase
-    .from('grc_third_party_due_diligence')
-    .delete()
-    .eq('id', id);
-
-  if (error) throw error;
-}
-
-/**
- * Analytics & Reporting
- */
-
-export interface VendorRiskSummary {
-  totalVendors: number;
-  activeVendors: number;
-  highRiskVendors: number;
-  criticalVendors: number;
-  averageRiskScore: number;
-  expiringSoon: number;
-}
-
-export async function fetchVendorRiskSummary(
-  tenantId: string
-): Promise<VendorRiskSummary> {
-  // Fetch all vendors
-  const { data: vendors, error: vendorsError } = await supabase
-    .from('grc_third_party_vendors')
+export async function fetchVendorRiskAssessments(
+  tenantId: string,
+  vendorId?: string
+): Promise<VendorRiskAssessment[]> {
+  let query = supabase
+    .from('vendor_risk_assessments')
     .select('*')
     .eq('tenant_id', tenantId);
 
-  if (vendorsError) throw vendorsError;
+  if (vendorId) {
+    query = query.eq('vendor_id', vendorId);
+  }
 
-  // Fetch latest assessments
-  const { data: assessments, error: assessmentsError } = await supabase
-    .from('grc_third_party_risk_assessments')
-    .select('vendor_id, overall_risk_score, risk_rating')
-    .eq('tenant_id', tenantId)
-    .eq('status', 'completed')
-    .order('assessment_date', { ascending: false });
+  const { data, error } = await query.order('assessment_date', { ascending: false });
 
-  if (assessmentsError) throw assessmentsError;
+  if (error) throw error;
+  return data || [];
+}
 
-  const activeVendors = vendors?.filter((v) => v.status === 'active') || [];
-  const highRiskVendors =
-    vendors?.filter((v) => v.criticality === 'high').length || 0;
-  const criticalVendors =
-    vendors?.filter((v) => v.criticality === 'critical').length || 0;
+export async function fetchVendorRiskAssessmentById(id: string): Promise<VendorRiskAssessment> {
+  const { data, error } = await supabase
+    .from('vendor_risk_assessments')
+    .select('*')
+    .eq('id', id)
+    .single();
 
-  // Calculate average risk score
-  const scores = assessments?.map((a) => a.overall_risk_score || 0) || [];
-  const averageRiskScore =
-    scores.length > 0
-      ? scores.reduce((sum, score) => sum + score, 0) / scores.length
-      : 0;
+  if (error) throw error;
+  return data;
+}
 
-  // Count expiring documents
-  const thirtyDaysFromNow = new Date();
-  thirtyDaysFromNow.setDate(thirtyDaysFromNow.getDate() + 30);
+export async function createVendorRiskAssessment(
+  tenantId: string,
+  assessment: Omit<VendorRiskAssessmentInsert, 'tenant_id'>
+): Promise<VendorRiskAssessment> {
+  const { data, error } = await supabase
+    .from('vendor_risk_assessments')
+    .insert({ ...assessment, tenant_id: tenantId })
+    .select()
+    .single();
 
-  const { data: expiringDocs, error: expiringError } = await supabase
-    .from('grc_third_party_due_diligence')
-    .select('id')
-    .eq('tenant_id', tenantId)
-    .lte('expiry_date', thirtyDaysFromNow.toISOString().split('T')[0])
-    .eq('status', 'valid');
+  if (error) throw error;
+  return data;
+}
 
-  if (expiringError) throw expiringError;
+export async function updateVendorRiskAssessment(
+  id: string,
+  updates: VendorRiskAssessmentUpdate
+): Promise<VendorRiskAssessment> {
+  const { data, error } = await supabase
+    .from('vendor_risk_assessments')
+    .update(updates)
+    .eq('id', id)
+    .select()
+    .single();
 
-  return {
-    totalVendors: vendors?.length || 0,
-    activeVendors: activeVendors.length,
-    highRiskVendors,
-    criticalVendors,
-    averageRiskScore: Math.round(averageRiskScore),
-    expiringSoon: expiringDocs?.length || 0,
-  };
+  if (error) throw error;
+  return data;
+}
+
+export async function deleteVendorRiskAssessment(id: string): Promise<void> {
+  const { error } = await supabase
+    .from('vendor_risk_assessments')
+    .delete()
+    .eq('id', id);
+
+  if (error) throw error;
+}
+
+// ========== CONTRACTS ==========
+
+export async function fetchVendorContracts(
+  tenantId: string,
+  vendorId?: string
+): Promise<VendorContract[]> {
+  let query = supabase
+    .from('vendor_contracts')
+    .select('*')
+    .eq('tenant_id', tenantId);
+
+  if (vendorId) {
+    query = query.eq('vendor_id', vendorId);
+  }
+
+  const { data, error } = await query.order('start_date', { ascending: false });
+
+  if (error) throw error;
+  return data || [];
+}
+
+export async function fetchVendorContractById(id: string): Promise<VendorContract> {
+  const { data, error } = await supabase
+    .from('vendor_contracts')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) throw error;
+  return data;
+}
+
+export async function createVendorContract(
+  tenantId: string,
+  contract: Omit<VendorContractInsert, 'tenant_id'>
+): Promise<VendorContract> {
+  const { data, error } = await supabase
+    .from('vendor_contracts')
+    .insert({ ...contract, tenant_id: tenantId })
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+}
+
+export async function updateVendorContract(
+  id: string,
+  updates: VendorContractUpdate
+): Promise<VendorContract> {
+  const { data, error } = await supabase
+    .from('vendor_contracts')
+    .update(updates)
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+}
+
+export async function deleteVendorContract(id: string): Promise<void> {
+  const { error } = await supabase
+    .from('vendor_contracts')
+    .delete()
+    .eq('id', id);
+
+  if (error) throw error;
+}
+
+// ========== SECURITY QUESTIONNAIRES ==========
+
+export async function fetchVendorSecurityQuestionnaires(
+  tenantId: string,
+  vendorId?: string
+): Promise<VendorSecurityQuestionnaire[]> {
+  let query = supabase
+    .from('vendor_security_questionnaires')
+    .select('*')
+    .eq('tenant_id', tenantId);
+
+  if (vendorId) {
+    query = query.eq('vendor_id', vendorId);
+  }
+
+  const { data, error } = await query.order('submitted_at', { ascending: false });
+
+  if (error) throw error;
+  return data || [];
+}
+
+export async function createVendorSecurityQuestionnaire(
+  tenantId: string,
+  questionnaire: Omit<VendorSecurityQuestionnaireInsert, 'tenant_id'>
+): Promise<VendorSecurityQuestionnaire> {
+  const { data, error } = await supabase
+    .from('vendor_security_questionnaires')
+    .insert({ ...questionnaire, tenant_id: tenantId })
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+}
+
+// ========== COMPLIANCE CHECKS ==========
+
+export async function fetchVendorComplianceChecks(
+  tenantId: string,
+  vendorId?: string
+): Promise<VendorComplianceCheck[]> {
+  let query = supabase
+    .from('vendor_compliance_checks')
+    .select('*')
+    .eq('tenant_id', tenantId);
+
+  if (vendorId) {
+    query = query.eq('vendor_id', vendorId);
+  }
+
+  const { data, error } = await query.order('check_date', { ascending: false });
+
+  if (error) throw error;
+  return data || [];
+}
+
+export async function createVendorComplianceCheck(
+  tenantId: string,
+  check: Omit<VendorComplianceCheckInsert, 'tenant_id'>
+): Promise<VendorComplianceCheck> {
+  const { data, error } = await supabase
+    .from('vendor_compliance_checks')
+    .insert({ ...check, tenant_id: tenantId })
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+}
+
+// ========== DOCUMENTS ==========
+
+export async function fetchVendorDocuments(
+  tenantId: string,
+  vendorId?: string
+): Promise<VendorDocument[]> {
+  let query = supabase
+    .from('vendor_documents')
+    .select('*')
+    .eq('tenant_id', tenantId);
+
+  if (vendorId) {
+    query = query.eq('vendor_id', vendorId);
+  }
+
+  const { data, error } = await query.order('uploaded_at', { ascending: false });
+
+  if (error) throw error;
+  return data || [];
+}
+
+export async function createVendorDocument(
+  tenantId: string,
+  document: Omit<VendorDocumentInsert, 'tenant_id'>
+): Promise<VendorDocument> {
+  const { data, error } = await supabase
+    .from('vendor_documents')
+    .insert({ ...document, tenant_id: tenantId })
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+}
+
+export async function deleteVendorDocument(id: string): Promise<void> {
+  const { error } = await supabase
+    .from('vendor_documents')
+    .delete()
+    .eq('id', id);
+
+  if (error) throw error;
 }
