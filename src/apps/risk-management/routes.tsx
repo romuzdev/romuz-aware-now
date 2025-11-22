@@ -18,6 +18,8 @@ const RiskReports = lazy(() => import('./pages/RiskReports'));
 
 // Third-Party Risk Management
 const ThirdPartyVendors = lazy(() => import('./pages/ThirdPartyVendors'));
+const VendorDetails = lazy(() => import('./pages/VendorDetails'));
+const VendorForm = lazy(() => import('./pages/VendorForm'));
 const VendorRiskAssessments = lazy(() => import('./pages/VendorRiskAssessments'));
 const VendorContracts = lazy(() => import('./pages/VendorContracts'));
 
@@ -77,9 +79,19 @@ export function getRiskManagementRoutes() {
           <ThirdPartyVendors />
         </Suspense>
       } />
+      <Route path="vendors/new" element={
+        <Suspense fallback={<PageLoader />}>
+          <VendorForm />
+        </Suspense>
+      } />
       <Route path="vendors/:id" element={
         <Suspense fallback={<PageLoader />}>
-          <ThirdPartyVendors />
+          <VendorDetails />
+        </Suspense>
+      } />
+      <Route path="vendors/:id/edit" element={
+        <Suspense fallback={<PageLoader />}>
+          <VendorForm />
         </Suspense>
       } />
       <Route path="assessments" element={

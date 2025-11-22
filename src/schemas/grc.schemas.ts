@@ -116,3 +116,24 @@ export const complianceRequirementSchema = z.object({
 });
 
 export type ComplianceRequirementFormData = z.infer<typeof complianceRequirementSchema>;
+
+// Vendor schemas
+export const vendorSchema = z.object({
+  vendor_name_ar: shortTextSchema,
+  vendor_name_en: shortTextSchema.optional(),
+  vendor_code: codeSchema,
+  vendor_type: z.string().trim().min(1, 'نوع المورد مطلوب').max(100),
+  status: z.string().trim().max(50).optional(),
+  risk_tier: z.string().trim().max(50).optional(),
+  overall_risk_level: z.string().trim().max(50).optional(),
+  country: z.string().trim().max(100).optional(),
+  city: z.string().trim().max(100).optional(),
+  address: mediumTextSchema.optional(),
+  website: z.string().trim().url('رابط الموقع غير صحيح').optional().or(z.literal('')),
+  industry: z.string().trim().max(100).optional(),
+  notes: longTextSchema.optional(),
+  contract_start_date: z.string().optional(),
+  contract_end_date: z.string().optional(),
+});
+
+export type VendorFormData = z.infer<typeof vendorSchema>;
