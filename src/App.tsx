@@ -20,6 +20,11 @@ const UserDashboard = lazy(() => import("./apps/platform/pages/user/UserDashboar
 const EventMonitor = lazy(() => import("./pages/EventMonitor"));
 const AutomationRules = lazy(() => import("./pages/AutomationRules"));
 
+// Risk Management Auth Pages
+const RiskSignIn = lazy(() => import("./pages/auth/SignIn"));
+const RiskSignUp = lazy(() => import("./pages/auth/SignUp"));
+const RiskLanding = lazy(() => import("./pages/RiskLanding"));
+
 // M21, M22, M24: Admin pages
 const SystemCommand = lazy(() => import("./apps/admin/pages/SystemCommand"));
 const AdvancedSettings = lazy(() => import("./apps/admin/pages/AdvancedSettings"));
@@ -89,6 +94,11 @@ const AppContent = () => {
             <Route path="/auth/signup" element={<SignupPage />} />
             <Route path="/auth/select-tenant" element={<SelectTenantPage />} />
             <Route path="/auth/complete-profile" element={<CompleteProfilePage />} />
+
+            {/* Risk Management Auth Routes */}
+            <Route path="/risk-landing" element={<RiskLanding />} />
+            <Route path="/risk-auth/signin" element={<RiskSignIn />} />
+            <Route path="/risk-auth/signup" element={<RiskSignUp />} />
 
             {/* Protected User Routes */}
             <Route path="/user/dashboard" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />

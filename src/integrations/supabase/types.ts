@@ -18464,7 +18464,9 @@ export type Database = {
           tenant_id: string
         }[]
       }
-      get_user_tenant_id: { Args: { _user_id: string }; Returns: string }
+      get_user_tenant_id:
+        | { Args: never; Returns: string }
+        | { Args: { _user_id: string }; Returns: string }
       get_workflow_progress_summary: {
         Args: { p_workflow_id: string }
         Returns: {

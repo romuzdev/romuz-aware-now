@@ -37,9 +37,11 @@ const PageLoader = () => (
 /**
  * Risk Management Routes
  */
+import { RiskAuthGuard } from '@/components/risk-auth/RiskAuthGuard';
+
 export function getRiskManagementRoutes() {
   return (
-    <Route path="/risk/*" element={<ProtectedRoute><AppShell /></ProtectedRoute>}>
+    <Route path="/risk/*" element={<RiskAuthGuard><ProtectedRoute><AppShell /></ProtectedRoute></RiskAuthGuard>}>
       <Route index element={<Navigate to="dashboard" replace />} />
       <Route path="dashboard" element={
         <Suspense fallback={<PageLoader />}>
