@@ -15595,6 +15595,27 @@ export type Database = {
           },
         ]
       }
+      vw_risk_heat_map: {
+        Row: {
+          current_impact: number | null
+          current_likelihood: number | null
+          impact_score: number | null
+          likelihood_score: number | null
+          risk_category: string | null
+          risk_count: number | null
+          risk_status: string | null
+          tenant_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "grc_risks_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       vw_secops_statistics: {
         Row: {
           active_connectors: number | null
@@ -16709,6 +16730,69 @@ export type Database = {
           tenant_id: string
           tenant_name: string
           user_id: string
+        }[]
+      }
+      fn_grc_analyze_risk_correlations: {
+        Args: { p_tenant_id: string }
+        Returns: {
+          category_a: string
+          category_b: string
+          correlation_strength: number
+          recommendation: string
+          shared_controls: number
+        }[]
+      }
+      fn_grc_detect_compliance_gaps: {
+        Args: { p_framework_id?: string; p_tenant_id: string }
+        Returns: {
+          estimated_effort_days: number
+          framework_name: string
+          gap_description: string
+          gap_id: string
+          gap_severity: string
+          gap_type: string
+          recommended_action: string
+          requirement_code: string
+          requirement_id: string
+          requirement_title: string
+        }[]
+      }
+      fn_grc_get_compliance_dashboard: {
+        Args: { p_tenant_id: string }
+        Returns: {
+          compliance_score: number
+          compliant_count: number
+          framework_id: string
+          framework_name: string
+          last_assessment_date: string
+          non_compliant_count: number
+          not_assessed_count: number
+          partial_compliant_count: number
+          total_requirements: number
+          trend_direction: string
+        }[]
+      }
+      fn_grc_get_risk_trends: {
+        Args: { p_period_days?: number; p_tenant_id: string }
+        Returns: {
+          avg_current_score: number
+          avg_inherent_score: number
+          high_risks: number
+          low_risks: number
+          medium_risks: number
+          risk_category: string
+          snapshot_date: string
+          total_risks: number
+        }[]
+      }
+      fn_grc_suggest_control_mappings: {
+        Args: { p_requirement_id: string; p_tenant_id: string }
+        Returns: {
+          control_code: string
+          control_id: string
+          control_title: string
+          match_reason: string
+          match_score: number
         }[]
       }
       fn_job_check_tenant_health: { Args: never; Returns: undefined }
