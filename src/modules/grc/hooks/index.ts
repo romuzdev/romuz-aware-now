@@ -10,3 +10,6 @@ export * from './useAudits';
 export * from './useAuditAnalytics';
 export * from './useAuditWorkflows';
 export * from './useReports';
+export * from './useAdvancedRiskAnalytics';
+export * from './useComplianceAutomation';
+export * from './useThirdPartyRisk';

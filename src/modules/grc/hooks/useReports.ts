@@ -123,12 +123,12 @@ export const useExportReport = () => {
  */
 export const useGenerateAndExportReport = () => {
   const generateReport = useGenerateRiskSummary();
-  const exportReport = useExportReport();
+  const exportReportHook = useExportReport();
 
   return async (config: ReportConfig, exportOptions: ExportOptions) => {
     try {
       const reportData = await generateReport.mutateAsync(config);
-      await exportReport.mutateAsync({ reportData, options: exportOptions });
+      await exportReportHook.mutateAsync({ reportData, options: exportOptions });
     } catch (error) {
       console.error('Error generating and exporting report:', error);
     }
