@@ -39,6 +39,7 @@ import { predictiveAnalyticsRoutes } from "@/apps/predictive-analytics/routes";
 import { threatIntelligenceRoutes } from "@/apps/threat-intelligence/routes";
 import { aiAdvisoryRoutes } from "@/apps/ai-advisory/routes";
 import { getSuccessRoutes } from "@/apps/success";
+import { getRiskManagementRoutes } from '@/apps/risk-management';
 
 // Gate-U: Unified App Shell & Personas
 import { AppShell } from "@/core/components/layout";
@@ -176,6 +177,9 @@ const AppContent = () => {
             <Route path="/success/*" element={<ProtectedRoute><AppShell /></ProtectedRoute>}>
               {getSuccessRoutes()}
             </Route>
+
+            {/* Risk Management App Routes - Inside AppShell */}
+            {getRiskManagementRoutes()}
 
             {/* M18.5: SecOps - Security Operations Center */}
             {getSecOpsRoutes()}
