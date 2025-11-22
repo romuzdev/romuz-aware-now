@@ -11,5 +11,14 @@ export * from './useAuditAnalytics';
 export * from './useAuditWorkflows';
 export * from './useReports';
 export * from './useAdvancedRiskAnalytics';
-export * from './useComplianceAutomation';
 export * from './useThirdPartyRisk';
+
+// Compliance Automation - Explicit exports to avoid conflicts
+export {
+  useAutomatedComplianceGaps,
+  useComplianceDashboard,
+  useControlMappingSuggestions,
+  useApplyControlMapping,
+  useGenerateRemediationPlan,
+  useBulkRemediateGaps,
+} from './useComplianceAutomation';
