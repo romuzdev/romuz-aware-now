@@ -3556,6 +3556,7 @@ export type Database = {
           created_at: string
           created_by: string | null
           id: string
+          last_backed_up_at: string | null
           name: string
           status: string
           tenant_id: string
@@ -3568,6 +3569,7 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           id?: string
+          last_backed_up_at?: string | null
           name: string
           status?: string
           tenant_id: string
@@ -3580,6 +3582,7 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           id?: string
+          last_backed_up_at?: string | null
           name?: string
           status?: string
           tenant_id?: string
@@ -4266,6 +4269,7 @@ export type Database = {
           created_at: string
           decided_at: string | null
           id: string
+          last_backed_up_at: string | null
           meeting_id: string
           resolution: string | null
           title: string
@@ -4276,6 +4280,7 @@ export type Database = {
           created_at?: string
           decided_at?: string | null
           id?: string
+          last_backed_up_at?: string | null
           meeting_id: string
           resolution?: string | null
           title: string
@@ -4286,6 +4291,7 @@ export type Database = {
           created_at?: string
           decided_at?: string | null
           id?: string
+          last_backed_up_at?: string | null
           meeting_id?: string
           resolution?: string | null
           title?: string
@@ -6063,6 +6069,7 @@ export type Database = {
           framework_version: string | null
           id: string
           issuing_authority: string | null
+          last_backed_up_at: string | null
           last_review_date: string | null
           next_review_date: string | null
           non_compliant_count: number | null
@@ -6093,6 +6100,7 @@ export type Database = {
           framework_version?: string | null
           id?: string
           issuing_authority?: string | null
+          last_backed_up_at?: string | null
           last_review_date?: string | null
           next_review_date?: string | null
           non_compliant_count?: number | null
@@ -6123,6 +6131,7 @@ export type Database = {
           framework_version?: string | null
           id?: string
           issuing_authority?: string | null
+          last_backed_up_at?: string | null
           last_review_date?: string | null
           next_review_date?: string | null
           non_compliant_count?: number | null
@@ -6166,6 +6175,7 @@ export type Database = {
           id: string
           identified_by: string | null
           identified_date: string
+          last_backed_up_at: string | null
           linked_action_id: string | null
           linked_control_id: string | null
           notes: string | null
@@ -6200,6 +6210,7 @@ export type Database = {
           id?: string
           identified_by?: string | null
           identified_date?: string
+          last_backed_up_at?: string | null
           linked_action_id?: string | null
           linked_control_id?: string | null
           notes?: string | null
@@ -6234,6 +6245,7 @@ export type Database = {
           id?: string
           identified_by?: string | null
           identified_date?: string
+          last_backed_up_at?: string | null
           linked_action_id?: string | null
           linked_control_id?: string | null
           notes?: string | null
@@ -6280,6 +6292,7 @@ export type Database = {
           framework_id: string
           id: string
           last_assessment_date: string | null
+          last_backed_up_at: string | null
           linked_control_ids: string[] | null
           linked_policy_ids: string[] | null
           linked_risk_ids: string[] | null
@@ -6311,6 +6324,7 @@ export type Database = {
           framework_id: string
           id?: string
           last_assessment_date?: string | null
+          last_backed_up_at?: string | null
           linked_control_ids?: string[] | null
           linked_policy_ids?: string[] | null
           linked_risk_ids?: string[] | null
@@ -6342,6 +6356,7 @@ export type Database = {
           framework_id?: string
           id?: string
           last_assessment_date?: string | null
+          last_backed_up_at?: string | null
           linked_control_ids?: string[] | null
           linked_policy_ids?: string[] | null
           linked_risk_ids?: string[] | null
@@ -6388,6 +6403,7 @@ export type Database = {
           evidence_file_paths: string[] | null
           exceptions_noted: string | null
           id: string
+          last_backed_up_at: string | null
           population_size: number | null
           remediation_due_date: string | null
           remediation_plan: string | null
@@ -6420,6 +6436,7 @@ export type Database = {
           evidence_file_paths?: string[] | null
           exceptions_noted?: string | null
           id?: string
+          last_backed_up_at?: string | null
           population_size?: number | null
           remediation_due_date?: string | null
           remediation_plan?: string | null
@@ -6452,6 +6469,7 @@ export type Database = {
           evidence_file_paths?: string[] | null
           exceptions_noted?: string | null
           id?: string
+          last_backed_up_at?: string | null
           population_size?: number | null
           remediation_due_date?: string | null
           remediation_plan?: string | null
@@ -6597,6 +6615,7 @@ export type Database = {
           id: string
           impact_score: number
           key_findings: string | null
+          last_backed_up_at: string | null
           likelihood_score: number
           limitations: string | null
           notes: string | null
@@ -6626,6 +6645,7 @@ export type Database = {
           id?: string
           impact_score: number
           key_findings?: string | null
+          last_backed_up_at?: string | null
           likelihood_score: number
           limitations?: string | null
           notes?: string | null
@@ -6655,6 +6675,7 @@ export type Database = {
           id?: string
           impact_score?: number
           key_findings?: string | null
+          last_backed_up_at?: string | null
           likelihood_score?: number
           limitations?: string | null
           notes?: string | null
@@ -6700,6 +6721,7 @@ export type Database = {
           effectiveness_rating: string | null
           estimated_cost: number | null
           id: string
+          last_backed_up_at: string | null
           last_review_date: string | null
           next_review_date: string | null
           notes: string | null
@@ -6734,6 +6756,7 @@ export type Database = {
           effectiveness_rating?: string | null
           estimated_cost?: number | null
           id?: string
+          last_backed_up_at?: string | null
           last_review_date?: string | null
           next_review_date?: string | null
           notes?: string | null
@@ -6768,6 +6791,7 @@ export type Database = {
           effectiveness_rating?: string | null
           estimated_cost?: number | null
           id?: string
+          last_backed_up_at?: string | null
           last_review_date?: string | null
           next_review_date?: string | null
           notes?: string | null
@@ -10071,6 +10095,7 @@ export type Database = {
           created_at: string
           created_by: string
           id: string
+          last_backed_up_at: string | null
           minutes_url: string | null
           scheduled_at: string
           status: string
@@ -10081,6 +10106,7 @@ export type Database = {
           created_at?: string
           created_by: string
           id?: string
+          last_backed_up_at?: string | null
           minutes_url?: string | null
           scheduled_at: string
           status?: string
@@ -10091,6 +10117,7 @@ export type Database = {
           created_at?: string
           created_by?: string
           id?: string
+          last_backed_up_at?: string | null
           minutes_url?: string | null
           scheduled_at?: string
           status?: string
@@ -17677,6 +17704,10 @@ export type Database = {
       }
       set_default_tenant: { Args: { p_tenant_id: string }; Returns: undefined }
       to_riyadh_date: { Args: { ts: string }; Returns: string }
+      update_backup_metadata: {
+        Args: { p_table_name: string; p_tenant_id: string }
+        Returns: number
+      }
       update_integration_health: {
         Args: {
           p_connector_id: string
