@@ -79,7 +79,7 @@ export default function ThirdPartyVendors() {
             إدارة الموردين وتقييم مخاطرهم
           </p>
         </div>
-        <Button onClick={() => navigate('/grc/vendors/new')}>
+        <Button onClick={() => navigate('/risk/vendors/new')}>
           <Plus className="h-4 w-4 ml-2" />
           إضافة مورد
         </Button>
@@ -171,7 +171,7 @@ export default function ThirdPartyVendors() {
           <Card
             key={vendor.id}
             className="p-6 hover:shadow-lg transition-shadow cursor-pointer"
-            onClick={() => navigate(`/grc/vendors/${vendor.id}`)}
+            onClick={() => navigate(`/risk/vendors/${vendor.id}`)}
           >
             <div className="space-y-4">
               <div className="flex items-start justify-between">
@@ -242,7 +242,7 @@ export default function ThirdPartyVendors() {
           <p className="text-muted-foreground mb-4">
             ابدأ بإضافة مورد جديد لإدارة مخاطر الطرف الثالث
           </p>
-          <Button onClick={() => navigate('/grc/vendors/new')}>
+          <Button onClick={() => navigate('/risk/vendors/new')}>
             <Plus className="h-4 w-4 ml-2" />
             إضافة مورد
           </Button>

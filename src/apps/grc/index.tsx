@@ -26,9 +26,6 @@ import GateHActionDetailsPage from './pages/actions/ActionDetails';
 import GateHActionPlanTracker from './pages/actions/ActionPlanTracker';
 import ComplianceAutomationDashboard from './pages/ComplianceAutomationDashboard';
 import AutomatedComplianceGaps from './pages/AutomatedComplianceGaps';
-import ThirdPartyVendors from './pages/ThirdPartyVendors';
-import VendorRiskAssessments from './pages/VendorRiskAssessments';
-import VendorContracts from './pages/VendorContracts';
 
 export default function GRCApp() {
   return (
@@ -58,11 +55,6 @@ export default function GRCApp() {
       {/* Compliance Automation - Phase 3 */}
       <Route path="automation" element={<ComplianceAutomationDashboard />} />
       <Route path="automation/gaps" element={<AutomatedComplianceGaps />} />
-      
-      {/* Third-Party Risk Management - Phase 3 */}
-      <Route path="vendors" element={<ThirdPartyVendors />} />
-      <Route path="risk-assessments" element={<VendorRiskAssessments />} />
-      <Route path="contracts" element={<VendorContracts />} />
       
       {/* Reports */}
       <Route path="reports" element={<Reports />} />
