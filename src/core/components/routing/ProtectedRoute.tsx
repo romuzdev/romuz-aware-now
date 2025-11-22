@@ -31,13 +31,18 @@ export default function ProtectedRoute({ children }: { children: JSX.Element }) 
     return <Navigate to="/auth/select-tenant" replace />;
   }
 
+  // Skip profile completion check for admin and platform routes
+  const isAdminRoute = location.pathname.startsWith('/admin');
+  const isPlatformRoute = location.pathname.startsWith('/platform');
+  const isCompleteProfilePage = location.pathname === '/auth/complete-profile';
+
   // If user has tenant but profile is incomplete, redirect to complete-profile
-  // Skip this check for admin/platform routes to avoid blocking platform admins
+  // EXCEPT for admin/platform routes which should always be accessible
   if (
-    !isProfileComplete(profile) &&
-    location.pathname !== '/auth/complete-profile' &&
-    !location.pathname.startsWith('/admin') &&
-    !location.pathname.startsWith('/platform')
+    !isAdminRoute &&
+    !isPlatformRoute &&
+    !isCompleteProfilePage &&
+    !isProfileComplete(profile)
   ) {
     return <Navigate to="/auth/complete-profile" replace />;
   }
