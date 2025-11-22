@@ -20,7 +20,7 @@ export function useAutomatedComplianceGaps(frameworkId?: string) {
   const { tenantId } = useAppContext();
   
   return useQuery({
-    queryKey: ['compliance-gaps', tenantId, frameworkId],
+    queryKey: ['automated-compliance-gaps', tenantId, frameworkId],
     queryFn: () => detectComplianceGaps(tenantId!, frameworkId),
     enabled: !!tenantId,
   });
@@ -58,7 +58,7 @@ export function useApplyControlMapping() {
       mappingType?: 'primary' | 'supporting';
     }) => applyControlMapping(requirementId, controlId, mappingType),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['compliance-gaps'] });
+      queryClient.invalidateQueries({ queryKey: ['automated-compliance-gaps'] });
       queryClient.invalidateQueries({ queryKey: ['compliance-dashboard'] });
       toast({
         title: 'نجح الربط',
@@ -106,7 +106,7 @@ export function useBulkRemediateGaps() {
       remediationType: 'auto_map' | 'create_controls' | 'assign_owners';
     }) => bulkRemediateGaps(gaps, remediationType),
     onSuccess: (result) => {
-      queryClient.invalidateQueries({ queryKey: ['compliance-gaps'] });
+      queryClient.invalidateQueries({ queryKey: ['automated-compliance-gaps'] });
       queryClient.invalidateQueries({ queryKey: ['compliance-dashboard'] });
       
       toast({
