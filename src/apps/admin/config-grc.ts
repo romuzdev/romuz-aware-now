@@ -115,6 +115,16 @@ export const grcApp: AppModule = {
       order: 7,
     },
     {
+      id: 'automation',
+      name: 'Compliance Automation',
+      nameAr: 'أتمتة الامتثال',
+      route: '/automation',
+      icon: Zap,
+      requiredPermission: 'grc.compliance.view' as any,
+      showInSidebar: true,
+      order: 8,
+    },
+    {
       id: 'reports',
       name: 'Reports',
       nameAr: 'التقارير',
@@ -122,7 +132,7 @@ export const grcApp: AppModule = {
       icon: BarChart3,
       requiredPermission: 'grc.reports.view' as any,
       showInSidebar: true,
-      order: 8,
+      order: 9,
     },
     {
       id: 'documents',
@@ -132,7 +142,7 @@ export const grcApp: AppModule = {
       icon: FileCheck,
       requiredPermission: 'documents.view' as any,
       showInSidebar: true,
-      order: 9,
+      order: 10,
     },
     {
       id: 'actions',
@@ -142,7 +152,7 @@ export const grcApp: AppModule = {
       icon: ListTodo,
       requiredPermission: 'grc.actions.view' as any,
       showInSidebar: true,
-      order: 10,
+      order: 11,
     },
   ],
   metadata: {
