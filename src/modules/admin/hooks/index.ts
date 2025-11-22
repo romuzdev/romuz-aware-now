@@ -3,3 +3,4 @@
  */
 
 export * from './useAdminEvents';
+export * from './useAdminSettings';
