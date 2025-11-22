@@ -6942,6 +6942,269 @@ export type Database = {
           },
         ]
       }
+      grc_third_party_due_diligence: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          document_name: string
+          document_type: string
+          document_url: string | null
+          expiry_date: string | null
+          id: string
+          issue_date: string | null
+          last_backed_up_at: string | null
+          notes: string | null
+          status: string
+          tenant_id: string
+          updated_at: string
+          vendor_id: string
+          verification_status: string | null
+          verified_at: string | null
+          verified_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          document_name: string
+          document_type: string
+          document_url?: string | null
+          expiry_date?: string | null
+          id?: string
+          issue_date?: string | null
+          last_backed_up_at?: string | null
+          notes?: string | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          vendor_id: string
+          verification_status?: string | null
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          document_name?: string
+          document_type?: string
+          document_url?: string | null
+          expiry_date?: string | null
+          id?: string
+          issue_date?: string | null
+          last_backed_up_at?: string | null
+          notes?: string | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          vendor_id?: string
+          verification_status?: string | null
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "grc_third_party_due_diligence_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "grc_third_party_due_diligence_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "grc_third_party_vendors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      grc_third_party_risk_assessments: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          assessment_code: string
+          assessment_date: string
+          assessment_type: string
+          assessor_id: string | null
+          compliance_score: number | null
+          created_at: string
+          created_by: string | null
+          financial_score: number | null
+          findings: string | null
+          id: string
+          last_backed_up_at: string | null
+          next_review_date: string | null
+          operational_score: number | null
+          overall_risk_score: number | null
+          privacy_score: number | null
+          recommendations: string | null
+          remediation_deadline: string | null
+          remediation_plan: string | null
+          risk_rating: string | null
+          scope: string | null
+          security_score: number | null
+          status: string
+          tenant_id: string
+          updated_at: string
+          vendor_id: string
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          assessment_code: string
+          assessment_date: string
+          assessment_type: string
+          assessor_id?: string | null
+          compliance_score?: number | null
+          created_at?: string
+          created_by?: string | null
+          financial_score?: number | null
+          findings?: string | null
+          id?: string
+          last_backed_up_at?: string | null
+          next_review_date?: string | null
+          operational_score?: number | null
+          overall_risk_score?: number | null
+          privacy_score?: number | null
+          recommendations?: string | null
+          remediation_deadline?: string | null
+          remediation_plan?: string | null
+          risk_rating?: string | null
+          scope?: string | null
+          security_score?: number | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          vendor_id: string
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          assessment_code?: string
+          assessment_date?: string
+          assessment_type?: string
+          assessor_id?: string | null
+          compliance_score?: number | null
+          created_at?: string
+          created_by?: string | null
+          financial_score?: number | null
+          findings?: string | null
+          id?: string
+          last_backed_up_at?: string | null
+          next_review_date?: string | null
+          operational_score?: number | null
+          overall_risk_score?: number | null
+          privacy_score?: number | null
+          recommendations?: string | null
+          remediation_deadline?: string | null
+          remediation_plan?: string | null
+          risk_rating?: string | null
+          scope?: string | null
+          security_score?: number | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          vendor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "grc_third_party_risk_assessments_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "grc_third_party_risk_assessments_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "grc_third_party_vendors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      grc_third_party_vendors: {
+        Row: {
+          business_contact: string | null
+          contract_end_date: string | null
+          contract_start_date: string | null
+          contract_value: number | null
+          country: string | null
+          created_at: string
+          created_by: string | null
+          criticality: string
+          id: string
+          industry: string | null
+          last_backed_up_at: string | null
+          notes: string | null
+          services_provided: string | null
+          status: string
+          technical_contact: string | null
+          tenant_id: string
+          updated_at: string
+          vendor_code: string
+          vendor_name: string
+          vendor_name_ar: string | null
+          vendor_type: string
+          website: string | null
+        }
+        Insert: {
+          business_contact?: string | null
+          contract_end_date?: string | null
+          contract_start_date?: string | null
+          contract_value?: number | null
+          country?: string | null
+          created_at?: string
+          created_by?: string | null
+          criticality?: string
+          id?: string
+          industry?: string | null
+          last_backed_up_at?: string | null
+          notes?: string | null
+          services_provided?: string | null
+          status?: string
+          technical_contact?: string | null
+          tenant_id: string
+          updated_at?: string
+          vendor_code: string
+          vendor_name: string
+          vendor_name_ar?: string | null
+          vendor_type: string
+          website?: string | null
+        }
+        Update: {
+          business_contact?: string | null
+          contract_end_date?: string | null
+          contract_start_date?: string | null
+          contract_value?: number | null
+          country?: string | null
+          created_at?: string
+          created_by?: string | null
+          criticality?: string
+          id?: string
+          industry?: string | null
+          last_backed_up_at?: string | null
+          notes?: string | null
+          services_provided?: string | null
+          status?: string
+          technical_contact?: string | null
+          tenant_id?: string
+          updated_at?: string
+          vendor_code?: string
+          vendor_name?: string
+          vendor_name_ar?: string | null
+          vendor_type?: string
+          website?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "grc_third_party_vendors_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       import_export_jobs: {
         Row: {
           completed_at: string | null
@@ -16742,6 +17005,39 @@ export type Database = {
           shared_controls: number
         }[]
       }
+      fn_grc_compliance_status_report: {
+        Args: { p_framework?: string; p_tenant_id: string }
+        Returns: {
+          compliance_percentage: number
+          compliant: number
+          framework_code: string
+          framework_name: string
+          non_compliant: number
+          not_assessed: number
+          overdue_requirements: number
+          partially_compliant: number
+          total_requirements: number
+          upcoming_deadlines: number
+        }[]
+      }
+      fn_grc_control_effectiveness_report: {
+        Args: {
+          p_end_date?: string
+          p_start_date?: string
+          p_tenant_id: string
+        }
+        Returns: {
+          avg_test_score: number
+          control_type: string
+          effective: number
+          effectiveness_rate: number
+          ineffective: number
+          not_tested: number
+          partially_effective: number
+          tested_controls: number
+          total_controls: number
+        }[]
+      }
       fn_grc_detect_compliance_gaps: {
         Args: { p_framework_id?: string; p_tenant_id: string }
         Returns: {
@@ -16755,6 +17051,30 @@ export type Database = {
           requirement_code: string
           requirement_id: string
           requirement_title: string
+        }[]
+      }
+      fn_grc_executive_risk_dashboard: {
+        Args: {
+          p_period_end?: string
+          p_period_start?: string
+          p_tenant_id: string
+        }
+        Returns: {
+          completed_audits: number
+          compliance_score: number
+          control_effectiveness_pct: number
+          critical_findings: number
+          critical_risks: number
+          effective_controls: number
+          high_risk_vendors: number
+          high_risks: number
+          kpi_summary: Json
+          risk_trend: string
+          third_party_vendors: number
+          total_audits: number
+          total_controls: number
+          total_findings: number
+          total_risks: number
         }[]
       }
       fn_grc_get_compliance_dashboard: {

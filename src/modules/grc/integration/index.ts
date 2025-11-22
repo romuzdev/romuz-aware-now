@@ -14,3 +14,4 @@ export * from './reports.integration';
 // Phase 3: Advanced Features
 export * from './advanced-risk-analytics.integration';
 export * from './compliance-automation.integration';
+export * from './third-party-risk.integration';
