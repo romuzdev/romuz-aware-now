@@ -8,22 +8,24 @@ import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/core/components/ui/card';
 import { Button } from '@/core/components/ui/button';
 import { Input } from '@/core/components/ui/input';
 import { Label } from '@/core/components/ui/label';
 import { Textarea } from '@/core/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/core/components/ui/select';
-import { ArrowLeft, Save } from 'lucide-react';
+import { ArrowLeft, Save, Brain, Sparkles } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useAppContext } from '@/lib/app-context/AppContextProvider';
 import {
   useVendorRiskAssessmentById,
   useCreateVendorRiskAssessment,
   useUpdateVendorRiskAssessment,
-  useVendors
+  useVendors,
+  useVendorById
 } from '@/modules/grc/hooks/useThirdPartyRisk';
+import { useVendorRiskAI } from '@/hooks/useVendorRiskAI';
 import { Skeleton } from '@/core/components/ui/skeleton';
 
 export default function RiskAssessmentForm() {
@@ -33,9 +35,12 @@ export default function RiskAssessmentForm() {
   const { toast } = useToast();
   const { user, tenantId } = useAppContext();
   const isEditMode = !!id;
+  const [selectedVendorId, setSelectedVendorId] = useState<string>('');
 
   const { data: assessment, isLoading } = useVendorRiskAssessmentById(id!);
   const { data: vendors } = useVendors();
+  const { data: selectedVendor } = useVendorById(selectedVendorId);
+  const { calculateRiskScores, generateRecommendations, isAnalyzing } = useVendorRiskAI();
   const createMutation = useCreateVendorRiskAssessment();
   const updateMutation = useUpdateVendorRiskAssessment();
 
@@ -180,7 +185,10 @@ export default function RiskAssessmentForm() {
                 <Label htmlFor="vendor_id">المورد *</Label>
                 <Select
                   value={form.watch('vendor_id')}
-                  onValueChange={(value) => form.setValue('vendor_id', value)}
+                  onValueChange={(value) => {
+                    form.setValue('vendor_id', value);
+                    setSelectedVendorId(value);
+                  }}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="اختر المورد" />
@@ -270,7 +278,34 @@ export default function RiskAssessmentForm() {
         {/* Risk Scores */}
         <Card>
           <CardHeader>
-            <CardTitle>درجات المخاطر</CardTitle>
+            <div className="flex items-center justify-between">
+              <CardTitle>درجات المخاطر</CardTitle>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={async () => {
+                  if (!selectedVendor) {
+                    toast({ title: 'خطأ', description: 'يرجى اختيار المورد أولاً', variant: 'destructive' });
+                    return;
+                  }
+                  const result = await calculateRiskScores(selectedVendor);
+                  if (result) {
+                    form.setValue('security_risk_score', result.security_risk_score);
+                    form.setValue('compliance_risk_score', result.compliance_risk_score);
+                    form.setValue('operational_risk_score', result.operational_risk_score);
+                    form.setValue('financial_risk_score', result.financial_risk_score);
+                    form.setValue('reputational_risk_score', result.reputational_risk_score);
+                    form.setValue('overall_risk_score', result.overall_risk_score);
+                    form.setValue('overall_risk_level', result.overall_risk_level);
+                  }
+                }}
+                disabled={isAnalyzing || !selectedVendorId}
+              >
+                <Brain className="h-4 w-4 mr-2" />
+                {isAnalyzing ? 'جاري الحساب...' : 'حساب تلقائي'}
+              </Button>
+            </div>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
@@ -391,7 +426,48 @@ export default function RiskAssessmentForm() {
         {/* Additional Details */}
         <Card>
           <CardHeader>
-            <CardTitle>تفاصيل إضافية</CardTitle>
+            <div className="flex items-center justify-between">
+              <CardTitle>تفاصيل إضافية</CardTitle>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={async () => {
+                  const assessmentData = {
+                    vendor_name: selectedVendor?.vendor_name_ar,
+                    assessment_type: form.watch('assessment_type'),
+                    security_risk_score: form.watch('security_risk_score'),
+                    compliance_risk_score: form.watch('compliance_risk_score'),
+                    operational_risk_score: form.watch('operational_risk_score'),
+                    financial_risk_score: form.watch('financial_risk_score'),
+                    reputational_risk_score: form.watch('reputational_risk_score'),
+                    overall_risk_score: form.watch('overall_risk_score'),
+                    overall_risk_level: form.watch('overall_risk_level'),
+                  };
+                  const result = await generateRecommendations(assessmentData);
+                  if (result) {
+                    const allRecommendations = [
+                      '** إجراءات فورية:**',
+                      ...result.immediate_actions.map((a, i) => `${i + 1}. ${a}`),
+                      '',
+                      '**إجراءات قصيرة المدى:**',
+                      ...result.short_term_actions.map((a, i) => `${i + 1}. ${a}`),
+                      '',
+                      '**إجراءات طويلة المدى:**',
+                      ...result.long_term_actions.map((a, i) => `${i + 1}. ${a}`),
+                      '',
+                      '**نقاط المراقبة:**',
+                      ...result.monitoring_points.map((p, i) => `${i + 1}. ${p}`),
+                    ].join('\n');
+                    form.setValue('recommendations_ar', allRecommendations);
+                  }
+                }}
+                disabled={isAnalyzing || !form.watch('overall_risk_score')}
+              >
+                <Sparkles className="h-4 w-4 mr-2" />
+                {isAnalyzing ? 'جاري التوليد...' : 'توليد توصيات'}
+              </Button>
+            </div>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">

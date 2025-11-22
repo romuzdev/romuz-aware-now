@@ -204,25 +204,25 @@ export default function VendorRiskAssessments() {
                   <div>
                     <p className="text-xs text-muted-foreground">الدرجة الإجمالية</p>
                     <p className="text-lg font-bold">
-                      {assessment.overall_risk_score || 0}/100
+                      {assessment.overall_risk_score || 0}/10
                     </p>
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground">مخاطر الأمن</p>
                     <p className="text-lg font-bold">
-                      {assessment.security_risk_score || 0}
+                      {assessment.security_risk_score || 0}/10
                     </p>
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground">الامتثال</p>
                     <p className="text-lg font-bold">
-                      {assessment.compliance_risk_score || 0}
+                      {assessment.compliance_risk_score || 0}/10
                     </p>
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground">المخاطر المالية</p>
                     <p className="text-lg font-bold">
-                      {assessment.financial_risk_score || 0}
+                      {assessment.financial_risk_score || 0}/10
                     </p>
                   </div>
                 </div>
