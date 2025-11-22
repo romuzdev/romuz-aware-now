@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/core/components/ui/button';
@@ -18,6 +18,7 @@ interface Tenant {
 
 export default function SelectTenantPage() {
   const nav = useNavigate();
+  const location = useLocation();
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language === 'ar';
   
@@ -25,6 +26,9 @@ export default function SelectTenantPage() {
   const [loading, setLoading] = useState(true);
   const [selectedTenant, setSelectedTenant] = useState<string | null>(null);
   const [joining, setJoining] = useState(false);
+  
+  // Get intended destination from navigation state
+  const intendedPath = (location.state as any)?.from || '/user/dashboard';
 
   useEffect(() => {
     checkExistingTenant();
@@ -47,8 +51,8 @@ export default function SelectTenantPage() {
         .maybeSingle();
 
       if (existingTenant) {
-        // User already has a tenant, redirect to complete profile
-        nav('/auth/complete-profile');
+        // User already has a tenant, redirect to complete profile (preserve intended path)
+        nav('/auth/complete-profile', { state: { from: intendedPath } });
         return;
       }
 
@@ -107,8 +111,8 @@ export default function SelectTenantPage() {
     }
 
     toast.success(t('selectTenant.success.joined'));
-    // Redirect to complete-profile instead of campaigns
-    nav('/auth/complete-profile');
+    // Redirect to complete-profile (preserve intended path)
+    nav('/auth/complete-profile', { state: { from: intendedPath } });
   }
 
   if (loading) {
