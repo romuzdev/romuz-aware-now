@@ -22,6 +22,10 @@ const VendorDetails = lazy(() => import('./pages/VendorDetails'));
 const VendorForm = lazy(() => import('./pages/VendorForm'));
 const VendorRiskAssessments = lazy(() => import('./pages/VendorRiskAssessments'));
 const VendorContracts = lazy(() => import('./pages/VendorContracts'));
+const RiskAssessmentDetails = lazy(() => import('./pages/RiskAssessmentDetails'));
+const RiskAssessmentForm = lazy(() => import('./pages/RiskAssessmentForm'));
+const ContractDetails = lazy(() => import('./pages/ContractDetails'));
+const ContractForm = lazy(() => import('./pages/ContractForm'));
 
 // Loading fallback
 const PageLoader = () => (
@@ -99,9 +103,19 @@ export function getRiskManagementRoutes() {
           <VendorRiskAssessments />
         </Suspense>
       } />
+      <Route path="assessments/new" element={
+        <Suspense fallback={<PageLoader />}>
+          <RiskAssessmentForm />
+        </Suspense>
+      } />
       <Route path="assessments/:id" element={
         <Suspense fallback={<PageLoader />}>
-          <VendorRiskAssessments />
+          <RiskAssessmentDetails />
+        </Suspense>
+      } />
+      <Route path="assessments/:id/edit" element={
+        <Suspense fallback={<PageLoader />}>
+          <RiskAssessmentForm />
         </Suspense>
       } />
       <Route path="contracts" element={
@@ -109,9 +123,19 @@ export function getRiskManagementRoutes() {
           <VendorContracts />
         </Suspense>
       } />
+      <Route path="contracts/new" element={
+        <Suspense fallback={<PageLoader />}>
+          <ContractForm />
+        </Suspense>
+      } />
       <Route path="contracts/:id" element={
         <Suspense fallback={<PageLoader />}>
-          <VendorContracts />
+          <ContractDetails />
+        </Suspense>
+      } />
+      <Route path="contracts/:id/edit" element={
+        <Suspense fallback={<PageLoader />}>
+          <ContractForm />
         </Suspense>
       } />
     </Route>
