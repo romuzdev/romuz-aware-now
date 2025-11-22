@@ -16,7 +16,7 @@ import {
 } from '../integration/compliance-automation.integration';
 import { useToast } from '@/hooks/use-toast';
 
-export function useComplianceGaps(frameworkId?: string) {
+export function useAutomatedComplianceGaps(frameworkId?: string) {
   const { tenantId } = useAppContext();
   
   return useQuery({
