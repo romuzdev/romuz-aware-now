@@ -38,6 +38,7 @@ import * as KnowledgeHub from "@/apps/knowledge-hub/routes";
 import { predictiveAnalyticsRoutes } from "@/apps/predictive-analytics/routes";
 import { threatIntelligenceRoutes } from "@/apps/threat-intelligence/routes";
 import { aiAdvisoryRoutes } from "@/apps/ai-advisory/routes";
+import { getSuccessRoutes } from "@/apps/success";
 
 // Gate-U: Unified App Shell & Personas
 import { AppShell } from "@/core/components/layout";
@@ -169,6 +170,11 @@ const AppContent = () => {
             {/* M16: AI Advisory Engine Routes - Inside AppShell */}
             <Route path="/app/ai-advisory/*" element={<ProtectedRoute><AppShell /></ProtectedRoute>}>
               {aiAdvisoryRoutes}
+            </Route>
+
+            {/* M25: Success Toolkit Routes - Inside AppShell */}
+            <Route path="/success/*" element={<ProtectedRoute><AppShell /></ProtectedRoute>}>
+              {getSuccessRoutes()}
             </Route>
 
             {/* M18.5: SecOps - Security Operations Center */}
