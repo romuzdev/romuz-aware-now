@@ -14850,6 +14850,718 @@ export type Database = {
           },
         ]
       }
+      vendor_compliance_checks: {
+        Row: {
+          action_notes: string | null
+          check_code: string
+          check_date: string
+          check_type: string
+          checked_at: string | null
+          checked_by: string
+          compliance_item_ar: string
+          compliance_item_en: string | null
+          created_at: string
+          created_by: string
+          document_urls: string[] | null
+          id: string
+          notes: string | null
+          requires_action: boolean | null
+          status: string | null
+          tenant_id: string
+          updated_at: string
+          valid_from: string | null
+          valid_to: string | null
+          vendor_id: string
+        }
+        Insert: {
+          action_notes?: string | null
+          check_code: string
+          check_date?: string
+          check_type: string
+          checked_at?: string | null
+          checked_by: string
+          compliance_item_ar: string
+          compliance_item_en?: string | null
+          created_at?: string
+          created_by: string
+          document_urls?: string[] | null
+          id?: string
+          notes?: string | null
+          requires_action?: boolean | null
+          status?: string | null
+          tenant_id: string
+          updated_at?: string
+          valid_from?: string | null
+          valid_to?: string | null
+          vendor_id: string
+        }
+        Update: {
+          action_notes?: string | null
+          check_code?: string
+          check_date?: string
+          check_type?: string
+          checked_at?: string | null
+          checked_by?: string
+          compliance_item_ar?: string
+          compliance_item_en?: string | null
+          created_at?: string
+          created_by?: string
+          document_urls?: string[] | null
+          id?: string
+          notes?: string | null
+          requires_action?: boolean | null
+          status?: string | null
+          tenant_id?: string
+          updated_at?: string
+          valid_from?: string | null
+          valid_to?: string | null
+          vendor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vendor_compliance_checks_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vendor_compliance_checks_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "vendors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vendor_contacts: {
+        Row: {
+          contact_type: string
+          created_at: string
+          created_by: string
+          email: string | null
+          full_name: string
+          id: string
+          is_primary: boolean | null
+          job_title: string | null
+          mobile: string | null
+          notes: string | null
+          phone: string | null
+          tenant_id: string
+          updated_at: string
+          vendor_id: string
+        }
+        Insert: {
+          contact_type: string
+          created_at?: string
+          created_by: string
+          email?: string | null
+          full_name: string
+          id?: string
+          is_primary?: boolean | null
+          job_title?: string | null
+          mobile?: string | null
+          notes?: string | null
+          phone?: string | null
+          tenant_id: string
+          updated_at?: string
+          vendor_id: string
+        }
+        Update: {
+          contact_type?: string
+          created_at?: string
+          created_by?: string
+          email?: string | null
+          full_name?: string
+          id?: string
+          is_primary?: boolean | null
+          job_title?: string | null
+          mobile?: string | null
+          notes?: string | null
+          phone?: string | null
+          tenant_id?: string
+          updated_at?: string
+          vendor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vendor_contacts_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vendor_contacts_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "vendors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vendor_contracts: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          auto_renewal: boolean | null
+          contract_code: string
+          contract_title_ar: string
+          contract_title_en: string | null
+          contract_type: string
+          contract_value: number | null
+          created_at: string
+          created_by: string
+          currency: string | null
+          document_urls: string[] | null
+          effective_date: string
+          expiry_date: string | null
+          has_confidentiality_clause: boolean | null
+          has_data_protection_clause: boolean | null
+          has_liability_clause: boolean | null
+          has_termination_clause: boolean | null
+          id: string
+          legal_reviewed_at: string | null
+          legal_reviewed_by: string | null
+          notes: string | null
+          notice_period_days: number | null
+          payment_terms: string | null
+          renewal_notice_sent: boolean | null
+          renewal_reminder_date: string | null
+          requires_legal_review: boolean | null
+          status: string | null
+          tags: string[] | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string
+          vendor_id: string
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          auto_renewal?: boolean | null
+          contract_code: string
+          contract_title_ar: string
+          contract_title_en?: string | null
+          contract_type: string
+          contract_value?: number | null
+          created_at?: string
+          created_by: string
+          currency?: string | null
+          document_urls?: string[] | null
+          effective_date: string
+          expiry_date?: string | null
+          has_confidentiality_clause?: boolean | null
+          has_data_protection_clause?: boolean | null
+          has_liability_clause?: boolean | null
+          has_termination_clause?: boolean | null
+          id?: string
+          legal_reviewed_at?: string | null
+          legal_reviewed_by?: string | null
+          notes?: string | null
+          notice_period_days?: number | null
+          payment_terms?: string | null
+          renewal_notice_sent?: boolean | null
+          renewal_reminder_date?: string | null
+          requires_legal_review?: boolean | null
+          status?: string | null
+          tags?: string[] | null
+          tenant_id: string
+          updated_at?: string
+          updated_by: string
+          vendor_id: string
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          auto_renewal?: boolean | null
+          contract_code?: string
+          contract_title_ar?: string
+          contract_title_en?: string | null
+          contract_type?: string
+          contract_value?: number | null
+          created_at?: string
+          created_by?: string
+          currency?: string | null
+          document_urls?: string[] | null
+          effective_date?: string
+          expiry_date?: string | null
+          has_confidentiality_clause?: boolean | null
+          has_data_protection_clause?: boolean | null
+          has_liability_clause?: boolean | null
+          has_termination_clause?: boolean | null
+          id?: string
+          legal_reviewed_at?: string | null
+          legal_reviewed_by?: string | null
+          notes?: string | null
+          notice_period_days?: number | null
+          payment_terms?: string | null
+          renewal_notice_sent?: boolean | null
+          renewal_reminder_date?: string | null
+          requires_legal_review?: boolean | null
+          status?: string | null
+          tags?: string[] | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string
+          vendor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vendor_contracts_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vendor_contracts_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "vendors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vendor_documents: {
+        Row: {
+          classification: string | null
+          created_at: string
+          document_code: string
+          document_name_ar: string
+          document_name_en: string | null
+          document_type: string
+          file_mime_type: string | null
+          file_name: string
+          file_size_bytes: number | null
+          id: string
+          notes: string | null
+          replaces_document_id: string | null
+          status: string | null
+          storage_path: string
+          tags: string[] | null
+          tenant_id: string
+          updated_at: string
+          uploaded_at: string
+          uploaded_by: string
+          valid_from: string | null
+          valid_to: string | null
+          vendor_id: string
+          version: string | null
+        }
+        Insert: {
+          classification?: string | null
+          created_at?: string
+          document_code: string
+          document_name_ar: string
+          document_name_en?: string | null
+          document_type: string
+          file_mime_type?: string | null
+          file_name: string
+          file_size_bytes?: number | null
+          id?: string
+          notes?: string | null
+          replaces_document_id?: string | null
+          status?: string | null
+          storage_path: string
+          tags?: string[] | null
+          tenant_id: string
+          updated_at?: string
+          uploaded_at?: string
+          uploaded_by: string
+          valid_from?: string | null
+          valid_to?: string | null
+          vendor_id: string
+          version?: string | null
+        }
+        Update: {
+          classification?: string | null
+          created_at?: string
+          document_code?: string
+          document_name_ar?: string
+          document_name_en?: string | null
+          document_type?: string
+          file_mime_type?: string | null
+          file_name?: string
+          file_size_bytes?: number | null
+          id?: string
+          notes?: string | null
+          replaces_document_id?: string | null
+          status?: string | null
+          storage_path?: string
+          tags?: string[] | null
+          tenant_id?: string
+          updated_at?: string
+          uploaded_at?: string
+          uploaded_by?: string
+          valid_from?: string | null
+          valid_to?: string | null
+          vendor_id?: string
+          version?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vendor_documents_replaces_document_id_fkey"
+            columns: ["replaces_document_id"]
+            isOneToOne: false
+            referencedRelation: "vendor_documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vendor_documents_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vendor_documents_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "vendors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vendor_risk_assessments: {
+        Row: {
+          assessment_code: string
+          assessment_date: string
+          assessment_type: string
+          assessor_name: string | null
+          assessor_user_id: string
+          compliance_risk_score: number | null
+          created_at: string
+          created_by: string
+          financial_risk_score: number | null
+          findings_summary_ar: string | null
+          findings_summary_en: string | null
+          followup_date: string | null
+          id: string
+          metadata: Json | null
+          operational_risk_score: number | null
+          overall_risk_level: string | null
+          overall_risk_score: number | null
+          recommendations_ar: string | null
+          recommendations_en: string | null
+          reputational_risk_score: number | null
+          requires_followup: boolean | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          security_risk_score: number | null
+          status: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string
+          vendor_id: string
+        }
+        Insert: {
+          assessment_code: string
+          assessment_date?: string
+          assessment_type: string
+          assessor_name?: string | null
+          assessor_user_id: string
+          compliance_risk_score?: number | null
+          created_at?: string
+          created_by: string
+          financial_risk_score?: number | null
+          findings_summary_ar?: string | null
+          findings_summary_en?: string | null
+          followup_date?: string | null
+          id?: string
+          metadata?: Json | null
+          operational_risk_score?: number | null
+          overall_risk_level?: string | null
+          overall_risk_score?: number | null
+          recommendations_ar?: string | null
+          recommendations_en?: string | null
+          reputational_risk_score?: number | null
+          requires_followup?: boolean | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          security_risk_score?: number | null
+          status?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by: string
+          vendor_id: string
+        }
+        Update: {
+          assessment_code?: string
+          assessment_date?: string
+          assessment_type?: string
+          assessor_name?: string | null
+          assessor_user_id?: string
+          compliance_risk_score?: number | null
+          created_at?: string
+          created_by?: string
+          financial_risk_score?: number | null
+          findings_summary_ar?: string | null
+          findings_summary_en?: string | null
+          followup_date?: string | null
+          id?: string
+          metadata?: Json | null
+          operational_risk_score?: number | null
+          overall_risk_level?: string | null
+          overall_risk_score?: number | null
+          recommendations_ar?: string | null
+          recommendations_en?: string | null
+          reputational_risk_score?: number | null
+          requires_followup?: boolean | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          security_risk_score?: number | null
+          status?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string
+          vendor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vendor_risk_assessments_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vendor_risk_assessments_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "vendors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vendor_security_questionnaires: {
+        Row: {
+          answered_questions: number | null
+          assessment_id: string | null
+          completed_date: string | null
+          compliance_score: number | null
+          created_at: string
+          created_by: string
+          due_date: string | null
+          id: string
+          questionnaire_code: string
+          questionnaire_type: string
+          questions: Json | null
+          responses: Json | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          reviewer_notes: string | null
+          sent_date: string | null
+          status: string | null
+          tenant_id: string
+          total_questions: number | null
+          updated_at: string
+          updated_by: string
+          vendor_id: string
+        }
+        Insert: {
+          answered_questions?: number | null
+          assessment_id?: string | null
+          completed_date?: string | null
+          compliance_score?: number | null
+          created_at?: string
+          created_by: string
+          due_date?: string | null
+          id?: string
+          questionnaire_code: string
+          questionnaire_type: string
+          questions?: Json | null
+          responses?: Json | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          reviewer_notes?: string | null
+          sent_date?: string | null
+          status?: string | null
+          tenant_id: string
+          total_questions?: number | null
+          updated_at?: string
+          updated_by: string
+          vendor_id: string
+        }
+        Update: {
+          answered_questions?: number | null
+          assessment_id?: string | null
+          completed_date?: string | null
+          compliance_score?: number | null
+          created_at?: string
+          created_by?: string
+          due_date?: string | null
+          id?: string
+          questionnaire_code?: string
+          questionnaire_type?: string
+          questions?: Json | null
+          responses?: Json | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          reviewer_notes?: string | null
+          sent_date?: string | null
+          status?: string | null
+          tenant_id?: string
+          total_questions?: number | null
+          updated_at?: string
+          updated_by?: string
+          vendor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vendor_security_questionnaires_assessment_id_fkey"
+            columns: ["assessment_id"]
+            isOneToOne: false
+            referencedRelation: "vendor_risk_assessments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vendor_security_questionnaires_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vendor_security_questionnaires_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "vendors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vendors: {
+        Row: {
+          address: string | null
+          approval_status: string | null
+          approved_at: string | null
+          approved_by: string | null
+          assessment_frequency_days: number | null
+          city: string | null
+          contract_currency: string | null
+          contract_end_date: string | null
+          contract_start_date: string | null
+          contract_value: number | null
+          country: string | null
+          created_at: string
+          created_by: string
+          data_classification: string | null
+          has_data_access: boolean | null
+          has_iso27001: boolean | null
+          has_pdpl_compliance: boolean | null
+          has_soc2: boolean | null
+          id: string
+          industry: string | null
+          last_assessment_date: string | null
+          next_assessment_date: string | null
+          notes: string | null
+          overall_risk_level: string | null
+          registration_number: string | null
+          risk_score: number | null
+          risk_tier: string | null
+          status: string | null
+          tags: string[] | null
+          tax_number: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string
+          vendor_code: string
+          vendor_name_ar: string
+          vendor_name_en: string | null
+          vendor_type: string
+          website: string | null
+        }
+        Insert: {
+          address?: string | null
+          approval_status?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          assessment_frequency_days?: number | null
+          city?: string | null
+          contract_currency?: string | null
+          contract_end_date?: string | null
+          contract_start_date?: string | null
+          contract_value?: number | null
+          country?: string | null
+          created_at?: string
+          created_by: string
+          data_classification?: string | null
+          has_data_access?: boolean | null
+          has_iso27001?: boolean | null
+          has_pdpl_compliance?: boolean | null
+          has_soc2?: boolean | null
+          id?: string
+          industry?: string | null
+          last_assessment_date?: string | null
+          next_assessment_date?: string | null
+          notes?: string | null
+          overall_risk_level?: string | null
+          registration_number?: string | null
+          risk_score?: number | null
+          risk_tier?: string | null
+          status?: string | null
+          tags?: string[] | null
+          tax_number?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by: string
+          vendor_code: string
+          vendor_name_ar: string
+          vendor_name_en?: string | null
+          vendor_type: string
+          website?: string | null
+        }
+        Update: {
+          address?: string | null
+          approval_status?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          assessment_frequency_days?: number | null
+          city?: string | null
+          contract_currency?: string | null
+          contract_end_date?: string | null
+          contract_start_date?: string | null
+          contract_value?: number | null
+          country?: string | null
+          created_at?: string
+          created_by?: string
+          data_classification?: string | null
+          has_data_access?: boolean | null
+          has_iso27001?: boolean | null
+          has_pdpl_compliance?: boolean | null
+          has_soc2?: boolean | null
+          id?: string
+          industry?: string | null
+          last_assessment_date?: string | null
+          next_assessment_date?: string | null
+          notes?: string | null
+          overall_risk_level?: string | null
+          registration_number?: string | null
+          risk_score?: number | null
+          risk_tier?: string | null
+          status?: string | null
+          tags?: string[] | null
+          tax_number?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string
+          vendor_code?: string
+          vendor_name_ar?: string
+          vendor_name_en?: string | null
+          vendor_type?: string
+          website?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vendors_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       awareness_impact_scores_view: {
