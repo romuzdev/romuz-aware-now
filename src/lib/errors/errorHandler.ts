@@ -17,6 +17,10 @@ export enum ErrorType {
   PERMISSION = 'permission',
   NOT_FOUND = 'not_found',
   DUPLICATE = 'duplicate',
+  CONFLICT = 'conflict',
+  BACKUP_FAILED = 'backup_failed',
+  RESTORE_FAILED = 'restore_failed',
+  BULK_OPERATION_FAILED = 'bulk_operation_failed',
   UNKNOWN = 'unknown',
 }
 
@@ -69,6 +73,25 @@ export function parseSupabaseError(error: any): AppError {
   // Auth errors
   if (message.includes('auth') || message.includes('token') || message.includes('session')) {
     return new AppError('خطأ في المصادقة - يرجى تسجيل الدخول مجددًا', ErrorType.AUTH, error);
+  }
+
+  // Backup/Restore errors
+  if (message.includes('backup') || message.includes('النسخ الاحتياطي')) {
+    return new AppError('فشل النسخ الاحتياطي - حاول مرة أخرى', ErrorType.BACKUP_FAILED, error);
+  }
+
+  if (message.includes('restore') || message.includes('استعادة')) {
+    return new AppError('فشلت الاستعادة - تحقق من صحة النسخة الاحتياطية', ErrorType.RESTORE_FAILED, error);
+  }
+
+  // Bulk operation errors
+  if (message.includes('bulk') || message.includes('عملية جماعية')) {
+    return new AppError('فشلت العملية الجماعية - بعض العناصر لم تُعالج', ErrorType.BULK_OPERATION_FAILED, error);
+  }
+
+  // Conflict errors
+  if (message.includes('conflict') || message.includes('تعارض')) {
+    return new AppError('تعارض في البيانات - حدث تغيير آخر', ErrorType.CONFLICT, error);
   }
 
   return new AppError(message, ErrorType.UNKNOWN, error);
