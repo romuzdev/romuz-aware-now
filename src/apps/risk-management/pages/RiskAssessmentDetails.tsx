@@ -150,18 +150,6 @@ export default function RiskAssessmentDetails() {
               </div>
             </CardContent>
           </Card>
-
-          {/* Notes Summary */}
-          {assessment.notes_ar && (
-            <Card>
-              <CardHeader>
-                <CardTitle>الملاحظات</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground whitespace-pre-wrap">{assessment.notes_ar}</p>
-              </CardContent>
-            </Card>
-          )}
         </TabsContent>
 
         {/* Scores Tab */}

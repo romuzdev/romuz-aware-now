@@ -55,7 +55,6 @@ export default function RiskAssessmentForm() {
     overall_risk_level: z.string().min(1, 'مستوى المخاطر الإجمالي مطلوب'),
     recommendations_ar: z.string().optional(),
     status: z.string().min(1, 'الحالة مطلوبة'),
-    notes_ar: z.string().optional(),
   });
 
   type FormData = z.infer<typeof formSchema>;
@@ -78,7 +77,6 @@ export default function RiskAssessmentForm() {
       overall_risk_level: 'low',
       recommendations_ar: '',
       status: 'draft',
-      notes_ar: '',
     },
   });
 
@@ -100,7 +98,6 @@ export default function RiskAssessmentForm() {
         overall_risk_level: assessment.overall_risk_level,
         recommendations_ar: assessment.recommendations_ar || '',
         status: assessment.status,
-        notes_ar: assessment.notes_ar || '',
       });
     }
   }, [assessment, isEditMode, form]);
@@ -117,7 +114,21 @@ export default function RiskAssessmentForm() {
 
     try {
       const payload = {
-        ...data,
+        vendor_id: data.vendor_id,
+        assessment_code: data.assessment_code,
+        assessment_date: data.assessment_date,
+        assessment_type: data.assessment_type,
+        assessor_name: data.assessor_name,
+        assessor_user_id: data.assessor_user_id,
+        security_risk_score: data.security_risk_score,
+        compliance_risk_score: data.compliance_risk_score,
+        operational_risk_score: data.operational_risk_score,
+        financial_risk_score: data.financial_risk_score,
+        reputational_risk_score: data.reputational_risk_score,
+        overall_risk_score: data.overall_risk_score,
+        overall_risk_level: data.overall_risk_level,
+        recommendations_ar: data.recommendations_ar || null,
+        status: data.status,
         tenant_id: tenantId,
         created_by: user.id,
         updated_by: user.id,
@@ -392,18 +403,6 @@ export default function RiskAssessmentForm() {
               />
               {form.formState.errors.recommendations_ar && (
                 <p className="text-sm text-destructive">{form.formState.errors.recommendations_ar.message}</p>
-              )}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="notes_ar">ملاحظات</Label>
-              <Textarea
-                id="notes_ar"
-                rows={3}
-                {...form.register('notes_ar')}
-              />
-              {form.formState.errors.notes_ar && (
-                <p className="text-sm text-destructive">{form.formState.errors.notes_ar.message}</p>
               )}
             </div>
           </CardContent>
