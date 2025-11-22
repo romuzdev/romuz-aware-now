@@ -24,6 +24,8 @@ import GRCDocumentsPage from './pages/documents';
 import GateHActionsPage from './pages/actions/Actions';
 import GateHActionDetailsPage from './pages/actions/ActionDetails';
 import GateHActionPlanTracker from './pages/actions/ActionPlanTracker';
+import ComplianceAutomationDashboard from './pages/ComplianceAutomationDashboard';
+import AutomatedComplianceGaps from './pages/AutomatedComplianceGaps';
 
 export default function GRCApp() {
   return (
@@ -49,6 +51,10 @@ export default function GRCApp() {
       <Route path="frameworks/:id" element={<FrameworkDetails />} />
       <Route path="requirements" element={<ComplianceRequirements />} />
       <Route path="gaps" element={<ComplianceGaps />} />
+      
+      {/* Compliance Automation - Phase 3 */}
+      <Route path="automation" element={<ComplianceAutomationDashboard />} />
+      <Route path="automation/gaps" element={<AutomatedComplianceGaps />} />
       
       {/* Reports */}
       <Route path="reports" element={<Reports />} />
