@@ -1345,6 +1345,7 @@ export type Database = {
           entity_id: string
           entity_type: string
           id: string
+          last_backed_up_at: string | null
           payload: Json | null
           tenant_id: string
         }
@@ -1355,6 +1356,7 @@ export type Database = {
           entity_id: string
           entity_type: string
           id?: string
+          last_backed_up_at?: string | null
           payload?: Json | null
           tenant_id: string
         }
@@ -1365,6 +1367,7 @@ export type Database = {
           entity_id?: string
           entity_type?: string
           id?: string
+          last_backed_up_at?: string | null
           payload?: Json | null
           tenant_id?: string
         }
@@ -1622,6 +1625,7 @@ export type Database = {
           end_date: string
           id: string
           is_test: boolean
+          last_backed_up_at: string | null
           name: string
           owner_name: string | null
           start_at: string | null
@@ -1640,6 +1644,7 @@ export type Database = {
           end_date: string
           id?: string
           is_test?: boolean
+          last_backed_up_at?: string | null
           name: string
           owner_name?: string | null
           start_at?: string | null
@@ -1658,6 +1663,7 @@ export type Database = {
           end_date?: string
           id?: string
           is_test?: boolean
+          last_backed_up_at?: string | null
           name?: string
           owner_name?: string | null
           start_at?: string | null
@@ -4518,6 +4524,7 @@ export type Database = {
           description: string | null
           doc_type: Database["public"]["Enums"]["document_type"]
           id: string
+          last_backed_up_at: string | null
           linked_entity_id: string | null
           linked_module: string | null
           status: Database["public"]["Enums"]["document_status"]
@@ -4534,6 +4541,7 @@ export type Database = {
           description?: string | null
           doc_type?: Database["public"]["Enums"]["document_type"]
           id?: string
+          last_backed_up_at?: string | null
           linked_entity_id?: string | null
           linked_module?: string | null
           status?: Database["public"]["Enums"]["document_status"]
@@ -4550,6 +4558,7 @@ export type Database = {
           description?: string | null
           doc_type?: Database["public"]["Enums"]["document_type"]
           id?: string
+          last_backed_up_at?: string | null
           linked_entity_id?: string | null
           linked_module?: string | null
           status?: Database["public"]["Enums"]["document_status"]
@@ -6496,6 +6505,7 @@ export type Database = {
           id: string
           implementation_date: string | null
           is_active: boolean
+          last_backed_up_at: string | null
           last_test_date: string | null
           linked_risk_ids: string[] | null
           maturity_level: string | null
@@ -6526,6 +6536,7 @@ export type Database = {
           id?: string
           implementation_date?: string | null
           is_active?: boolean
+          last_backed_up_at?: string | null
           last_test_date?: string | null
           linked_risk_ids?: string[] | null
           maturity_level?: string | null
@@ -6556,6 +6567,7 @@ export type Database = {
           id?: string
           implementation_date?: string | null
           is_active?: boolean
+          last_backed_up_at?: string | null
           last_test_date?: string | null
           linked_risk_ids?: string[] | null
           maturity_level?: string | null
@@ -6805,6 +6817,7 @@ export type Database = {
           impact_score: number
           inherent_risk_score: number | null
           is_active: boolean
+          last_backed_up_at: string | null
           last_review_date: string | null
           likelihood_level: string
           likelihood_score: number
@@ -6838,6 +6851,7 @@ export type Database = {
           impact_score?: number
           inherent_risk_score?: number | null
           is_active?: boolean
+          last_backed_up_at?: string | null
           last_review_date?: string | null
           likelihood_level?: string
           likelihood_score?: number
@@ -6871,6 +6885,7 @@ export type Database = {
           impact_score?: number
           inherent_risk_score?: number | null
           is_active?: boolean
+          last_backed_up_at?: string | null
           last_review_date?: string | null
           likelihood_level?: string
           likelihood_score?: number
@@ -10916,6 +10931,7 @@ export type Database = {
           code: string
           created_at: string
           id: string
+          last_backed_up_at: string | null
           last_review_date: string | null
           next_review_date: string | null
           owner: string | null
@@ -10929,6 +10945,7 @@ export type Database = {
           code: string
           created_at?: string
           id?: string
+          last_backed_up_at?: string | null
           last_review_date?: string | null
           next_review_date?: string | null
           owner?: string | null
@@ -10942,6 +10959,7 @@ export type Database = {
           code?: string
           created_at?: string
           id?: string
+          last_backed_up_at?: string | null
           last_review_date?: string | null
           next_review_date?: string | null
           owner?: string | null
@@ -12684,6 +12702,371 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "soar_playbooks_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      success_actions: {
+        Row: {
+          action_config: Json | null
+          action_type: string
+          assigned_at: string | null
+          assigned_to: string | null
+          completed_at: string | null
+          completed_by: string | null
+          completion_notes: string | null
+          created_at: string | null
+          description_ar: string | null
+          description_en: string | null
+          evidence_urls: string[] | null
+          id: string
+          playbook_id: string
+          sequence_order: number
+          status: string | null
+          tenant_id: string
+          title_ar: string
+          title_en: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          action_config?: Json | null
+          action_type: string
+          assigned_at?: string | null
+          assigned_to?: string | null
+          completed_at?: string | null
+          completed_by?: string | null
+          completion_notes?: string | null
+          created_at?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          evidence_urls?: string[] | null
+          id?: string
+          playbook_id: string
+          sequence_order: number
+          status?: string | null
+          tenant_id: string
+          title_ar: string
+          title_en?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          action_config?: Json | null
+          action_type?: string
+          assigned_at?: string | null
+          assigned_to?: string | null
+          completed_at?: string | null
+          completed_by?: string | null
+          completion_notes?: string | null
+          created_at?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          evidence_urls?: string[] | null
+          id?: string
+          playbook_id?: string
+          sequence_order?: number
+          status?: string | null
+          tenant_id?: string
+          title_ar?: string
+          title_en?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "success_actions_playbook_id_fkey"
+            columns: ["playbook_id"]
+            isOneToOne: false
+            referencedRelation: "success_playbooks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "success_actions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      success_health_snapshots: {
+        Row: {
+          adoption_score: number | null
+          compliance_score: number | null
+          created_at: string | null
+          critical_issues_count: number | null
+          data_quality_score: number | null
+          health_status: string | null
+          id: string
+          metrics: Json | null
+          org_unit_id: string | null
+          overall_score: number | null
+          recommendations_count: number | null
+          risk_hygiene_score: number | null
+          snapshot_date: string
+          tenant_id: string
+        }
+        Insert: {
+          adoption_score?: number | null
+          compliance_score?: number | null
+          created_at?: string | null
+          critical_issues_count?: number | null
+          data_quality_score?: number | null
+          health_status?: string | null
+          id?: string
+          metrics?: Json | null
+          org_unit_id?: string | null
+          overall_score?: number | null
+          recommendations_count?: number | null
+          risk_hygiene_score?: number | null
+          snapshot_date?: string
+          tenant_id: string
+        }
+        Update: {
+          adoption_score?: number | null
+          compliance_score?: number | null
+          created_at?: string | null
+          critical_issues_count?: number | null
+          data_quality_score?: number | null
+          health_status?: string | null
+          id?: string
+          metrics?: Json | null
+          org_unit_id?: string | null
+          overall_score?: number | null
+          recommendations_count?: number | null
+          risk_hygiene_score?: number | null
+          snapshot_date?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "success_health_snapshots_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      success_nudges: {
+        Row: {
+          action_label_ar: string | null
+          action_label_en: string | null
+          action_url: string | null
+          context_data: Json | null
+          context_id: string | null
+          context_type: string | null
+          created_at: string | null
+          delivered_at: string | null
+          delivery_channels: string[] | null
+          dismissed_at: string | null
+          expires_at: string | null
+          id: string
+          is_dismissed: boolean | null
+          is_read: boolean | null
+          message_ar: string
+          message_en: string | null
+          nudge_type: string
+          priority: string | null
+          read_at: string | null
+          target_role: string | null
+          target_user_id: string | null
+          tenant_id: string
+          title_ar: string
+          title_en: string | null
+        }
+        Insert: {
+          action_label_ar?: string | null
+          action_label_en?: string | null
+          action_url?: string | null
+          context_data?: Json | null
+          context_id?: string | null
+          context_type?: string | null
+          created_at?: string | null
+          delivered_at?: string | null
+          delivery_channels?: string[] | null
+          dismissed_at?: string | null
+          expires_at?: string | null
+          id?: string
+          is_dismissed?: boolean | null
+          is_read?: boolean | null
+          message_ar: string
+          message_en?: string | null
+          nudge_type: string
+          priority?: string | null
+          read_at?: string | null
+          target_role?: string | null
+          target_user_id?: string | null
+          tenant_id: string
+          title_ar: string
+          title_en?: string | null
+        }
+        Update: {
+          action_label_ar?: string | null
+          action_label_en?: string | null
+          action_url?: string | null
+          context_data?: Json | null
+          context_id?: string | null
+          context_type?: string | null
+          created_at?: string | null
+          delivered_at?: string | null
+          delivery_channels?: string[] | null
+          dismissed_at?: string | null
+          expires_at?: string | null
+          id?: string
+          is_dismissed?: boolean | null
+          is_read?: boolean | null
+          message_ar?: string
+          message_en?: string | null
+          nudge_type?: string
+          priority?: string | null
+          read_at?: string | null
+          target_role?: string | null
+          target_user_id?: string | null
+          tenant_id?: string
+          title_ar?: string
+          title_en?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "success_nudges_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      success_playbooks: {
+        Row: {
+          actual_impact: Json | null
+          completed_actions: number | null
+          completed_at: string | null
+          created_at: string | null
+          created_by: string | null
+          description_ar: string | null
+          description_en: string | null
+          due_date: string | null
+          expected_impact: Json | null
+          id: string
+          playbook_key: string
+          priority: string | null
+          progress_pct: number | null
+          started_at: string | null
+          status: string | null
+          tenant_id: string
+          title_ar: string
+          title_en: string | null
+          total_actions: number | null
+          trigger_conditions: Json
+          triggered_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          actual_impact?: Json | null
+          completed_actions?: number | null
+          completed_at?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          due_date?: string | null
+          expected_impact?: Json | null
+          id?: string
+          playbook_key: string
+          priority?: string | null
+          progress_pct?: number | null
+          started_at?: string | null
+          status?: string | null
+          tenant_id: string
+          title_ar: string
+          title_en?: string | null
+          total_actions?: number | null
+          trigger_conditions?: Json
+          triggered_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          actual_impact?: Json | null
+          completed_actions?: number | null
+          completed_at?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          due_date?: string | null
+          expected_impact?: Json | null
+          id?: string
+          playbook_key?: string
+          priority?: string | null
+          progress_pct?: number | null
+          started_at?: string | null
+          status?: string | null
+          tenant_id?: string
+          title_ar?: string
+          title_en?: string | null
+          total_actions?: number | null
+          trigger_conditions?: Json
+          triggered_at?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "success_playbooks_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      success_wizard_states: {
+        Row: {
+          completed_at: string | null
+          completed_steps: string[] | null
+          completion_pct: number | null
+          created_at: string | null
+          current_step: string
+          id: string
+          is_completed: boolean | null
+          tenant_id: string
+          total_steps: number
+          updated_at: string | null
+          wizard_data: Json | null
+          wizard_type: string
+        }
+        Insert: {
+          completed_at?: string | null
+          completed_steps?: string[] | null
+          completion_pct?: number | null
+          created_at?: string | null
+          current_step: string
+          id?: string
+          is_completed?: boolean | null
+          tenant_id: string
+          total_steps: number
+          updated_at?: string | null
+          wizard_data?: Json | null
+          wizard_type?: string
+        }
+        Update: {
+          completed_at?: string | null
+          completed_steps?: string[] | null
+          completion_pct?: number | null
+          created_at?: string | null
+          current_step?: string
+          id?: string
+          is_completed?: boolean | null
+          tenant_id?: string
+          total_steps?: number
+          updated_at?: string | null
+          wizard_data?: Json | null
+          wizard_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "success_wizard_states_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -15277,6 +15660,15 @@ export type Database = {
           response_deadline: string
         }[]
       }
+      calculate_overall_health_score: {
+        Args: {
+          p_adoption: number
+          p_compliance: number
+          p_data_quality: number
+          p_risk_hygiene: number
+        }
+        Returns: number
+      }
       calculate_pitr_stats: {
         Args: {
           p_base_backup_timestamp?: string
@@ -15332,6 +15724,7 @@ export type Database = {
         Returns: string
       }
       detect_kpi_alerts: { Args: { p_tenant_id: string }; Returns: number }
+      determine_health_status: { Args: { p_score: number }; Returns: string }
       disable_table_fk_constraints: {
         Args: {
           p_rollback_id: string
